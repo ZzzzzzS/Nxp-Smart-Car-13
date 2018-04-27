@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<ProjectGenerationInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <README>### The file contains information about project generation by the tool. Do not remove to allow proper updates. ###</README>
+   <platform>
+      <processor>MKV58F1M0xxx24</processor>
+      <part_number>MKV58F1M0VLQ24</part_number>
+      <core>core0_MKV58F1M0xxx24</core>
+      <core_role>primary</core_role>
+      <board></board>
+      <example></example>
+   </platform>
+   <settings>
+      <toolchain>iar</toolchain>
+      <prj_type>.c</prj_type>
+      <prj_name>Aether</prj_name>
+      <rtos>middleware.freertos</rtos>
+   </settings>
+   <sdk version="2.3.0" cfg_hash="a05034265d48874a8b3559a32579dd4d">
+      <sdk_file rel_prj_file_path="CMSIS/MKV58F24.h" rel_src_file_path="devices/MKV58F24/MKV58F24.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/MKV58F24_features.h" rel_src_file_path="devices/MKV58F24/MKV58F24_features.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/arm_common_tables.h" rel_src_file_path="CMSIS/Include/arm_common_tables.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/arm_const_structs.h" rel_src_file_path="CMSIS/Include/arm_const_structs.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/arm_math.h" rel_src_file_path="CMSIS/Include/arm_math.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/cmsis_armcc.h" rel_src_file_path="CMSIS/Include/cmsis_armcc.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/cmsis_armclang.h" rel_src_file_path="CMSIS/Include/cmsis_armclang.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/cmsis_compiler.h" rel_src_file_path="CMSIS/Include/cmsis_compiler.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/cmsis_gcc.h" rel_src_file_path="CMSIS/Include/cmsis_gcc.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/cmsis_version.h" rel_src_file_path="CMSIS/Include/cmsis_version.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/core_armv8mbl.h" rel_src_file_path="CMSIS/Include/core_armv8mbl.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/core_armv8mml.h" rel_src_file_path="CMSIS/Include/core_armv8mml.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/core_cm7.h" rel_src_file_path="CMSIS/Include/core_cm7.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/fsl_device_registers.h" rel_src_file_path="devices/MKV58F24/fsl_device_registers.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/mpu_armv7.h" rel_src_file_path="CMSIS/Include/mpu_armv7.h"/>
+      <sdk_file rel_prj_file_path="CMSIS/system_MKV58F24.c" rel_src_file_path="devices/MKV58F24/system_MKV58F24.c"/>
+      <sdk_file rel_prj_file_path="CMSIS/system_MKV58F24.h" rel_src_file_path="devices/MKV58F24/system_MKV58F24.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_CAN.h" rel_src_file_path="CMSIS/Driver/Include/Driver_CAN.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_Common.h" rel_src_file_path="CMSIS/Driver/Include/Driver_Common.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_ETH.h" rel_src_file_path="CMSIS/Driver/Include/Driver_ETH.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_ETH_MAC.h" rel_src_file_path="CMSIS/Driver/Include/Driver_ETH_MAC.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_ETH_PHY.h" rel_src_file_path="CMSIS/Driver/Include/Driver_ETH_PHY.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_Flash.h" rel_src_file_path="CMSIS/Driver/Include/Driver_Flash.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_I2C.h" rel_src_file_path="CMSIS/Driver/Include/Driver_I2C.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_MCI.h" rel_src_file_path="CMSIS/Driver/Include/Driver_MCI.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_NAND.h" rel_src_file_path="CMSIS/Driver/Include/Driver_NAND.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_SAI.h" rel_src_file_path="CMSIS/Driver/Include/Driver_SAI.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_SPI.h" rel_src_file_path="CMSIS/Driver/Include/Driver_SPI.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_USART.h" rel_src_file_path="CMSIS/Driver/Include/Driver_USART.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_USB.h" rel_src_file_path="CMSIS/Driver/Include/Driver_USB.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_USBD.h" rel_src_file_path="CMSIS/Driver/Include/Driver_USBD.h"/>
+      <sdk_file rel_prj_file_path="CMSIS_driver/Driver_USBH.h" rel_src_file_path="CMSIS/Driver/Include/Driver_USBH.h"/>
+      <sdk_file rel_prj_file_path="MKV58F1M0xxx24_flash.icf" rel_src_file_path="devices/MKV58F24/iar/MKV58F1M0xxx24_flash.icf"/>
+      <sdk_file rel_prj_file_path="board/RTE_Device.h" rel_src_file_path="devices/MKV58F24/template/RTE_Device.h"/>
+      <sdk_file rel_prj_file_path="board/board.c" rel_src_file_path="devices/MKV58F24/project_template/board.c"/>
+      <sdk_file rel_prj_file_path="board/board.h" rel_src_file_path="devices/MKV58F24/project_template/board.h"/>
+      <sdk_file rel_prj_file_path="board/peripherals.c" rel_src_file_path="devices/MKV58F24/project_template/peripherals.c"/>
+      <sdk_file rel_prj_file_path="board/peripherals.h" rel_src_file_path="devices/MKV58F24/project_template/peripherals.h"/>
+      <sdk_file rel_prj_file_path="drivers/freertos/fsl_dspi_freertos.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_dspi_freertos.c"/>
+      <sdk_file rel_prj_file_path="drivers/freertos/fsl_dspi_freertos.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_dspi_freertos.h"/>
+      <sdk_file rel_prj_file_path="drivers/freertos/fsl_i2c_freertos.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_i2c_freertos.c"/>
+      <sdk_file rel_prj_file_path="drivers/freertos/fsl_i2c_freertos.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_i2c_freertos.h"/>
+      <sdk_file rel_prj_file_path="drivers/freertos/fsl_uart_freertos.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_uart_freertos.c"/>
+      <sdk_file rel_prj_file_path="drivers/freertos/fsl_uart_freertos.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_uart_freertos.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_adc16.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_adc16.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_adc16.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_adc16.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_aoi.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_aoi.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_aoi.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_aoi.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_clock.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_clock.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_clock.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_clock.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_cmp.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_cmp.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_cmp.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_cmp.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_common.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_common.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_common.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_common.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_crc.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_crc.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_crc.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_crc.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_dac.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_dac.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_dac.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_dac.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_dmamux.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_dmamux.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_dmamux.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_dmamux.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_dspi.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_dspi.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_dspi.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_dspi.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_dspi_cmsis.c" rel_src_file_path="devices/MKV58F24/cmsis_drivers/fsl_dspi_cmsis.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_dspi_cmsis.h" rel_src_file_path="devices/MKV58F24/cmsis_drivers/fsl_dspi_cmsis.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_dspi_edma.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_dspi_edma.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_dspi_edma.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_dspi_edma.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_edma.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_edma.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_edma.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_edma.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_enc.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_enc.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_enc.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_enc.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_enet.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_enet.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_enet.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_enet.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_ewm.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_ewm.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_ewm.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_ewm.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_flash.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_flash.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_flash.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_flash.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_flexbus.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_flexbus.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_flexbus.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_flexbus.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_flexcan.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_flexcan.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_flexcan.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_flexcan.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_flexcan_edma.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_flexcan_edma.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_flexcan_edma.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_flexcan_edma.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_ftm.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_ftm.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_ftm.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_ftm.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_gpio.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_gpio.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_gpio.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_gpio.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_hsadc.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_hsadc.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_hsadc.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_hsadc.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_i2c.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_i2c.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_i2c.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_i2c.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_i2c_cmsis.c" rel_src_file_path="devices/MKV58F24/cmsis_drivers/fsl_i2c_cmsis.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_i2c_cmsis.h" rel_src_file_path="devices/MKV58F24/cmsis_drivers/fsl_i2c_cmsis.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_i2c_edma.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_i2c_edma.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_i2c_edma.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_i2c_edma.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_llwu.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_llwu.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_llwu.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_llwu.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_lptmr.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_lptmr.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_lptmr.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_lptmr.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_pdb.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_pdb.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_pdb.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_pdb.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_pit.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_pit.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_pit.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_pit.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_pmc.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_pmc.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_pmc.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_pmc.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_port.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_port.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_pwm.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_pwm.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_pwm.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_pwm.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_rcm.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_rcm.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_rcm.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_rcm.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_sim.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_sim.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_sim.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_sim.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_smc.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_smc.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_smc.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_smc.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_sysmpu.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_sysmpu.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_sysmpu.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_sysmpu.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_trng.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_trng.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_trng.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_trng.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_uart.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_uart.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_uart.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_uart.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_uart_cmsis.c" rel_src_file_path="devices/MKV58F24/cmsis_drivers/fsl_uart_cmsis.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_uart_cmsis.h" rel_src_file_path="devices/MKV58F24/cmsis_drivers/fsl_uart_cmsis.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_uart_edma.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_uart_edma.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_uart_edma.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_uart_edma.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_wdog.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_wdog.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_wdog.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_wdog.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_xbara.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_xbara.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_xbara.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_xbara.h"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_xbarb.c" rel_src_file_path="devices/MKV58F24/drivers/fsl_xbarb.c"/>
+      <sdk_file rel_prj_file_path="drivers/fsl_xbarb.h" rel_src_file_path="devices/MKV58F24/drivers/fsl_xbarb.h"/>
+      <sdk_file rel_prj_file_path="freertos/FreeRTOS_for_Kinetis_SDK_v2.0.txt" rel_src_file_path="rtos/freertos/FreeRTOS_for_Kinetis_SDK_v2.0.txt"/>
+      <sdk_file rel_prj_file_path="freertos/include/FreeRTOS.h" rel_src_file_path="rtos/freertos/Source/include/FreeRTOS.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/StackMacros.h" rel_src_file_path="rtos/freertos/Source/include/StackMacros.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/croutine.h" rel_src_file_path="rtos/freertos/Source/include/croutine.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/deprecated_definitions.h" rel_src_file_path="rtos/freertos/Source/include/deprecated_definitions.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/event_groups.h" rel_src_file_path="rtos/freertos/Source/include/event_groups.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/freertos_tasks_c_additions.h" rel_src_file_path="rtos/freertos/Source/include/freertos_tasks_c_additions.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/list.h" rel_src_file_path="rtos/freertos/Source/include/list.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/mpu_wrappers.h" rel_src_file_path="rtos/freertos/Source/include/mpu_wrappers.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/portable.h" rel_src_file_path="rtos/freertos/Source/include/portable.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/projdefs.h" rel_src_file_path="rtos/freertos/Source/include/projdefs.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/queue.h" rel_src_file_path="rtos/freertos/Source/include/queue.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/semphr.h" rel_src_file_path="rtos/freertos/Source/include/semphr.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/stdint.readme" rel_src_file_path="rtos/freertos/Source/include/stdint.readme"/>
+      <sdk_file rel_prj_file_path="freertos/include/task.h" rel_src_file_path="rtos/freertos/Source/include/task.h"/>
+      <sdk_file rel_prj_file_path="freertos/include/timers.h" rel_src_file_path="rtos/freertos/Source/include/timers.h"/>
+      <sdk_file rel_prj_file_path="freertos/license/license.txt" rel_src_file_path="rtos/freertos/License/license.txt"/>
+      <sdk_file rel_prj_file_path="freertos/portable/fsl_tickless_generic.h" rel_src_file_path="rtos/freertos/Source/portable/IAR/ARM_CM4F/fsl_tickless_generic.h"/>
+      <sdk_file rel_prj_file_path="freertos/portable/fsl_tickless_systick.c" rel_src_file_path="rtos/freertos/Source/portable/IAR/ARM_CM4F/fsl_tickless_systick.c"/>
+      <sdk_file rel_prj_file_path="freertos/portable/heap_1.c" rel_src_file_path="rtos/freertos/Source/portable/MemMang/heap_1.c"/>
+      <sdk_file rel_prj_file_path="freertos/portable/heap_2.c" rel_src_file_path="rtos/freertos/Source/portable/MemMang/heap_2.c"/>
+      <sdk_file rel_prj_file_path="freertos/portable/heap_3.c" rel_src_file_path="rtos/freertos/Source/portable/MemMang/heap_3.c"/>
+      <sdk_file rel_prj_file_path="freertos/portable/heap_4.c" rel_src_file_path="rtos/freertos/Source/portable/MemMang/heap_4.c"/>
+      <sdk_file rel_prj_file_path="freertos/portable/heap_5.c" rel_src_file_path="rtos/freertos/Source/portable/MemMang/heap_5.c"/>
+      <sdk_file rel_prj_file_path="freertos/portable/port.c" rel_src_file_path="rtos/freertos/Source/portable/IAR/ARM_CM4F/port.c"/>
+      <sdk_file rel_prj_file_path="freertos/portable/portasm.s" rel_src_file_path="rtos/freertos/Source/portable/IAR/ARM_CM4F/portasm.s"/>
+      <sdk_file rel_prj_file_path="freertos/portable/portmacro.h" rel_src_file_path="rtos/freertos/Source/portable/IAR/ARM_CM4F/portmacro.h"/>
+      <sdk_file rel_prj_file_path="freertos/portable/readme.txt" rel_src_file_path="rtos/freertos/Source/portable/readme.txt"/>
+      <sdk_file rel_prj_file_path="freertos/source/croutine.c" rel_src_file_path="rtos/freertos/Source/croutine.c"/>
+      <sdk_file rel_prj_file_path="freertos/source/event_groups.c" rel_src_file_path="rtos/freertos/Source/event_groups.c"/>
+      <sdk_file rel_prj_file_path="freertos/source/list.c" rel_src_file_path="rtos/freertos/Source/list.c"/>
+      <sdk_file rel_prj_file_path="freertos/source/queue.c" rel_src_file_path="rtos/freertos/Source/queue.c"/>
+      <sdk_file rel_prj_file_path="freertos/source/readme.txt" rel_src_file_path="rtos/freertos/Source/readme.txt"/>
+      <sdk_file rel_prj_file_path="freertos/source/tasks.c" rel_src_file_path="rtos/freertos/Source/tasks.c"/>
+      <sdk_file rel_prj_file_path="freertos/source/timers.c" rel_src_file_path="rtos/freertos/Source/timers.c"/>
+      <sdk_file rel_prj_file_path="source/FreeRTOSConfig.h" rel_src_file_path="rtos/freertos/template_application/ARM_CM4F/FreeRTOSConfig.h"/>
+      <sdk_file rel_prj_file_path="startup/startup_MKV58F24.s" rel_src_file_path="devices/MKV58F24/iar/startup_MKV58F24.s"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_assert.c" rel_src_file_path="devices/MKV58F24/utilities/fsl_assert.c"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_debug_console.c" rel_src_file_path="devices/MKV58F24/utilities/fsl_debug_console.c"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_debug_console.h" rel_src_file_path="devices/MKV58F24/utilities/fsl_debug_console.h"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_debug_console_conf.h" rel_src_file_path="devices/MKV58F24/utilities/fsl_debug_console_conf.h"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_io.c" rel_src_file_path="devices/MKV58F24/utilities/io/fsl_io.c"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_io.h" rel_src_file_path="devices/MKV58F24/utilities/io/fsl_io.h"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_log.c" rel_src_file_path="devices/MKV58F24/utilities/log/fsl_log.c"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_log.h" rel_src_file_path="devices/MKV58F24/utilities/log/fsl_log.h"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_notifier.c" rel_src_file_path="devices/MKV58F24/utilities/fsl_notifier.c"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_notifier.h" rel_src_file_path="devices/MKV58F24/utilities/fsl_notifier.h"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_shell.c" rel_src_file_path="devices/MKV58F24/utilities/fsl_shell.c"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_shell.h" rel_src_file_path="devices/MKV58F24/utilities/fsl_shell.h"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_str.c" rel_src_file_path="devices/MKV58F24/utilities/str/fsl_str.c"/>
+      <sdk_file rel_prj_file_path="utilities/fsl_str.h" rel_src_file_path="devices/MKV58F24/utilities/str/fsl_str.h"/>
+   </sdk>
+   <build_options>
+      <define>CPU_MKV58F1M0VLQ24</define>
+      <define>CPU_MKV58F1M0VLQ24_cm7</define>
+      <define>FSL_RTOS_FREE_RTOS</define>
+      <define>SDK_CORE_ID_CORE0</define>
+      <define>SDK_OS_FREE_RTOS</define>
+      <incl_path>CMSIS</incl_path>
+      <incl_path>CMSIS_driver</incl_path>
+      <incl_path>board</incl_path>
+      <incl_path>drivers</incl_path>
+      <incl_path>drivers/freertos</incl_path>
+      <incl_path>freertos/include</incl_path>
+      <incl_path>freertos/portable</incl_path>
+      <incl_path>source</incl_path>
+      <incl_path>startup</incl_path>
+      <incl_path>utilities</incl_path>
+   </build_options>
+</ProjectGenerationInfo>
