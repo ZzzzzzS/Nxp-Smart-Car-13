@@ -20,6 +20,8 @@ extern void Speed_Init();
 static inline int16_t getLeftSpeed()
 {
     int16_t temp_qL = FTM_GetQuadDecoderCounterValue(FTM1);
+	if(DISTANCE_RECORD_FLAG)
+		DistanceRecord+=temp_qL;
     FTM_ClearQuadDecoderCounterValue(FTM1);
     return temp_qL;
 }

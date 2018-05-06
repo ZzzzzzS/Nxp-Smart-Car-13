@@ -21,3 +21,7 @@ uint8_t Motor_Stop=0;
 Using_Status Using_Flag=Using_A;
 uint8_t DISPLAY_FLAG=0;
 uint16_t STEER_MIDDLE=720;
+uint16_t InductanceVal[2];
+uint32_t DistanceRecord=0;
+uint8_t DISTANCE_RECORD_FLAG=0;
+uint8_t LeftOrRight='l';

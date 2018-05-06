@@ -42,7 +42,7 @@ void SteerInit() {
   FTM_StartTimer(FTM3, kFTM_FixedClock);
 }
 
-void SteerPWMCalculator() {
+void SteerPWMCalculator(int16_t value) {
   int16_t errorNow=0;
   int16_t addPwm = 0;
   if(SpaceMiddles.count!=0){
@@ -64,7 +64,15 @@ void SteerPWMCalculator() {
       errorNow += errorNow>0? 10:-10;
     }
     
+	//电感
+	errorNow+=value;
     
+	if(DISTANCE_RECORD_FLAG&&LeftOrRight=='l')
+		errorNow = errorNow<-20? errorNow:-20;
+	if(DISTANCE_RECORD_FLAG&&LeftOrRight=='r')
+		errorNow = errorNow>20? errorNow:20;
+
+
     if(I_abs(errorNow)<20)
     {
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Small * errorNow +

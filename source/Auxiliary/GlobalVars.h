@@ -22,4 +22,8 @@ extern uint8_t Circle_Flag;
 extern uint8_t Motor_Stop;
 extern Using_Status Using_Flag;
 extern uint8_t DISPLAY_FLAG;
+extern uint16_t InductanceVal[2];
+extern uint32_t DistanceRecord;
+extern uint8_t DISTANCE_RECORD_FLAG;
+extern uint8_t LeftOrRight;
 #endif

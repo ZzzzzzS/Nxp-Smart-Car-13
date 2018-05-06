@@ -36,6 +36,8 @@ void PIT1_Init(uint16_t mm)
     PIT_EnableInterrupts(PIT, kPIT_Chnl_1, kPIT_TimerInterruptEnable);
     /* Enable at the NVIC */
     EnableIRQ(PIT1_IRQn);
+    
+    
     /* Start channel 1 */
      //PIT_StartTimer(PIT, kPIT_Chnl_1);
 }
@@ -111,7 +113,8 @@ void PIT0_IRQHandler(void)
     SpeedComput(&GV_speedControlT);
     //MotorOut(&GV_speedControlT);
     MotorOut_PWM(g_Speed);
-    
+    GetADCVal(InductanceVal);
+	
 }
 
 void PIT1_IRQHandler(void)

@@ -28,6 +28,7 @@
 #include "AetherDriver_KeyBoard.h"
 #include "Controler.h"
 #include "fsl_port.h"
+#include "fsl_hsadc.h"
 #include "Screen.h"
 #include "Beep.h"
 #include "Speed.h"
@@ -44,5 +45,9 @@
 #include "fsl_flash.h"
 #include "AetherDriver_UART_DataAnalysis.h"
 #include "AetherDriver_RingBuff.h"
+#include "AetherDriver_ADC.h"
+#include "Inductance.h"
 
+
+#define CAR_NEW
 #endif

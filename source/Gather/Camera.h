@@ -112,6 +112,9 @@ extern void MT9V034_SetAutoExposure(uint8_t MT9V034_I2C_ADDR, bool enable);
 extern void MT9V034_SetFrameResolution(uint8_t MT9V034_I2C_ADDR, uint16_t width, uint16_t height);
 extern bool MT9V034_Reg_Init(uint8_t MT9V034_I2C_ADDR);
 extern void MT9V034_Init(void);
+extern __ramfunc void MT9V034_FrameValid_Callback(uint32_t ISFR_FLAG);
+extern __ramfunc void MT9V034_LineValid_Callback(uint16_t line,uint8_t* IMG);
+extern __ramfunc void MT9V034_DMA_Callback(void);
 extern void MT9V034_DMA_Init(uint8_t* pMT9V032_IMG_Buff);
 extern void Camera_ajust();
 

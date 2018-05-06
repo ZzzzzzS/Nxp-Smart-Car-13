@@ -205,7 +205,7 @@ void MT9V034_DMA_Init(uint8_t* pMT9V032_IMG_Buff)
     DMA0_Transer_config.destOffset       = 0x01U;                               // 数据源指向地址每次自增1 byte
     DMA0_Transer_config.destTransferSize = kEDMA_TransferSize1Bytes;            // DMA每次传输1byte
     DMA0_Transer_config.srcTransferSize  = kEDMA_TransferSize1Bytes;            // DMA每次传输1byte
-    DMA0_Transer_config.majorLoopCounts  = MT9V034_W*MT9V034_H;                      // VSYNC触发DMA一次Major loop采集CAMERA_DMA_NUM (bytes)的数据
+    DMA0_Transer_config.majorLoopCounts  = MT9V034_W;                      // VSYNC触发DMA一次Major loop采集CAMERA_DMA_NUM (bytes)的数据
     DMA0_Transer_config.minorLoopBytes   = 0x01U;
     
     EDMA_ResetChannel(DMA0, MT9V034_DMA_CHANNEL);                                         // 复位DMACH0
@@ -223,8 +223,9 @@ void MT9V034_DMA_Init(uint8_t* pMT9V032_IMG_Buff)
     
     EDMA_ClearChannelStatusFlags(DMA0, MT9V034_DMA_CHANNEL, kEDMA_InterruptFlag);
     
-    PORT_SetPinInterruptConfig(PORTB, 18U, kPORT_DMARisingEdge);          // PTB18 ~ PCLK.  信号上升沿触发DMA传输
+    PORT_SetPinInterruptConfig(PORTB, 18U, kPORT_DMARisingEdge);          // PTB18 ~ PCLK.  信号下降沿触发DMA传输
     PORT_SetPinInterruptConfig(PORTB, 23U, kPORT_InterruptRisingEdge);     // PTAB23 ~ VSYNC. 信号上升沿触发CPU中断
+    PORT_SetPinInterruptConfig(PORTB, 19U, kPORT_InterruptRisingEdge);     // PTB19 ~ HREF.  信号上升沿触发CPU中断
     
     //PORTB->PCR[18U] = (PORTB->PCR[18U] & ~PORT_PCR_IRQC_MASK) | PORT_PCR_IRQC(kPORT_InterruptOrDMADisabled);
     EnableIRQ(MT9V034_DMA_CHANNEL);
@@ -233,29 +234,55 @@ void MT9V034_DMA_Init(uint8_t* pMT9V032_IMG_Buff)
 
 __ramfunc void PORTB_IRQHandler(void)
 {
-    if(PORTB->ISFR&(1U<<23U))
-	{
-	   PORTB->ISFR |= (1U<<23U);        
-	   MT9V034_CaptureAccomplished = false;
-	   DMA0->TCD[0].DADDR = (uint32_t)&IMG_NOW;
-	   DMA0->SERQ = DMA_SERQ_SERQ(MT9V034_DMA_CHANNEL);
-	
-	   return;
-	}
-   
+  MT9V034_FrameValid_Callback(PORTB->ISFR);
 }
 
 __ramfunc void DMA0_DMA16_IRQHandler(void)
 {
-  	DMA0->INT |= DMA_INT_INT0(1);
-
-    if(Using_Flag==Using_A)
-        IMG_NOW = (uint8_t*)MT9V034_IMGBUFF_B;
-    else if(Using_Flag==Using_B)
-        IMG_NOW = (uint8_t*)MT9V034_IMGBUFF_A;
-    MT9V034_CaptureAccomplished = true;
+  MT9V034_DMA_Callback();
 }
 
+__ramfunc void MT9V034_FrameValid_Callback(uint32_t ISFR_FLAG)
+{
+    static uint16_t line = 0;
+    
+
+    if(ISFR_FLAG&(1U<<23U))
+    {
+        PORTB->ISFR |= (1U<<23U);        
+        MT9V034_CaptureAccomplished = false;
+        return;
+    }
+   
+    if(ISFR_FLAG&(1U<<19U)&&!MT9V034_CaptureAccomplished)
+    {
+        //PORTB->PCR[18U] = (PORTB->PCR[18U] & ~PORT_PCR_IRQC_MASK) | PORT_PCR_IRQC(kPORT_DMAFallingEdge);
+        
+        PORTB->ISFR |= (1U<<19U);
+        MT9V034_LineValid_Callback(line++,IMG_NOW);
+        if(line == MT9V034_H-1)
+        {
+            line = 0;
+            if(Using_Flag==Using_A)
+              IMG_NOW = (uint8_t*)MT9V034_IMGBUFF_B;
+            else if(Using_Flag==Using_B)
+              IMG_NOW = (uint8_t*)MT9V034_IMGBUFF_A;
+            MT9V034_CaptureAccomplished = true;
+
+        }
+    }
+}
+
+__ramfunc void MT9V034_LineValid_Callback(uint16_t line,uint8_t* IMG)
+{
+    DMA0->TCD[0].DADDR = (uint32_t)&IMG[line*MT9V034_W];
+    DMA0->SERQ = DMA_SERQ_SERQ(MT9V034_DMA_CHANNEL);
+}
+
+__ramfunc void MT9V034_DMA_Callback(void)
+{
+    DMA0->INT |= DMA_INT_INT0(1);
+}
 void Camera_ajust()
 {
   static uint8_t row=0;

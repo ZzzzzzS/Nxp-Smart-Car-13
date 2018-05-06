@@ -275,15 +275,15 @@ void Lcd_SetRegion(uint8_t x_start,uint8_t y_start,uint8_t x_end,uint8_t y_end)
 #ifdef  USE_LANDSCAPE               //使用横屏模式
 	Lcd_WriteIndex(0x2a);
 	Lcd_WriteData(0x00);
-	Lcd_WriteData(x_start);
+	Lcd_WriteData(x_start+3);
 	Lcd_WriteData(0x00);
-	Lcd_WriteData(x_end);
+	Lcd_WriteData(x_end+3);
 
 	Lcd_WriteIndex(0x2b);
 	Lcd_WriteData(0x00);
-	Lcd_WriteData(y_start);
+	Lcd_WriteData(y_start+1);
 	Lcd_WriteData(0x00);
-	Lcd_WriteData(y_end);
+	Lcd_WriteData(y_end+1);
 
 #else//竖屏模式	
 	Lcd_WriteIndex(0x2a);
@@ -456,6 +456,8 @@ void menu_in()
     sprintf(menu_list[10].item_name,"RUN   ");
     sprintf(menu_list[11].item_name,"STEESP");
     sprintf(menu_list[12].item_name,"STEESD");
+    sprintf(menu_list[13].item_name,"ADLEFT");
+    sprintf(menu_list[14].item_name,"ADRIGT");
     
 }
 
@@ -501,20 +503,21 @@ void display_menu()
   Display_ASCII8X16(2,3,"CODE  FLASH",BLACK,WHITE);
   while(1)
   {
-    if(!gpio_read(GPIOA,25U))
-    {  
+    
+    if(READ_LEFT)
+    {
     delay_ms(20);
-    if(!gpio_read(GPIOA,25U)){
+    if(READ_LEFT){
       menu_from_code();
       Display_ASCII8X16(2,3,"CODE",RED,WHITE);
       delay_ms(500);
       break;
       }
     }
-    if(!gpio_read(GPIOA,24U))
+    if(READ_RIGHT)
     {  
     delay_ms(20);
-    if(!gpio_read(GPIOA,24U)){
+    if(READ_RIGHT){
       menu_from_flash();
       Display_ASCII8X16(8,3,"FLASH",RED,WHITE);
       delay_ms(500);
@@ -523,20 +526,24 @@ void display_menu()
     }
   }
   while(1){
+    
+    GetADCVal(InductanceVal);
+    menu_list[13].item_value = 100*((float)InductanceVal[0]-Left_side.min)/(Left_side.max-Left_side.min);
+    menu_list[14].item_value = 100*((float)InductanceVal[1]-Right_side.min)/(Right_side.max-Right_side.min);
     if(KEY_UP){
       delay_ms(10);
       if(KEY_UP){
         delay_ms(50);
         selected -= 1;
         if(selected<0)
-          selected =12;
+          selected =14;
       }
     }
     if(KEY_DOWN){
       delay_ms(10);
       if(KEY_DOWN){
         delay_ms(50);
-        selected = (selected+1)%13;
+        selected = (selected+1)%15;
       }
     }
     if(KEY_LEFT)
@@ -544,7 +551,7 @@ void display_menu()
       delay_ms(10);
       if(KEY_LEFT){
         delay_ms(50);
-        if(selected<=7||selected>10)
+        if(selected<=7||(selected>10&&selected<13))
           menu_list[selected].item_value -= 0.1;
         else if(selected == 8){
           menu_list[selected].item_value -= 1;
@@ -565,7 +572,7 @@ void display_menu()
       delay_ms(10);
       if(KEY_RIGHT){
         delay_ms(50);
-          if(selected<=7||selected>10)
+          if(selected<=7||(selected>10&&selected<13))
             menu_list[selected].item_value += 0.1;
           else if(selected == 8){
             menu_list[selected].item_value += 1;

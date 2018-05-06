@@ -19,11 +19,9 @@ int main(void) {
 
   while (1) {
     
-    
-    
       
     WAIT:
-          
+        
 //      if(!BuffIsEmpty(&UART_buff))//串口缓冲区不为空
 //      {
 //        unsigned char data=BuffPop(&UART_buff);//从串口缓冲区弹出一个数据 
@@ -40,6 +38,5 @@ int main(void) {
       }else{
         goto WAIT;
       }
-    
   }
 }

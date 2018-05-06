@@ -2451,6 +2451,9 @@
     <group>
       <name>Aether</name>
       <file>
+        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_ADC.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_FLASH.c</name>
       </file>
       <file>
@@ -2484,7 +2487,7 @@
         <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_UART.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_UART_DataAnalysis.c</name>
+        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_UART_DataAnalysis.c</name>
       </file>
     </group>
     <group>

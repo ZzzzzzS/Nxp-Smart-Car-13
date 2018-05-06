@@ -48,6 +48,7 @@ extern __ramfunc void correctSmallImage(uint8_t* smallimage, uint8_t* IMAGEMAP);
 extern __ramfunc void divide_gray_ajust();
 extern __ramfunc uint8_t node(uint8_t* in);
 extern __ramfunc void convolution(uint8_t* img);
+extern __ramfunc uint8_t JudgeDirection(uint8_t* img);
 #if 0
 extern __ramfunc int16_t ROUND(float num);
 extern __ramfunc void plant(void);

@@ -318,17 +318,39 @@ __ramfunc void convolution(uint8_t* img)
 	}
 
 }
+
+
+__ramfunc uint8_t JudgeDirection(uint8_t* img)
+{
+	uint8_t left_black_count = 0 ;
+	uint8_t right_black_count = 0;
+
+	for(int i = 20;i<60;i++)
+	{
+		if(img[i*94+3]==0)
+			left_black_count++;
+		if(img[i*94+90]==0)
+			right_black_count++;
+	}
+
+	if(left_black_count<right_black_count)
+		return 'l';
+	else 
+		return 'r';
+}	
 __ramfunc void findMiddlePointBySpace(uint8_t* img)
 {
 	uint32_t sum_temp=0;
 	uint8_t sum_count_temp=0;
 	Stack line_has_points_temp;
+  Stack Usable_Point_temp;
 	line_has_points_temp.count = 0;
+  Usable_Point_temp.count = 0;
         Point Max;
         Point Min;
         
 	SpaceMiddles.count = 0;
-	for(int i=59;i>25;i-=1)
+	for(int i=58;i>25;i-=1)
 	{
 		line_has_points_temp.count = 0;
 		//扫描行
@@ -366,7 +388,7 @@ __ramfunc void findMiddlePointBySpace(uint8_t* img)
 		{
 			//判断是不是第一行
 			if(SpaceMiddles.count==0){
-                                if(i!=59)
+                                if(i!=58)
                                   break;
 				//是第一行直接取第一个白点中心
                                 uint8_t min = 0;
@@ -390,10 +412,10 @@ __ramfunc void findMiddlePointBySpace(uint8_t* img)
 				SpaceMiddles.count++;
 			}else{
 				//不是第一行，遍历该行所有白点中心
+        Usable_Point_temp.count = 0;
 				for(int loop = 0;loop<line_has_points_temp.count;loop++)
 				{
 					
-                                        //标志位
 					int test_flag=0;
 					//求每个白点中心和上一个有效点的距离
 					int disX = line_has_points_temp.points[loop].x-SpaceMiddles.points[SpaceMiddles.count-1].x;
@@ -411,11 +433,9 @@ __ramfunc void findMiddlePointBySpace(uint8_t* img)
 						if(test_flag)
 							continue;
 						//否则，取用该白点中心作为有效点
-						SpaceMiddles.points[SpaceMiddles.count].x = line_has_points_temp.points[loop].x;
-						SpaceMiddles.points[SpaceMiddles.count].y = line_has_points_temp.points[loop].y;
-						SpaceMiddles.count++;
-						break;
-
+            Usable_Point_temp.points[Usable_Point_temp.count].x = line_has_points_temp.points[loop].x;
+            Usable_Point_temp.points[Usable_Point_temp.count].y = line_has_points_temp.points[loop].y;
+            Usable_Point_temp.count++;
 					}
 					//斜率
 					float dis_temp  = (float)disY/(float)disX;
@@ -448,13 +468,14 @@ __ramfunc void findMiddlePointBySpace(uint8_t* img)
                                         }
                                         
                                         
-					SpaceMiddles.points[SpaceMiddles.count].x = line_has_points_temp.points[loop].x;
-					SpaceMiddles.points[SpaceMiddles.count].y = line_has_points_temp.points[loop].y;
-					SpaceMiddles.count++;
-                                        break;
-                                     
-                                       
+					Usable_Point_temp.points[Usable_Point_temp.count].x = line_has_points_temp.points[loop].x;
+          Usable_Point_temp.points[Usable_Point_temp.count].y = line_has_points_temp.points[loop].y;
+          Usable_Point_temp.count++;    
 				}
+
+                SpaceMiddles.points[SpaceMiddles.count].x = Usable_Point_temp.points[0].x;
+                SpaceMiddles.points[SpaceMiddles.count].y = Usable_Point_temp.points[0].y;
+                SpaceMiddles.count++;
 			}
 		}
 	}
@@ -462,18 +483,36 @@ __ramfunc void findMiddlePointBySpace(uint8_t* img)
 __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 {
     uint8_t column = 0;             //列
-    uint8_t row = 0;                //行
+    uint8_t row = 59;                //行
+	uint32_t line_sum = 0;
+	uint32_t average = 0;
 
-    for(int i=0;i<MT9V034_H;i+=2)
+    for(int i=MT9V034_H-1;i>=0;i-=2)
     {
         column = 0;
+	line_sum = 0;
         for(int j=0;j<MT9V034_W;j+=2)
         {
             //隔点选取并二值化
-            newimage[row*wigth+column]=origin_image[MT9V034_W*i+j] < divide_gray ? 0:255;
-            ++column;
+			line_sum += origin_image[i*MT9V034_W+j];
         }
-        ++row;
+
+		if(average==0)
+			average = line_sum*2/MT9V034_W;
+		else 
+			average = (line_sum*2/MT9V034_W + average) / 2;
+		
+		for(int j=0;j<MT9V034_W;j+=2)
+		{
+			if(i<40)
+				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<average? 0:255;
+			else{ 
+				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<70? 0:255;
+				average = 70;
+			}
+			++column;
+		}
+        --row;
     }
     return column>wigth||row>height? 0:1;   //对数组越界进行检测　
 }
