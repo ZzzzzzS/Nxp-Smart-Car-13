@@ -47,7 +47,8 @@
 #include "AetherDriver_RingBuff.h"
 #include "AetherDriver_ADC.h"
 #include "Inductance.h"
-
+#include "AetherDriver_NRF.h"
+#include "fsl_dspi.h"
 
 #define CAR_NEW
 #endif

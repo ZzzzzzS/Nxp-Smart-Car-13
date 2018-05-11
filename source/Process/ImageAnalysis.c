@@ -480,6 +480,106 @@ __ramfunc void findMiddlePointBySpace(uint8_t* img)
 		}
 	}
 }
+
+uint8_t findColumnSpaceMiddle(uint8_t* img,uint8_t row)
+{
+	uint32_t sum=0;
+	uint8_t sum_count=0;
+	for(int i=59;i>20;i--)
+	{
+		if(img[i*94+row]!=0)
+		{
+			sum+=i;
+			sum_count++;
+		}
+	}
+	
+	return sum_count>0? sum/sum_count : 0;
+}
+
+__ramfunc uint8_t findOurCircle(uint8_t* img)
+{
+	uint8_t topline = 25;
+	uint8_t bottomline =40;
+	uint8_t topcount = 0;
+	uint8_t bottomcount = 0;
+
+   	for(int i=0;i<93;i++)
+	{
+		if(img[topline*94+i]!=0)
+			topcount++;
+		if(img[bottomline*94+i]==0)
+			bottomcount++;
+	}
+
+
+	Display_Number(0,3,topcount,WHITE,BLACK);
+	Display_Number(4,3,bottomcount,WHITE,BLACK);
+
+	if(bottomcount<5&&topline<5)
+		return 1;
+	else 
+		return 0;
+
+}
+__ramfunc uint8_t findCircle(uint8_t* img)
+{
+	uint8_t middle = 47;
+	uint8_t in_count_right = 0;
+	uint8_t small_right = 100;
+	uint8_t index_right=50;
+	uint8_t in_count_left = 0;
+	uint8_t index_left=50;
+	uint8_t small_left=100;
+	uint8_t right_flag=0;
+	uint8_t left_flag=0;
+
+	for(int i=42;i>27;i--)
+	{
+
+		in_count_left = in_count_right = 0;
+		for(int r=middle,l=middle;r<92;r++,l--)
+		{
+			if(img[i*94+r]!=0)
+				in_count_right++;
+			if(img[i*94+l]!=0)
+				in_count_left++;
+		}
+		if(in_count_right<small_right)
+		{
+			small_right = in_count_right;
+			index_right = i;
+		}
+		if(in_count_left<small_left)
+		{
+			small_left=in_count_left;
+			index_left = i;
+		}
+
+	}
+	if(I_abs(26-index_right)!=0&&I_abs(index_right-42)!=0)
+	{
+		right_flag=1;
+	}
+	
+	if(I_abs(26-index_left)!=0&&I_abs(index_left-42)!=0)
+	{
+		left_flag =1;
+	}
+
+	Display_Number(0,4,index_left,WHITE,BLACK);
+	Display_Number(4,4,index_right,WHITE,BLACK);
+
+	if(!left_flag&&!right_flag)
+		return 0;
+	else if(left_flag&&right_flag)
+		return 1;
+	else if(left_flag)
+		return 2;
+	else 
+		return 3;	
+}
+
 __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 {
     uint8_t column = 0;             //列
@@ -505,9 +605,9 @@ __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 		for(int j=0;j<MT9V034_W;j+=2)
 		{
 			if(i<40)
-				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<average? 0:255;
+				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<127? 0:255;
 			else{ 
-				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<70? 0:255;
+				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<60? 0:255;
 				average = 70;
 			}
 			++column;
@@ -541,119 +641,6 @@ __ramfunc void  ConvertImg(uint8_t image1[ MT9V034_H/2][ MT9V034_W/2], uint8_t i
     } 
 }
 
-__ramfunc void findWayByPicture(uint8_t* smallimage)
-{   
-    uint8_t x=0;
-    for(int i = height-1;i>=33;i--)
-    {
-      
-      edges temp = {0,{0,0,0}};
-      x = 0;
-      while(temp.count!=3&&x<wigth-1)
-      {
-        if(smallimage[i*wigth+x]!=smallimage[i*wigth+x+1])
-        {
-          temp.point[temp.count] = x;
-          temp.count++;
-        }
-        x++;
-      }
-      
-      switch(temp.count)
-      {
-      case 0:
-        linesborder[i].flag = 0;
-        break;
-      case 1:
-          if(smallimage[i*wigth+temp.point[0]/2]!=0)
-            {
-              linesborder[i].left=0;
-              linesborder[i].right=temp.point[0];
-              linesborder[i].flag = 1;
-            }else
-            {
-               linesborder[i].left=temp.point[0];
-               linesborder[i].right=wigth;
-               linesborder[i].flag = 1;
-            }
-        break;
-      case 2:
-        if(smallimage[i*wigth+(temp.point[0]+temp.point[1])/2]!=0){
-            linesborder[i].left=temp.point[0];
-            linesborder[i].right=temp.point[1];
-            linesborder[i].flag = 1;
-        }else
-        {
-          linesborder[i].flag = 0;
-        }
-        break;
-      case 3:
-        if(smallimage[i*wigth+(temp.point[0]+temp.point[1])/2]!=0)
-        {
-          linesborder[i].left=temp.point[0];
-          linesborder[i].right=temp.point[1];
-          linesborder[i].flag = 1;
-        }else
-        {
-          linesborder[i].left=temp.point[1];
-          linesborder[i].right=temp.point[2];
-          linesborder[i].flag = 1;
-        }
-        break;
-      default:
-        int in_count=0,sum=0;
-        for(int j=0;j<94;j++)
-          if(smallimage[i*wigth+j]==255)
-          {
-            in_count++;
-            sum+=j;
-          }
-        if(in_count!=0){
-          linesborder[i].left=sum/in_count;
-          linesborder[i].right=linesborder[i].left;
-          linesborder[i].flag = 1;
-        }else
-          linesborder[i].flag = 0;
-        break;
-      }
-    }
-
-    for(int i = 0;i<height;i++)
-    {
-        findMiddlePoint(linesborder,i);
-    }
-
-}
-
-
-//找到单条线的中点
-__ramfunc void findMiddlePoint(LineBorder* border,uint8_t line)
-{
-    //只取一定范围
-    if(border[line].flag==0)
-      return;
-    uint8_t top;
-    uint8_t bottom;
-    uint16_t min=0xffff;
-    uint16_t temp;
-    top = bottom = line;
-    //边界检查
-    bottom = (line+5>height? height-1:(bottom+5));
-    top = (line-5<0?  0:(top -5));
-
-    for(int i = top;i<=bottom;i++)
-    {
-        if(border[i].flag==1&&(temp=I_pow((int)(border[i].left-border[line].left))+I_pow((int)(border[i].right-border[line].right)))<min)
-        {
-            min = temp;
-            border[line].mid_x = border[i].right;
-            border[line].mid_y = i;
-        }
-    }
-    border[line].mid_x = (uint8_t)((border[line].mid_x+border[line].left+0.5)/2);
-    border[line].mid_y = (uint8_t)((line+border[line].mid_y+0.5)/2);
-}
-
 __ramfunc float32_t F_abs(float32_t num)
 {
 	return num>=0? num:-num;
@@ -670,19 +657,19 @@ __ramfunc int16_t I_pow(int16_t num)
 
 __ramfunc void divide_gray_ajust()
 {  
-  if(!gpio_read(GPIOA,24U))
+  if(READ_LEFT)
   {  
     delay_ms(30);
-    if(!gpio_read(GPIOA,24U))
+    if(READ_LEFT)
         divide_gray+=1;
     
     if(divide_gray>254)
       divide_gray=254;
   }
-  if(!gpio_read(GPIOA,25U))
+  if(READ_RIGHT)
   {
     delay_ms(30);
-    if(!gpio_read(GPIOA,25U))
+    if(READ_RIGHT)
         divide_gray-=1;
     if(divide_gray<1)
      divide_gray=1;

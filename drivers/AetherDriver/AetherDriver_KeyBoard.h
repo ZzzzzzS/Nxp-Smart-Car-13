@@ -28,6 +28,10 @@
 #define READ_RIGHT   !gpio_read(BUTTON_BASE,BUTTON_RIGHT)
 
 #define READ_KEY1 gpio_read(KEY_BASE,KEY1)
+#define READ_KEY2 gpio_read(KEY_BASE,KEY2)
+#define READ_KEY3 gpio_read(KEY_BASE,KEY3)
+#define READ_KEY4 gpio_read(KEY_BASE,KEY4)
+
 extern void KeyBoard_Init(void); 
 static inline uint8_t Key_read(uint8_t key)
 {

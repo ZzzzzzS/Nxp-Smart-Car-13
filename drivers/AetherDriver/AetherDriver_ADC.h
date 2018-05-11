@@ -2,7 +2,7 @@
 #define __AETHERDRIVER_ADC__ 
 
 extern void ADC_Init();
-extern void GetADCVal(uint16_t* vals);
+extern void GetADCVal(int16_t* vals);
 
 
 #endif 

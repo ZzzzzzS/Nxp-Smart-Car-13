@@ -46,33 +46,20 @@ void SteerPWMCalculator(int16_t value) {
   int16_t errorNow=0;
   int16_t addPwm = 0;
   if(SpaceMiddles.count!=0){
-    
-    for(int loop=SpaceMiddles.count-1;loop>0;--loop)
-    {
-      if(SpaceMiddles.points[loop].y>33){
-        SpaceMiddles.count=loop+1;
-        break;
-      }
-    }
-    
+    //取下半部分图 
+  	//大于等于三个点的时候进行滤波  
     if(SpaceMiddles.count>3)
-      errorNow = (SpaceMiddles.points[SpaceMiddles.count-1].x+SpaceMiddles.points[SpaceMiddles.count-2].x+SpaceMiddles.points[SpaceMiddles.count-3].x)/3-46;
+      errorNow = (SpaceMiddles.points[SpaceMiddles.count-1].x+SpaceMiddles.points[SpaceMiddles.count-2].x+SpaceMiddles.points[SpaceMiddles.count-3].x)/3-img_middle;
     else
-      errorNow = SpaceMiddles.points[SpaceMiddles.count-1].x-46;
-    if(SpaceMiddles.count<20&&I_abs(errorNow)>20)
+      errorNow = SpaceMiddles.points[SpaceMiddles.count-1].x-img_middle;
+
+	if(SpaceMiddles.count<20&&I_abs(errorNow)>20)
     {
       errorNow += errorNow>0? 10:-10;
     }
     
-	//电感
-	errorNow+=value;
-    
-	if(DISTANCE_RECORD_FLAG&&LeftOrRight=='l')
-		errorNow = errorNow<-20? errorNow:-20;
-	if(DISTANCE_RECORD_FLAG&&LeftOrRight=='r')
-		errorNow = errorNow>20? errorNow:20;
 
-
+	//分段pd
     if(I_abs(errorNow)<20)
     {
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Small * errorNow +

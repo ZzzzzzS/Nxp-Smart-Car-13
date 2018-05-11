@@ -452,8 +452,8 @@ void menu_in()
     sprintf(menu_list[6].item_name,"MOTORI");
     sprintf(menu_list[7].item_name,"MOTORD");
     sprintf(menu_list[8].item_name,"DIV   ");
-    sprintf(menu_list[9].item_name,"DISPLY");
-    sprintf(menu_list[10].item_name,"RUN   ");
+    sprintf(menu_list[9].item_name,"LEFT");
+    sprintf(menu_list[10].item_name,"RIGHT");
     sprintf(menu_list[11].item_name,"STEESP");
     sprintf(menu_list[12].item_name,"STEESD");
     sprintf(menu_list[13].item_name,"ADLEFT");
@@ -472,6 +472,8 @@ void menu_out()
     GV_speedControlT.Pid[1].PidCore.Ki=menu_list[6].item_value; 
     GV_speedControlT.Pid[1].PidCore.Kd=menu_list[7].item_value;
     STEER_MIDDLE=(uint16_t)menu_list[8].item_value;
+	STEER_PWM_MAX=(uint16_t)menu_list[9].item_value;
+	STEER_PWM_MIN=(uint16_t)menu_list[10].item_value;
     GV_steerControlT.PD.Steer_P_Small=menu_list[11].item_value;
     GV_steerControlT.PD.Steer_D_Small=menu_list[12].item_value;
 }
@@ -487,8 +489,8 @@ void menu_from_code()
     menu_list[6].item_value = GV_speedControlT.Pid[1].PidCore.Ki;
     menu_list[7].item_value = GV_speedControlT.Pid[1].PidCore.Kd;
     menu_list[8].item_value = STEER_MIDDLE;
-    menu_list[9].item_value = DISPLAY_FLAG;
-    menu_list[10].item_value = 0;
+    menu_list[9].item_value =STEER_PWM_MAX;
+    menu_list[10].item_value =STEER_PWM_MIN;
     menu_list[11].item_value = GV_steerControlT.PD.Steer_P_Small;
     menu_list[12].item_value = GV_steerControlT.PD.Steer_D_Small;
 }
@@ -526,10 +528,9 @@ void display_menu()
     }
   }
   while(1){
-    
     GetADCVal(InductanceVal);
-    menu_list[13].item_value = 100*((float)InductanceVal[0]-Left_side.min)/(Left_side.max-Left_side.min);
-    menu_list[14].item_value = 100*((float)InductanceVal[1]-Right_side.min)/(Right_side.max-Right_side.min);
+    menu_list[13].item_value = (float)InductanceVal[0];
+    menu_list[14].item_value = (float)InductanceVal[1];
     if(KEY_UP){
       delay_ms(10);
       if(KEY_UP){
@@ -553,16 +554,12 @@ void display_menu()
         delay_ms(50);
         if(selected<=7||(selected>10&&selected<13))
           menu_list[selected].item_value -= 0.1;
-        else if(selected == 8){
+        else if(selected>=8&&selected<=10){
           menu_list[selected].item_value -= 1;
-          if(menu_list[selected].item_value<STEER_PWM_MIN)
-            menu_list[selected].item_value=STEER_PWM_MIN;
-          SteerSet((uint16_t)menu_list[selected].item_value);
-        }else if(selected == 9){
-          DISPLAY_FLAG=1;
-          break;
-        }else if(selected==10) {
-          break;
+
+          if(menu_list[8].item_value<STEER_PWM_MIN)
+            menu_list[8].item_value=STEER_PWM_MIN;
+          SteerSet((uint16_t)menu_list[8].item_value);
         }
       }
         
@@ -574,20 +571,24 @@ void display_menu()
         delay_ms(50);
           if(selected<=7||(selected>10&&selected<13))
             menu_list[selected].item_value += 0.1;
-          else if(selected == 8){
+          else if(selected>=8&&selected<=10){
             menu_list[selected].item_value += 1;
-            if(menu_list[selected].item_value>STEER_PWM_MAX)
-              menu_list[selected].item_value=STEER_PWM_MAX;
-            SteerSet((uint16_t)menu_list[selected].item_value);
-          }else if(selected == 9){
-            DISPLAY_FLAG=1;
-            break;
-          }else if(selected==10){
-            break;
+			
+            if(menu_list[8].item_value>STEER_PWM_MAX)
+              menu_list[8].item_value=STEER_PWM_MAX;
+            SteerSet((uint16_t)menu_list[8].item_value);
           }
         }
     }
-    
+
+	if(READ_LEFT)
+		break;
+   	if(READ_RIGHT)
+	{
+		DISPLAY_FLAG=1;
+		break;
+	}	
+
     if(selected<=7)
       menu(0,7,selected);
     else

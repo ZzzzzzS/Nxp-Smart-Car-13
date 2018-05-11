@@ -2469,6 +2469,9 @@
         <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_LPTMR.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_NRF.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_PIT.c</name>
       </file>
       <file>

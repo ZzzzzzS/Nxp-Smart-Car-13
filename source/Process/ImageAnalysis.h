@@ -38,10 +38,11 @@ extern Stack SpaceMiddles;
 extern Stack EdgeLeft;
 extern Stack EdgeRight;
 
+extern __ramfunc uint8_t findCircle(uint8_t* img);
+extern __ramfunc uint8_t findOurCircle(uint8_t* img);
 extern __ramfunc int16_t I_pow(int16_t num);
 extern __ramfunc int16_t I_abs(int num);
-extern __ramfunc void findMiddlePoint(LineBorder* border,uint8_t line);
-extern __ramfunc void findWayByPicture(uint8_t* smallimage);
+extern uint8_t findColumnSpaceMiddle(uint8_t* img,uint8_t row);
 extern __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage);
 extern __ramfunc void  ConvertImg(uint8_t image1[ MT9V034_H/2][ MT9V034_W/2], uint8_t image2[MT9V034_H/2][ MT9V034_W/2]);//桶形失真
 extern __ramfunc void correctSmallImage(uint8_t* smallimage, uint8_t* IMAGEMAP);

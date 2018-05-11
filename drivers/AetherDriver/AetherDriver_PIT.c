@@ -87,7 +87,10 @@ void PIT0_IRQHandler(void)
 {
     // 清中断标志位
     PIT_ClearStatusFlags(PIT, kPIT_Chnl_0, kPIT_TimerFlag);
-    
+    //系统时间加一
+	++g_Time;
+	++g_Time_NRF;
+
     static int16_t temp[5][2];
     static uint8_t loop_flag=0;
     
@@ -111,8 +114,16 @@ void PIT0_IRQHandler(void)
     PIDControl(&GV_speedControlT.Pid[1]);
    
     SpeedComput(&GV_speedControlT);
-    //MotorOut(&GV_speedControlT);
-    MotorOut_PWM(g_Speed);
+
+	if(STOP_FLAG) 
+	{
+	    img_middle = IMG_MIDDLE - 10;
+	    MotorOut_PWM(0);
+	}
+	else 
+		MotorOut_PWM(g_Speed);
+
+
     GetADCVal(InductanceVal);
 	
 }

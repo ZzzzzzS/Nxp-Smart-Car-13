@@ -72,9 +72,7 @@ typedef struct
 #define STEER_FTM FTM3
 #define STEER_FTM_CHANAL 0
 #define STEER_FTM_FREQ  100
-
-#define STEER_PWM_MAX  835
-#define STEER_PWM_MIN  680
+#define IMG_MIDDLE  46
 
 extern uint16_t STEER_MIDDLE;
 typedef struct{

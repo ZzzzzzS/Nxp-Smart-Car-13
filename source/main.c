@@ -17,9 +17,7 @@ int main(void) {
 
   Init();
 
-  while (1) {
-    
-      
+  while (1){     
     WAIT:
         
 //      if(!BuffIsEmpty(&UART_buff))//串口缓冲区不为空

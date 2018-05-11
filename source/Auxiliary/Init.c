@@ -36,7 +36,8 @@ void Init()
     //PIT1_Init(20);
     ADC_Init();
     Display_ASCII8X16(0,0,"ADC",BLACK,WHITE);
-    
+ 	NRF24L01_Init();   
+    Display_ASCII8X16(0,0,"NRF",BLACK,WHITE);
     PIDInit(&GV_speedControlT.Pid[0],0.8,0,0);
     PIDInit(&GV_speedControlT.Pid[1],0.8,0,0);
     GV_speedControlT.Pid[0].AimSpeed = 50;
