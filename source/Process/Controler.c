@@ -6,24 +6,33 @@ void SteerControlor()
     SteerOut();
 }
 
-void ImageControlor(uint8_t* img)  //ÁÐ188£¬ÐÐ120
+void ImageControlor(uint8_t* img)  //åˆ—188ï¼Œè¡Œ120
 {
         uint8_t use_flag = 1;
-		uint16_t Left_One=0;
-		uint16_t Right_One=0;
-
-   		Left_One  =(uint16_t)InductanceVal[0];
-        Right_One =(uint16_t)InductanceVal[1];
-
+	int16_t Left_One=0;
+	int16_t Right_One=0;
+	static uint16_t g_Speed_Cp = 0;
+   	Left_One  =(int16_t)InductanceVal[0];
+        Right_One =(int16_t)InductanceVal[1];
         
         if(READ_LEFT){
-          g_Speed+=100;
-          if(g_Speed>10000)
-            g_Speed=0;
-          Display_Number(0,6,g_Speed,YELLOW,RED);
+          GV_speedControlT.Pid[0].AimSpeed +=10;
+          GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[0].AimSpeed;
+          Display_Number(0,6,GV_speedControlT.Pid[0].AimSpeed,YELLOW,RED);
         }
+        
+        led_down();
+        if(READ_KEY2){
+          NRF24L01_SetMode(MODE_TX);
+        
+          NRF24L01_CE_L;
+          NRF24L01_WriteTxPayload_NOACK((uint8_t*)(&Message), sizeof(Message));
+      // NRF24L01_WriteTxPayload_NOACK((uint8_t*)data, sizeof(data));
+        
+        }
+    NRF24L01_CE_H;
 		        
-		//Ëõ·Å¼Ó¶þÖµ»¯
+		//ç¼©æ”¾åŠ äºŒå€¼åŒ–
        getSmallImage(img,small_image);
         
 
@@ -56,8 +65,7 @@ void ImageControlor(uint8_t* img)  //ÁÐ188£¬ÐÐ120
             }
             //UpperCOM_SendImg(small_image,sizeof(small_image));
           }
-	  
-		  
+	   
    		   for(int loop=SpaceMiddles.count-1;loop>0;--loop)
     		{
      		 	if(SpaceMiddles.points[loop].y>33){
@@ -66,55 +74,116 @@ void ImageControlor(uint8_t* img)  //ÁÐ188£¬ÐÐ120
     			  }
    			 }
 
-//***************************µç¸ÐÂß¼­********************************************//
-		 //ÅÐ¶Ïµ½ÁËÔ²»·¸½½ü 
-		  if(Left_One>22000&&DISTANCE_RECORD_FLAG==0&&C_OUT==0)
+//***************************ç”µæ„Ÿé€»è¾‘********************************************//
+		 //åˆ¤æ–­åˆ°äº†åœ†çŽ¯é™„è¿‘ 
+		  if(Left_One>3500&&DISTANCE_RECORD_FLAG==0&&C_OUT==0)
 		  {
 			  DISTANCE_RECORD_FLAG = 1;
-	      }
+      }
 
 		  if(DISTANCE_RECORD_FLAG)
 		  {
-			 if(READ_KEY4&&findColumnSpaceMiddle(small_image,92)>SpaceMiddles.points[SpaceMiddles.count-1].y)
+                         Beep_Up();
+          
+                         if(DistanceRecord>2000&&DistanceRecord<4000){
+                           if(circle_angle==0)
+                             circle_angle = GV_steerPwmOutValueI;
+                           else 
+                             circle_angle = (GV_steerPwmOutValueI+circle_angle)/2;
+                         }
+			 if(READ_KEY4/*&&findColumnSpaceMiddle(small_image,92)>SpaceMiddles.points[SpaceMiddles.count-1].y*/)
 			 {
-		 		 SpaceMiddles.points[SpaceMiddles.count-1].x = (SpaceMiddles.points[SpaceMiddles.count-1].x+92)/2;
+                                 if(DistanceRecord<2000){
+                                   SpaceMiddles.points[SpaceMiddles.count-1].x = (SpaceMiddles.points[SpaceMiddles.count-1].x+80)/2;
+                                  SpaceMiddles.points[SpaceMiddles.count-2].x = (SpaceMiddles.points[SpaceMiddles.count-1].x+75)/2;
+                                 }
 			 }
-			 if(READ_KEY3&&findColumnSpaceMiddle(small_image,3)>SpaceMiddles.points[SpaceMiddles.count-1].y)
+			 if(READ_KEY3/*&&findColumnSpaceMiddle(small_image,3)>SpaceMiddles.points[SpaceMiddles.count-1].y*/)
 			 {
-		 		 SpaceMiddles.points[SpaceMiddles.count-1].x =(SpaceMiddles.points[SpaceMiddles.count-1].x+3)/2;
+                                SpaceMiddles.points[SpaceMiddles.count-1].x =(SpaceMiddles.points[SpaceMiddles.count-1].x+10)/2;	
+                                if(DistanceRecord<2000){
+                                  SpaceMiddles.points[SpaceMiddles.count-1].x =(SpaceMiddles.points[SpaceMiddles.count-1].x+15)/2;
+                                  SpaceMiddles.points[SpaceMiddles.count-2].x =(SpaceMiddles.points[SpaceMiddles.count-1].x+30)/2;
+                                }
 			 }
+                
 		  }
 		  
-		  if(Left_One>20000&&DistanceRecord>1000)
+		  if(Left_One>1500&&DistanceRecord>5000)
 		  {
+                          GV_speedControlT.Pid[0].PidCore.Kp = 0.8;
+                           GV_speedControlT.Pid[1].PidCore.Kp =0.8;
+                          GV_speedControlT.Pid[0].AimSpeed = 80;
+                          GV_speedControlT.Pid[1].AimSpeed = 80;
+                          Circle_Flag++;
+                          Beep_Down();
+                          circle_angle=0;
 			  C_OUT = 1;
 			  DISTANCE_RECORD_FLAG = 0;
 			  DistanceRecord = 0;
 		  }
 
-		  if(C_OUT&&Left_One<10000)
+		  if(C_OUT&&Left_One<1000)
 		  {
 			  C_OUT = 0;
 		  }
+//ä¼šè½¦
+      if(READ_KEY2&&Message.distance_between<1500)
+      {
+          Message.stop = 22;
+          Meet = 1;
+      }
 
-		  if(I_abs(findColumnSpaceMiddle(small_image,92)-findColumnSpaceMiddle(small_image,3))>10)
-				Beep_Up();
-		  else 
-			  	Beep_Down();
-			  
+      if(!READ_KEY2&&NRF_RxBuf[1]==22)
+      {
+        Meet = 1;
+      }
+
+      if(Meet)
+      {
+         GV_speedControlT.Pid[0].AimSpeed = 40;
+         GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[0].AimSpeed;
+         img_middle = 60;
+      }
+      
+      if(Meet_distance>1000)
+      {
+        Message.stop = 10;
+      }
+
+      if(Meet_distance>2500)
+      {
+          Meet = 0;
+          Message.stop = 10;
+         GV_speedControlT.Pid[0].AimSpeed = 80;
+         GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[0].AimSpeed;
+         img_middle =IMG_MIDDLE ;
+         Meet_distance=0;
+      }
+      
 
 //*********************************************************************************************
           SteerPWMCalculator(0);
    		  SteerOut();
 	      //MotorOut(&GV_speedControlT);
-		  //Í£³µ¼ì²é
+		  //åœè½¦æ£€æŸ¥
+               if((g_Time>100&&g_Time<150)||(g_Time>325))
+		  MotorOut(&GV_speedControlT);
+               else 
+                 MotorOut_PWM(0);
+               
+	  	  if(STOP_FLAG) 
+	      {
+                
+	    	img_middle = IMG_MIDDLE - 10;
+	    	MotorOut_PWM(0);
+		  }
 		  if(!STOP_FLAG)
 		  {
-			//ÒòÎª´æÔÚÔ¶´¦·´¹âµ¼ÖÂÎóÅÐµÄÔ­Òò£¬ÏÈ°ÑÕâ¸öÈ¥ÁË£¬×îºóÔÙµ÷
-			//stop_car(small_image);
+			//å› ä¸ºå­˜åœ¨è¿œå¤„åå…‰å¯¼è‡´è¯¯åˆ¤çš„åŽŸå› ï¼Œå…ˆæŠŠè¿™ä¸ªåŽ»äº†ï¼Œæœ€åŽå†è°ƒ
+			stop_car(small_image);
 		  }
-
-		  		  
+		  
           //SendAdValue(InductanceVal,sizeof(InductanceVal));
         }
         
@@ -126,7 +195,7 @@ void stop_car(uint8_t* img)
 	uint8_t jump_point_count=0;
 	uint32_t jump_sum=0;
         
-        if(g_Time>500){
+        if(g_Time>2000){
 		for(int i=0;i<92;i++)
 		{
 			if(img[50*94+i]!=img[50*94+i+1])
@@ -141,10 +210,9 @@ void stop_car(uint8_t* img)
               jump_sum+=i;
               jump_point_count++;
             }
-          if(I_abs(jump_sum/jump_point_count-46)<10)
+          if(I_abs(jump_sum/jump_point_count-46)<5)
             STOP_FLAG = 1;
         }
         
- 
 	
 }

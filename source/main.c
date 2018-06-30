@@ -13,10 +13,11 @@ volatile uint8_t MT9V034_IMGBUFF_B[MT9V034_H][MT9V034_W] = {0};
 volatile uint8_t* IMG_NOW=(uint8_t*)MT9V034_IMGBUFF_A;
 uint32_t interflag = 0;
 
+
 int main(void) {
 
   Init();
-
+  
   while (1){     
     WAIT:
         

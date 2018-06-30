@@ -12,7 +12,8 @@ void Init()
     CLOCK_EnableClock(kCLOCK_PortE);                           /* Port E Clock Gate Control: Clock enabled */
     lcd_initial();//初始化LCD
     fullfill(0,0,128,128,BLACK);
-    //UART4_Init();               //初始化UART4(蓝牙)
+    
+  	//UART4_Init();               //初始化UART4(蓝牙)
     //Display_ASCII8X16(0,0,"UART",BLACK,WHITE);
     SteerInit();
     Display_ASCII8X16(0,0,"STEER",BLACK,WHITE);
@@ -21,7 +22,9 @@ void Init()
     
 	FiveKey_Init();
 	KeyBoard_Init();
-
+    if(READ_KEY2){
+	SuperSonicInit();
+    }
     Display_ASCII8X16(0,0,"FIVE",BLACK,WHITE);
     Beep_Init();
     Display_ASCII8X16(0,0,"BEEP",BLACK,WHITE);
@@ -40,8 +43,8 @@ void Init()
     Display_ASCII8X16(0,0,"NRF",BLACK,WHITE);
     PIDInit(&GV_speedControlT.Pid[0],0.8,0,0);
     PIDInit(&GV_speedControlT.Pid[1],0.8,0,0);
-    GV_speedControlT.Pid[0].AimSpeed = 50;
-    GV_speedControlT.Pid[1].AimSpeed = 50;
+    GV_speedControlT.Pid[0].AimSpeed = 80;
+    GV_speedControlT.Pid[1].AimSpeed = 80;
     //iic_init();   
     //MPU6050_Inital();
     result = Flash_init();
@@ -53,16 +56,16 @@ void Init()
     NVIC_SetPriorityGrouping((uint32_t)0x03U);
     NVIC_SetPriority(DMA0_DMA16_IRQn, 0x00U);
     NVIC_SetPriority(PORTB_IRQn, 0x01);
+    NVIC_SetPriority(PORTA_IRQn, 0x02);
     //NVIC_SetPriority(PIT1_IRQn, 0x02U);
     NVIC_SetPriority(PIT0_IRQn, 0x02U);
-  
-    PIT_StartTimer(PIT, kPIT_Chnl_0);
-
+    NVIC_SetPriority(PIT2_IRQn, 0x03U);
 	record = DisableGlobalIRQ();
         delay_ms(500);
 	AD_Get_side();
     display_menu();
 	EnableGlobalIRQ(record);
+    EnableIRQ(PORTA_IRQn);
+    PIT_StartTimer(PIT, kPIT_Chnl_0);
 
-    
 }

@@ -70,10 +70,15 @@ void SteerPWMCalculator(int16_t value) {
     }
     
     GV_steerControlT.ErrorDistance = errorNow;
-    
+  
+
     GV_steerPwmOutValueI = STEER_MIDDLE-addPwm;
+    if(DISTANCE_RECORD_FLAG&&DistanceRecord>4000&&((READ_KEY4&&Circle_Flag==0)||(READ_KEY3&&Circle_Flag==1)))
+      GV_steerPwmOutValueI = circle_angle;
+
+
   }
-  // SteerOut();
+
 }
 
 void SteerOut(void) {  //对输入上界进行保护

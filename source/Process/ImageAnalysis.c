@@ -468,7 +468,7 @@ __ramfunc void findMiddlePointBySpace(uint8_t* img)
                                         }
                                         
                                         
-					Usable_Point_temp.points[Usable_Point_temp.count].x = line_has_points_temp.points[loop].x;
+		  Usable_Point_temp.points[Usable_Point_temp.count].x = line_has_points_temp.points[loop].x;
           Usable_Point_temp.points[Usable_Point_temp.count].y = line_has_points_temp.points[loop].y;
           Usable_Point_temp.count++;    
 				}
@@ -605,9 +605,9 @@ __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 		for(int j=0;j<MT9V034_W;j+=2)
 		{
 			if(i<40)
-				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<127? 0:255;
+				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<average? 0:255;
 			else{ 
-				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<60? 0:255;
+				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<70? 0:255;
 				average = 70;
 			}
 			++column;

@@ -22,6 +22,10 @@ static inline int16_t getLeftSpeed()
     int16_t temp_qL = FTM_GetQuadDecoderCounterValue(FTM1);
 	if(DISTANCE_RECORD_FLAG)
 		DistanceRecord+=I_abs(temp_qL);
+    if(Meet)
+    {
+        Meet_distance+=I_abs(temp_qL);
+    }
 
     FTM_ClearQuadDecoderCounterValue(FTM1);
     return temp_qL;

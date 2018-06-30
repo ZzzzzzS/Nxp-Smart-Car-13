@@ -49,6 +49,7 @@
 #include "Inductance.h"
 #include "AetherDriver_NRF.h"
 #include "fsl_dspi.h"
+#include "AetherDriver_SuperSonic.h"
 
 #define CAR_NEW
 #endif

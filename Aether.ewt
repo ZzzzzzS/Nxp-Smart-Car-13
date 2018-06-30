@@ -2469,7 +2469,7 @@
         <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_LPTMR.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_NRF.c</name>
+        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_NRF.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_PIT.c</name>
@@ -2485,6 +2485,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_SPI.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_SuperSonic.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_UART.c</name>

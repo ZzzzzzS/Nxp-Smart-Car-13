@@ -107,38 +107,29 @@ void PIT0_IRQHandler(void)
       GV_speedControlT.Pid[0].NowSpeed+=temp[i][0];
       GV_speedControlT.Pid[1].NowSpeed+=temp[i][1];
     }
-    GV_speedControlT.Pid[0].NowSpeed = GV_speedControlT.Pid[0].NowSpeed/5;
-    GV_speedControlT.Pid[1].NowSpeed = GV_speedControlT.Pid[1].NowSpeed/5;
+    GV_speedControlT.Pid[0].NowSpeed = -GV_speedControlT.Pid[0].NowSpeed/5;
+    GV_speedControlT.Pid[1].NowSpeed = -GV_speedControlT.Pid[1].NowSpeed/5;
     
     PIDControl(&GV_speedControlT.Pid[0]);
     PIDControl(&GV_speedControlT.Pid[1]);
    
     SpeedComput(&GV_speedControlT);
 
-	if(STOP_FLAG) 
-	{
-	    img_middle = IMG_MIDDLE - 10;
-	    MotorOut_PWM(0);
-	}
-	else 
-		MotorOut_PWM(g_Speed);
-
+    //Display_Number(0,3,GV_speedControlT.Pid[0].NowSpeed,YELLOW,RED);
 
     GetADCVal(InductanceVal);
 	
 }
 
 void PIT1_IRQHandler(void)
-{
-    // 清中断标志位
-    PIT_ClearStatusFlags(PIT, kPIT_Chnl_1, kPIT_TimerFlag);
+{// 清中断标志位
+    PIT_ClearStatusFlags(PIT, kPIT_Chnl_1, kPIT_TimerFlag);	
 }
 
 void PIT2_IRQHandler(void)
 {
     // 清中断标志位
     PIT_ClearStatusFlags(PIT, kPIT_Chnl_2, kPIT_TimerFlag);
-    
 }
 
 void PIT3_IRQHandler(void)

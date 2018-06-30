@@ -11,7 +11,7 @@
 // #define NRF24L01_CE   (GPIOB->PDIR&(1U<<9U))
 #define NRF24L01_CE_L  GPIOA->PDOR &= ~(1U<<19U)
 #define NRF24L01_CE_H  GPIOA->PDOR |= (1U<<19U)
-#define NRF24L01_IRQ  (GPIOA->PDIR&(1U<<8U))
+#define NRF24L01_IRQ  (GPIOA->PDIR&(1U<<29U))
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern volatile uint8_t NRF24L01_CONFIG;
@@ -40,7 +40,7 @@ typedef enum
 /** NRF配置和选项定义 */
 #define DYNAMIC_PACKET      1 		//1:动态数据包, 0:固定
 #define FIXED_PACKET_LEN    32		//包长度
-#define REPEAT_CNT          12		//重复次数
+#define REPEAT_CNT          5		//重复次数
 #define INIT_ADDR           0x15,0x26,0x16,0x23,0x26
 // #define INIT_ADDR           0xE7,0xE7,0xE7,0xE7,0xE7
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

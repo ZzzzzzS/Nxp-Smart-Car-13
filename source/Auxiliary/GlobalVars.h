@@ -27,6 +27,7 @@ extern uint32_t DistanceRecord;
 extern uint8_t DISTANCE_RECORD_FLAG;
 extern uint8_t LeftOrRight;
 
+extern uint16_t circle_angle;
 extern uint16_t STEER_PWM_MAX;
 extern uint16_t STEER_PWM_MIN;
 
@@ -35,6 +36,9 @@ extern uint32_t g_Time;
 extern uint8_t STOP_FLAG;
 extern uint8_t C_OUT;
 extern uint32_t g_Time_NRF;
-extern int16_t NRF_TxBuf[32];                              // NRF24L01发送缓冲区
-extern int16_t NRF_RxBuf[32];
+extern uint8_t NRF_TxBuf[32];                              // NRF24L01发送缓冲区
+extern uint8_t NRF_RxBuf[32];
+extern Message_t Message;
+extern uint8_t Meet;
+extern uint32_t Meet_distance;
 #endif

@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "Z:\AETHER_NEW\settings\Aether.Debug.general.xcl" --backend -f "Z:\AETHER_NEW\settings\Aether.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "C:\Users\m1899\桌面\Aether_New\Aether_New\settings\Aether.Debug.general.xcl" --backend -f "C:\Users\m1899\桌面\Aether_New\Aether_New\settings\Aether.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "Z:\AETHER_NEW\settings\Aether.Debug.general.xcl" "--debug_file=%~1" --backend -f "Z:\AETHER_NEW\settings\Aether.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "C:\Users\m1899\桌面\Aether_New\Aether_New\settings\Aether.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\m1899\桌面\Aether_New\Aether_New\settings\Aether.Debug.driver.xcl" 
 
 @echo off 
 :end

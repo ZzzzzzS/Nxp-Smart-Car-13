@@ -2,11 +2,13 @@
 
 "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\bin\armjlink2.dll" 
 
-"Z:\AETHER_NEW\debug\cproject_templates.out" 
+"C:\Users\m1899\×ÀÃæ\Aether_New\Aether_New\MKV58F1M0xxx24_flash.icf" 
 
 --plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\bin\armbat.dll" 
 
 --device_macro "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\config\debugger\NXP\KV5x.dmac" 
+
+--macro "Z:\CoreCycle.mac" 
 
 --flash_loader "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\config\flashloader\NXP\FlashKV5xF1M0.board" 
 

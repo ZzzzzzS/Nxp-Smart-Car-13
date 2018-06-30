@@ -76,7 +76,7 @@ void NRF_SPI_Init()
 	gpio_init(GPIOA,29U,IN,LOW);
     
     PORT_SetPinInterruptConfig(PORTA, 29U, kPORT_InterruptFallingEdge);            // PTB8 ~ NRF24L01_IRQ. 信号下降沿触发NRF中断
-    EnableIRQ(PORTA_IRQn);
+	EnableIRQ(PORTA_IRQn);
 }
 
 
@@ -318,7 +318,11 @@ uint8_t NRF24L01_ReadRxPayload(uint8_t *pBuff)
 void NRF24L01_WriteTxPayload_ACK(uint8_t *pBuff, uint8_t len)
 {
     NRF24L01_FlushTxFIFO();                 // 清空TX FIFO
-    
+    uint8_t status = NRF24L01_GetStatusRegister();
+    if(status&0x01==0x01)
+    {
+      NRF24L01_WriteReg(STATUS, status);
+    }
     NRF24L01_CS_L;
     DSPI_MasterWriteDataBlocking(SPI1, &SPI1_NRF24L01_Ctar1, WR_TX_PLOAD);
     for(uint8_t i=0; i<((len>32)?32:len); i++)          // 限制最大发送字符串长度为32
@@ -368,6 +372,7 @@ void NRF24L01_WriteTxPayload_NOACK(uint8_t *pBuff, uint8_t len)
 */
 void NRF24L01_WriteTxPayload_InRx_ACK(uint8_t *pBuff, uint8_t len)
 {
+    
     NRF24L01_CS_L;
     DSPI_MasterWriteDataBlocking(SPI1, &SPI1_NRF24L01_Ctar1, W_ACK_PLOAD);
     for(uint8_t i=0; i<((len>32)?32:len); i++)          // 限制最大发送字符串长度为32
@@ -376,6 +381,7 @@ void NRF24L01_WriteTxPayload_InRx_ACK(uint8_t *pBuff, uint8_t len)
         NRF24L01_Delay(400);
     }
     NRF24L01_CS_H;
+    
     NRF24L01_Delay(400);
 }
 
@@ -629,45 +635,34 @@ uint8_t NRF24L01_RxPacket(void *rxbuf)
 void NRF24L01_TxRxISR(void)
 {
     static uint8_t TxCNT = 0;
+    delay_ms(1);
     uint8_t status = NRF24L01_GetStatusRegister();
     NRF24L01_ClearIRQnFlag(IRQ_ALL);
     switch(status>>4)
     {
         // 重发次数溢出中断
-        case 0x01:
-        TxCNT++;
-        // NRF24L01_FlushTxFIFO();
-        NRF24L01_FlushRxFIFO();
-		led_green(1);
-		led_blue(0);
-        NRF24L01_SetMode(MODE_RX);
-        break;
-        
-        // 接收中断
+       // 接收中断
+
         case 0x04:
+        if(!READ_KEY2){
         NRF24L01_ReadRxPayload((uint8_t*)(&NRF_RxBuf[0]));// 读取接受数据
-		led_green(0);
-		led_blue(1);
+	led_light_one(0);
+        }else{
+          NRF24L01_SetMode(MODE_TX);
+        }
         // NRF24L01_SetMode(MODE_TX);
         break;
         
         // 发送中断
         case 0x02:
-        TxCNT = 0;
-		led_green(1);
-		led_blue(0);
+        if(READ_KEY2)
+        led_light_one(1);
 
-        NRF24L01_SetMode(MODE_RX);
         break;
-        
-        default:
-        NRF24L01_FlushTxFIFO();
-        NRF24L01_FlushRxFIFO();
-		led_green(1);
-		led_blue(0);
-        NRF24L01_SetMode(MODE_RX);
+    default:
+        led_light_one(2);
         break;
-    }
+     }
     NRF24L01_CONFIG = NRF24L01_ReadReg(NRF_CONFIG);
 }
 
@@ -737,8 +732,12 @@ void NRF24L01_Init(void)
     
     NRF24L01_WriteReg(NRF_CONFIG, (1U<<EN_CRC)|(1U<<PWR_UP));            // 上电NRF24L01
     
+    if(READ_KEY2)
     NRF24L01_SetMode(MODE_TX);
-    
+    else 
+    NRF24L01_SetMode(MODE_RX);
+
+
     NRF24L01_CE_H;
     
     temp = NRF24L01_ReadReg(RF_CH);

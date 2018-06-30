@@ -48,6 +48,13 @@ void led_light_one(uint8_t input){
   }
 }
 
+void led_down(){
+  for(int i=0;i<3;i++)
+  {
+      led[i](0);
+  }
+}
+
 void led_circle()
 {
   for(int i=0;i<3;i++)

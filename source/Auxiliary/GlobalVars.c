@@ -35,6 +35,13 @@ uint32_t g_Time = 0;
 uint32_t g_Time_NRF = 0;
 uint8_t STOP_FLAG=0;
 uint8_t C_OUT = 0;
-int16_t NRF_TxBuf[32];                              // NRF24L01发送缓冲区
-
-int16_t NRF_RxBuf[32]; 
+uint8_t NRF_TxBuf[32];                              // NRF24L01发送缓冲区
+uint8_t NRF_RxBuf[32];
+uint8_t Meet = 0;
+uint16_t circle_angle = 0;
+uint32_t Meet_distance=0;
+Message_t Message={
+	.stop = 10,
+	.Empty = 47,
+	.distance_between=0xffff,
+};

@@ -557,8 +557,8 @@ void display_menu()
         else if(selected>=8&&selected<=10){
           menu_list[selected].item_value -= 1;
 
-          if(menu_list[8].item_value<STEER_PWM_MIN)
-            menu_list[8].item_value=STEER_PWM_MIN;
+          if(menu_list[8].item_value<menu_list[10].item_value)
+            menu_list[8].item_value=menu_list[10].item_value;
           SteerSet((uint16_t)menu_list[8].item_value);
         }
       }
@@ -574,8 +574,8 @@ void display_menu()
           else if(selected>=8&&selected<=10){
             menu_list[selected].item_value += 1;
 			
-            if(menu_list[8].item_value>STEER_PWM_MAX)
-              menu_list[8].item_value=STEER_PWM_MAX;
+            if(menu_list[8].item_value>menu_list[9].item_value)
+              menu_list[8].item_value=menu_list[9].item_value;
             SteerSet((uint16_t)menu_list[8].item_value);
           }
         }

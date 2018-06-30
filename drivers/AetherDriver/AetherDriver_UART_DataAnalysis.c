@@ -1,6 +1,6 @@
 #include "include.h"
 
-//³õÊ¼»¯¶ÓÁÐ
+//åˆå§‹åŒ–é˜Ÿåˆ—
 void InitQueue(RingQueue *pQingQueue,unsigned char *buff,unsigned char length)
 {
     pQingQueue->pHead=buff;
@@ -11,7 +11,7 @@ void InitQueue(RingQueue *pQingQueue,unsigned char *buff,unsigned char length)
 
     pQingQueue->length=length;
 }
-//ºóÀ´µÄÊý¾ÝÑ¹Èë¶ÓÁÐÎ²²¿£¬Í¬Ê±¶ÓÊ×Êý¾Ý¶ªÆú
+//åŽæ¥çš„æ•°æ®åŽ‹å…¥é˜Ÿåˆ—å°¾éƒ¨ï¼ŒåŒæ—¶é˜Ÿé¦–æ•°æ®ä¸¢å¼ƒ
 void PushQueue(RingQueue *pQingQueue,unsigned char data)
 {
     unsigned char *enext=pQingQueue->pEnd+1;
@@ -20,7 +20,7 @@ void PushQueue(RingQueue *pQingQueue,unsigned char data)
         enext-=pQingQueue->length;
     }
     pQingQueue->pEnd=enext;
-    *pQingQueue->pEnd=data;//½«Êý¾ÝËÍÈë¶ÓÁÐÎ²²¿
+    *pQingQueue->pEnd=data;//å°†æ•°æ®é€å…¥é˜Ÿåˆ—å°¾éƒ¨
     unsigned char *snext=pQingQueue->pStart+1;
     if(snext>=pQingQueue->pTail)
     {
@@ -31,7 +31,7 @@ void PushQueue(RingQueue *pQingQueue,unsigned char data)
 }
 void DataAnalysis(const RingQueue *pQingQueue,int *x,int *y)
 {
-   //·ûºÏÊý¾ÝÐ­Òé
+   //ç¬¦åˆæ•°æ®åè®®
     if(*pQingQueue->pStart==0x03 && *pQingQueue->pEnd==0xfc)//true
     {
        unsigned char *p = pQingQueue->pStart +1;

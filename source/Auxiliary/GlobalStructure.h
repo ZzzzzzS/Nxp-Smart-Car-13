@@ -29,7 +29,7 @@
 #define LEFT_PWM_BACK	2
 
 #define MAX_SPEED  5000
-#define MIN_SPEED  0
+#define MIN_SPEED  -5000
 
 typedef enum
 {
@@ -58,6 +58,13 @@ typedef struct
   int16_t OutSpeed[2];
 }speed_control_config_t;
 
+
+typedef struct 
+{
+	uint8_t  stop;
+	uint8_t  Empty;
+	uint16_t distance_between;
+}Message_t; 
 //Soft IIC
 #define SDA_GPIO GPIOC
 #define SDA_PIN 11
@@ -75,6 +82,7 @@ typedef struct
 #define IMG_MIDDLE  46
 
 extern uint16_t STEER_MIDDLE;
+
 typedef struct{
   float Steer_P;
   float Steer_D;

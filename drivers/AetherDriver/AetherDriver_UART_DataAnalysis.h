@@ -3,11 +3,11 @@
 
 typedef struct
 {
-    unsigned char *pHead;//ÓÃÀ´´æ´¢buffµÄÊ×µØÖ·
-    unsigned char *pTail;//ÓÃÀ´´æ´¢buffµÄÎ²²¿µØÖ·
+    unsigned char *pHead;//ç”¨æ¥å­˜å‚¨buffçš„é¦–åœ°å€
+    unsigned char *pTail;//ç”¨æ¥å­˜å‚¨buffçš„å°¾éƒ¨åœ°å€
     
-    unsigned char *pStart;//Êı¾İ¶ÓÁĞÊ×
-    unsigned char *pEnd;//Êé¶ÓÁĞÎ²²¿
+    unsigned char *pStart;//æ•°æ®é˜Ÿåˆ—é¦–
+    unsigned char *pEnd;//ä¹¦é˜Ÿåˆ—å°¾éƒ¨
     unsigned char length;
 
 }RingQueue;
