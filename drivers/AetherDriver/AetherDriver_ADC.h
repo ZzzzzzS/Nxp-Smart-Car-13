@@ -3,6 +3,6 @@
 
 extern void ADC_Init();
 extern void GetADCVal(int16_t* vals);
-
+extern void GetADCValWithoutUniformization(int16_t* vals);
 
 #endif 

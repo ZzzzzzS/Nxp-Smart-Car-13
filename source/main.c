@@ -1,6 +1,6 @@
 /**
  * This is template for main module created by MCUXpresso Project Generator.
- *Enjoy!
+// //  *Enjoy!
  **/
 
 #include "include.h"

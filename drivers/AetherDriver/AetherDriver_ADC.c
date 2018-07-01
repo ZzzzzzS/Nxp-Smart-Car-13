@@ -112,9 +112,12 @@ void ADC_Init()
 void GetADCVal(int16_t* vals)
 {
 
-    int16_t temp[2] = {0, 0};
+    int16_t temp[MAX_POSITION] = {0};
 	uint16_t sampleMask = HSADC_SAMPLE_MASK(0U)    /* For converter A. */
-                 | HSADC_SAMPLE_MASK(1U);  /* For converter A. */
+                        | HSADC_SAMPLE_MASK(1U)
+                        |HSADC_SAMPLE_MASK(2U)
+                        |HSADC_SAMPLE_MASK(3U)
+                        |HSADC_SAMPLE_MASK(4U);  /* For converter A. */
     // static adc16_channel_config_t ADC1_SExb_config;
     // ADC1_SExb_config.channelNumber = MOTORn;                                  // 4 ~ ADC1 SE4a(b), 4 ~ ADC1 SE5a(b)
     // ADC1_SExb_config.enableDifferentialConversion = false;                    // 不使能差分转换模式
@@ -123,7 +126,7 @@ void GetADCVal(int16_t* vals)
     // ADC16_SetChannelConfig(ADC1, 0, &ADC1_SExb_config);                        // 软件触发采集
     // while(kADC16_ChannelConversionDoneFlag != ADC16_GetChannelStatusFlags(ADC1, 0));      
     // return ADC16_GetChannelConversionValue(ADC1, 0);               // 获取上行触发的采集结果
-    for(uint8_t i = 0; i < 5; i++)
+    for(int i = 0; i < 5; i++)
     {
         HSADC_DoSoftwareTriggerConverter(HSADC0, kHSADC_ConverterA);
         while (kHSADC_ConverterAEndOfScanFlag !=
@@ -132,16 +135,60 @@ void GetADCVal(int16_t* vals)
         }
 
         if (sampleMask == (sampleMask & HSADC_GetSampleReadyStatusFlags(HSADC0))){
-        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U);
-        temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
+        temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U);
+        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U);
+        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
+        temp[3] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
+        temp[4] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
 		}
         HSADC_ClearStatusFlags(HSADC0, kHSADC_ConverterAEndOfScanFlag);
     }
     
-	temp[0] = temp[0] / 5;
-	temp[1] = temp[1] / 5;
+    for(int i=0;i<MAX_POSITION;i++) //完成归一化操作
+    {
+        temp[i] = temp[i] / 5;
+        vals[i] = (float)((temp[i] - ADside[i].min) / (ADside[i].max - ADside[i].min))*1000;
+    }
 
-	vals[0] = temp[0];
-	vals[1] = temp[1];
+}
 
+
+void GetADCValWithoutUniformization(int16_t* vals)
+{
+        int16_t temp[MAX_POSITION] = {0};
+	uint16_t sampleMask = HSADC_SAMPLE_MASK(0U)    /* For converter A. */
+                        | HSADC_SAMPLE_MASK(1U)
+                        |HSADC_SAMPLE_MASK(2U)
+                        |HSADC_SAMPLE_MASK(3U)
+                        |HSADC_SAMPLE_MASK(4U);  /* For converter A. */
+    // static adc16_channel_config_t ADC1_SExb_config;
+    // ADC1_SExb_config.channelNumber = MOTORn;                                  // 4 ~ ADC1 SE4a(b), 4 ~ ADC1 SE5a(b)
+    // ADC1_SExb_config.enableDifferentialConversion = false;                    // 不使能差分转换模式
+    // ADC1_SExb_config.enableInterruptOnConversionCompleted = false;            // 转换完成不触发中断
+    // 
+    // ADC16_SetChannelConfig(ADC1, 0, &ADC1_SExb_config);                        // 软件触发采集
+    // while(kADC16_ChannelConversionDoneFlag != ADC16_GetChannelStatusFlags(ADC1, 0));      
+    // return ADC16_GetChannelConversionValue(ADC1, 0);               // 获取上行触发的采集结果
+    for(int i = 0; i < 5; i++)
+    {
+        HSADC_DoSoftwareTriggerConverter(HSADC0, kHSADC_ConverterA);
+        while (kHSADC_ConverterAEndOfScanFlag !=
+               (kHSADC_ConverterAEndOfScanFlag & HSADC_GetStatusFlags(HSADC0)))
+        {
+        }
+
+        if (sampleMask == (sampleMask & HSADC_GetSampleReadyStatusFlags(HSADC0))){
+        temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U);
+        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U);
+        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
+        temp[3] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
+        temp[4] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
+		}
+        HSADC_ClearStatusFlags(HSADC0, kHSADC_ConverterAEndOfScanFlag);
+    }
+    
+    for(int i=0;i<MAX_POSITION;i++)
+    {
+        vals[i] = temp[i] / 5;
+    }
 }

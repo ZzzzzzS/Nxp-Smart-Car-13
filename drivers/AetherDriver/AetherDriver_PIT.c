@@ -94,6 +94,8 @@ void PIT0_IRQHandler(void)
     static int16_t temp[5][2];
     static uint8_t loop_flag=0;
     
+    GetADCVal(InductanceVal);
+
     temp[loop_flag][0] = getLeftSpeed();
     temp[loop_flag][1] = -getRightSpeed();
     
@@ -117,7 +119,7 @@ void PIT0_IRQHandler(void)
 
     //Display_Number(0,3,GV_speedControlT.Pid[0].NowSpeed,YELLOW,RED);
 
-    GetADCVal(InductanceVal);
+    
 	
 }
 

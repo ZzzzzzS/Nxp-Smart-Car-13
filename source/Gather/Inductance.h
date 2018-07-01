@@ -2,11 +2,11 @@
 #define __INDUCTANCE__ 
 typedef struct 
 {
-    float max;
-    float min;
-}ADside;
+    int16_t max;
+    int16_t min;
+}ADside_t;
 
-extern ADside Left_side, Right_side;
+extern ADside_t ADside[MAX_POSITION];
 extern void AD_Get_side();
 
 

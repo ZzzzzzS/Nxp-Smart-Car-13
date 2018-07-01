@@ -1,27 +1,31 @@
 #include "include.h"
 
-ADside  Left_side={0,10000},Right_side={0,10000};
+ADside_t ADside[MAX_POSITION];
+
 
 
 void AD_Get_side()
 {
-    uint16_t Read_Data[2];
+    uint16_t Read_Data[MAX_POSITION];
 
-    Display_ASCII8X16(0,0,"BE ONEing",BLACK,WHITE);
+    Display_ASCII8X16(0,0,"Uniforming",BLACK,WHITE);
+
+    for(int i=0;i<MAX_POSITION;i++)
+    {
+        ADside[i].max=10000;
+    }
+
     while(READ_KEY1)
     {
-		
-		 GetADCVal(Read_Data);
+		 GetADCValWithoutUniformization(Read_Data);
          
-         if(Read_Data[0]>Left_side.max)
-			 Left_side.max=Read_Data[0];
-         if(Read_Data[0]<Left_side.min)
-			 Left_side.min=Read_Data[0];
-         if(Read_Data[1]>Right_side.max)
-			 Right_side.max=Read_Data[1];
-         if(Read_Data[1]<Right_side.min)
-			 Right_side.min=Read_Data[1];
-
+         for(int i=0;i<MAX_POSITION;i++)
+         {
+            if(Read_Data[i]>ADside[i].max)
+                ADside[i].max=Read_Data[i];
+            else if(Read_Data[i]<ADside[i].min)
+                ADside[i].min=Read_Data[i];
+         }
     }
 }
 
