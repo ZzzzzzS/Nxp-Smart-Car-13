@@ -13,32 +13,36 @@
 
 #include "GlobalStructure.h"
 
-extern speed_control_config_t GV_speedControlT;
-extern pid_control_config_t PID_Motor;
-extern int16_t GV_steerPwmOutValueI;
-extern steer_config_t GV_steerControlT;
-extern IMGS IMG_STATUS;
-extern uint8_t Circle_Flag;
-extern uint8_t Motor_Stop;
-extern Using_Status Using_Flag;
-extern uint8_t DISPLAY_FLAG;
+//电感
 extern int16_t InductanceVal[MAX_POSITION];
-extern uint32_t DistanceRecord;
-extern uint8_t DISTANCE_RECORD_FLAG;
-extern uint8_t LeftOrRight;
+extern int directionError;
+extern uint8_t InductanceMiddle; 
 
-extern uint16_t circle_angle;
-extern uint16_t STEER_PWM_MAX;
-extern uint16_t STEER_PWM_MIN;
+//图像
+extern IMGS IMG_STATUS;
+extern Using_Status Using_Flag;
 
-extern uint8_t img_middle; 
+//系统与会车
 extern uint32_t g_Time;
-extern uint8_t STOP_FLAG;
-extern uint8_t C_OUT;
 extern uint32_t g_Time_NRF;
-extern uint8_t NRF_TxBuf[32];                              // NRF24L01发送缓冲区
+extern uint8_t NRF_TxBuf[32];
 extern uint8_t NRF_RxBuf[32];
 extern Message_t Message;
 extern uint8_t Meet;
 extern uint32_t Meet_distance;
+
+//动力输出
+extern speed_control_config_t GV_speedControlT;
+extern pid_control_config_t PID_Motor;
+extern int16_t GV_steerPwmOutValueI;
+extern steer_config_t GV_steerControlT;
+extern uint16_t STEER_PWM_MAX;
+extern uint16_t STEER_PWM_MIN;
+
+//判断标志位
+extern uint8_t Circle_Flag;
+extern uint8_t Motor_Stop;
+extern uint8_t DISPLAY_FLAG;
+extern uint8_t STOP_FLAG;
+
 #endif

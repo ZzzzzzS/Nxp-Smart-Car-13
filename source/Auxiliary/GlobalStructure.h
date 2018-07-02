@@ -31,6 +31,7 @@
 #define MAX_SPEED  5000
 #define MIN_SPEED  -5000
 
+
 typedef enum
 {
   LeftWheel,
@@ -79,7 +80,8 @@ typedef struct
 #define STEER_FTM FTM3
 #define STEER_FTM_CHANAL 0
 #define STEER_FTM_FREQ  100
-#define IMG_MIDDLE  46
+#define INDUCTANCE_MIDDLE  0
+#define MEETING_MIDDLE  20
 
 extern uint16_t STEER_MIDDLE;
 
@@ -120,6 +122,7 @@ typedef enum 		//枚举定义电感位置
 	FRONT_RIGHT,
   MAX_POSITION
 }InductancePosition_e;
+
 
 #define Rk 1
 #define Rb 0

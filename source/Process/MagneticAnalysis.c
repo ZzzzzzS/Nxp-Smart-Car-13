@@ -40,3 +40,58 @@ int getDirectionError5(int16_t* value)//用5电感获取误差
 {
    
 }
+
+void circleAnalysis(int16_t* value)
+{
+	/*if(value[LEFT]>3500&&DISTANCE_RECORD_FLAG==0&&C_OUT==0)
+	{
+		DISTANCE_RECORD_FLAG = 1;
+	}
+
+		  if(DISTANCE_RECORD_FLAG)
+		  {
+                         Beep_Up();
+          
+                         if(DistanceRecord>2000&&DistanceRecord<4000){
+                           if(circle_angle==0)
+                             circle_angle = GV_steerPwmOutValueI;
+                           else 
+                             circle_angle = (GV_steerPwmOutValueI+circle_angle)/2;
+                         }
+			 if(READ_KEY4)
+			 {
+                                 if(DistanceRecord<2000){
+                                   SpaceMiddles.points[SpaceMiddles.count-1].x = (SpaceMiddles.points[SpaceMiddles.count-1].x+80)/2;
+                                  SpaceMiddles.points[SpaceMiddles.count-2].x = (SpaceMiddles.points[SpaceMiddles.count-1].x+75)/2;
+                                 }
+			 }
+			 if(READ_KEY3)
+			 {
+                                SpaceMiddles.points[SpaceMiddles.count-1].x =(SpaceMiddles.points[SpaceMiddles.count-1].x+10)/2;	
+                                if(DistanceRecord<2000){
+                                  SpaceMiddles.points[SpaceMiddles.count-1].x =(SpaceMiddles.points[SpaceMiddles.count-1].x+15)/2;
+                                  SpaceMiddles.points[SpaceMiddles.count-2].x =(SpaceMiddles.points[SpaceMiddles.count-1].x+30)/2;
+                                }
+			 }
+                
+		  }
+		  
+		  if(Left_One>1500&&DistanceRecord>5000)
+		  {
+                          GV_speedControlT.Pid[0].PidCore.Kp = 0.8;
+                           GV_speedControlT.Pid[1].PidCore.Kp =0.8;
+                          GV_speedControlT.Pid[0].AimSpeed = 80;
+                          GV_speedControlT.Pid[1].AimSpeed = 80;
+                          Circle_Flag++;
+                          Beep_Down();
+                          circle_angle=0;
+			  C_OUT = 1;
+			  DISTANCE_RECORD_FLAG = 0;
+			  DistanceRecord = 0;
+		  }
+
+		  if(C_OUT&&Left_One<1000)
+		  {
+			  C_OUT = 0;
+		  }*/
+}

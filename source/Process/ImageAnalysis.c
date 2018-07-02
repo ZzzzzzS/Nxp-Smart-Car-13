@@ -10,9 +10,6 @@ LineBorder linesborder[MT9V034_H/2];
 
 uint8_t small_image[MT9V034_H/2][MT9V034_W/2];
 uint8_t converted_image[MT9V034_H/2][MT9V034_W/2];
-Stack SpaceMiddles;
-Stack EdgeLeft;
-Stack EdgeRight;
 
 // 
 //
@@ -217,7 +214,7 @@ __ramfunc void generatepath(uint8_t* img)
 //				以上为人工势场
 //
 
-
+/*
 __ramfunc void convolution(uint8_t* img)
 {
 	EdgeLeft.count=0;
@@ -579,6 +576,7 @@ __ramfunc uint8_t findCircle(uint8_t* img)
 	else 
 		return 3;	
 }
+*/
 
 __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 {

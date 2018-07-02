@@ -42,46 +42,36 @@ void SteerInit() {
   FTM_StartTimer(FTM3, kFTM_FixedClock);
 }
 
-void SteerPWMCalculator(int16_t value) {
-  int16_t errorNow=0;
+void SteerPWMCalculator()
+{
   int16_t addPwm = 0;
-  if(SpaceMiddles.count!=0){
-    //取下半部分图 
-  	//大于等于三个点的时候进行滤波  
-    if(SpaceMiddles.count>3)
-      errorNow = (SpaceMiddles.points[SpaceMiddles.count-1].x+SpaceMiddles.points[SpaceMiddles.count-2].x+SpaceMiddles.points[SpaceMiddles.count-3].x)/3-img_middle;
-    else
-      errorNow = SpaceMiddles.points[SpaceMiddles.count-1].x-img_middle;
 
-	if(SpaceMiddles.count<20&&I_abs(errorNow)>20)
+	if((GV_steerControlT.ErrorDistance<20) && (GV_steerControlT.ErrorDistance>-20))
     {
-      errorNow += errorNow>0? 10:-10;
+      GV_steerControlT.ErrorDistance += GV_steerControlT.ErrorDistance<0? 10:-10;
     }
-    
-
+  
 	//分段pd
-    if(I_abs(errorNow)<20)
+    if(I_abs(GV_steerControlT.ErrorDistance)<20)
     {
-      addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Small * errorNow +
-                               GV_steerControlT.PD.Steer_D_Small *(errorNow-GV_steerControlT.ErrorDistance));
-    }else{
-        addPwm = (int16_t)(GV_steerControlT.PD.Steer_P * errorNow +
-                           GV_steerControlT.PD.Steer_D *(errorNow-GV_steerControlT.ErrorDistance));
+      addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Small * GV_steerControlT.ErrorDistance +
+                               GV_steerControlT.PD.Steer_D_Small *(GV_steerControlT.ErrorDistance - GV_steerControlT.LastErrorDistance));
+    }
+    else
+    {
+      addPwm = (int16_t)(GV_steerControlT.PD.Steer_P * GV_steerControlT.ErrorDistance +
+                           GV_steerControlT.PD.Steer_D *(GV_steerControlT.ErrorDistance-GV_steerControlT.LastErrorDistance));
     }
     
-    GV_steerControlT.ErrorDistance = errorNow;
+    GV_steerControlT.LastErrorDistance = GV_steerControlT.ErrorDistance;
   
 
     GV_steerPwmOutValueI = STEER_MIDDLE-addPwm;
-    if(DISTANCE_RECORD_FLAG&&DistanceRecord>4000&&((READ_KEY4&&Circle_Flag==0)||(READ_KEY3&&Circle_Flag==1)))
-      GV_steerPwmOutValueI = circle_angle;
-
-
-  }
 
 }
 
-void SteerOut(void) {  //对输入上界进行保护
+void SteerOut(void) 
+{  //对输入上界进行保护
   if(GV_steerPwmOutValueI>STEER_PWM_MAX)
     GV_steerPwmOutValueI=STEER_PWM_MAX;
   else if(GV_steerPwmOutValueI<STEER_PWM_MIN)
