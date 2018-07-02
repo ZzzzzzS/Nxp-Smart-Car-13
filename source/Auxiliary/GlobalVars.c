@@ -12,7 +12,6 @@
 
 //电感
 int16_t InductanceVal[MAX_POSITION];
-int directionError;
 uint8_t InductanceMiddle=INDUCTANCE_MIDDLE; 
 
 //图像
@@ -42,7 +41,7 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  uint16_t STEER_MIDDLE=720;
 
 //判断标志位
- uint8_t Circle_Flag=0;
+ uint32_t Circle_Flag=0;
  uint8_t Motor_Stop=0;
  uint8_t DISPLAY_FLAG=0;
  uint8_t STOP_FLAG=0;

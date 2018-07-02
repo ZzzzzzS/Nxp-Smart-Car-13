@@ -3,9 +3,7 @@
 void ImageControlor(uint8_t* img)  //列188，行120
 {
   uint8_t use_flag = 1;
-	int16_t Left_One=0;
-	int16_t Right_One=0;
-	static uint16_t g_Speed_Cp = 0;  
+
   if(READ_LEFT)
   {
     GV_speedControlT.Pid[0].AimSpeed +=10;
@@ -37,9 +35,17 @@ void ImageControlor(uint8_t* img)  //列188，行120
         
 }
 
+void ActiveDiffSpeed()
+{
+
+}
+
 void stop_car()
 {
-	
+  if(0)
+    STOP_FLAG=1;
+  else
+    STOP_FLAG=0;
 }
 
 void meetingControl()
@@ -108,6 +114,7 @@ void SystemCtrl_PIT0CallBack()
   GV_speedControlT.Pid[LeftWheel].NowSpeed = -GV_speedControlT.Pid[LeftWheel].NowSpeed/5;
   GV_speedControlT.Pid[RightWheel].NowSpeed = -GV_speedControlT.Pid[RightWheel].NowSpeed/5;*/
 
+  ActiveDiffSpeed();//计算主动差速
   GV_speedControlT.Pid[LeftWheel].NowSpeed = getLeftSpeed(); //获取当前速度
   GV_speedControlT.Pid[RightWheel].NowSpeed = -getRightSpeed(); //获取当前速度
     

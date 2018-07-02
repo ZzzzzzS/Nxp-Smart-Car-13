@@ -50,6 +50,7 @@
 #include "AetherDriver_NRF.h"
 #include "fsl_dspi.h"
 #include "AetherDriver_SuperSonic.h"
+#include "MagneticAnalysis.h"
 
 #define CAR_NEW
 #endif

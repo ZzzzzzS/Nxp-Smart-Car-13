@@ -43,6 +43,64 @@ int getDirectionError5(int16_t* value)//用5电感获取误差
 
 void circleAnalysis(int16_t* value)
 {
+
+//圆环检测
+	if(value[MIDDLE]>3500&&Circle_Flag==0)//检测入环
+	{
+		Circle_Flag=1; //检测到圆环将标志位 置1,并当作超时计数器使用
+	}
+	else if(value[MIDDLE]>3500&&Circle_Flag>=50)//检测出环
+	{
+		Circle_Flag=0; //将圆环标志位置零
+	}
+
+	if(Circle_Flag!=0)
+	{
+		Circle_Flag++; //不为0时计数
+	}
+
+	if(Circle_Flag>=200) //超过200个系统周期后认为出圆环
+	{
+		Circle_Flag=0;
+	}
+
+	if(Circle_Flag!=0) //控制声音
+	{
+		Beep_Up();
+	}
+	else
+	{
+		Beep_Down();
+	}
+
+//圆环控制
+	if(Circle_Flag!=0)
+	{
+		if(Circle_Flag>=50)//刚入环的时候
+		{
+			if(GV_steerControlT.ErrorDistance>0)//刚入环的时候让它疯狂转一下
+			{
+				GV_steerControlT.ErrorDistance+=100;
+			}
+			else
+			{
+				GV_steerControlT.ErrorDistance-=100;
+			}
+		}
+		else //在圆环中的时候
+		{
+
+		}
+	}
+	else
+	{
+
+	}
+
+
+
+
+
 	/*if(value[LEFT]>3500&&DISTANCE_RECORD_FLAG==0&&C_OUT==0)
 	{
 		DISTANCE_RECORD_FLAG = 1;

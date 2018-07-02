@@ -49,6 +49,12 @@ void SpeedComput(speed_control_config_t* base)
 
 void MotorOut(speed_control_config_t *base)
 {
+  if(STOP_FLAG)
+  {
+    MotorOut_PWM(0);
+    return;
+  }
+
   if (base->OutSpeed[RightWheel] >= 0)
 		{
 			FTM_UpdatePwmDutycycle(FTM0, kFTM_Chnl_1, kFTM_EdgeAlignedPwm, 10*1000U, base->OutSpeed[RightWheel]);		//电机正转
