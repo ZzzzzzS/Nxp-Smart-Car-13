@@ -85,5 +85,6 @@ __ramfunc void delay_s(uint16_t s)
     int i=0;
     for(i;i<s;i++){
         delay_ms(1000);
+        asm("nop");
     }
 }
