@@ -6,9 +6,9 @@ void ImageControlor(uint8_t* img)  //列188，行120
 
   if(READ_LEFT)
   {
-    GV_speedControlT.Pid[0].AimSpeed +=10;
-    GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[0].AimSpeed;
-    Display_Number(0,6,GV_speedControlT.Pid[0].AimSpeed,YELLOW,RED);
+    GV_speedControlT.Pid[0].SetSpeed +=10;
+    GV_speedControlT.Pid[1].SetSpeed = GV_speedControlT.Pid[0].SetSpeed;
+    Display_Number(0,6,GV_speedControlT.Pid[0].SetSpeed,YELLOW,RED);
   }
         
   led_down();
@@ -37,7 +37,9 @@ void ImageControlor(uint8_t* img)  //列188，行120
 
 void ActiveDiffSpeed()
 {
-
+  GV_speedControlT.Pid[LeftWheel].AimSpeed=GV_speedControlT.Pid[LeftWheel].SetSpeed;
+  GV_speedControlT.Pid[RightWheel].AimSpeed=GV_speedControlT.Pid[RightWheel].SetSpeed;
+  
 }
 
 void stop_car()
@@ -63,8 +65,8 @@ void meetingControl()
 
   if(Meet)
   {
-    GV_speedControlT.Pid[0].AimSpeed = 40;
-    GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[0].AimSpeed;
+    GV_speedControlT.Pid[0].SetSpeed = 40;
+    GV_speedControlT.Pid[1].SetSpeed= GV_speedControlT.Pid[0].SetSpeed;
     InductanceMiddle = MEETING_MIDDLE;
   }
     
@@ -77,8 +79,8 @@ void meetingControl()
   {
     Meet = 0;
     Message.stop = 10;
-    GV_speedControlT.Pid[0].AimSpeed = 80;
-    GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[0].AimSpeed;
+    GV_speedControlT.Pid[0].SetSpeed= 80;
+    GV_speedControlT.Pid[1].SetSpeed = GV_speedControlT.Pid[0].SetSpeed;
     InductanceMiddle = INDUCTANCE_MIDDLE;
     Meet_distance=0;
   }
@@ -95,24 +97,6 @@ void SystemCtrl_PIT0CallBack()
   circleAnalysis(InductanceVal); //分析入圆
   SteerPWMCalculator(); //计算舵机PID
   SteerOut(); //计算舵机最终输出
-
-  /*static int16_t temp[5][2];
-  static uint8_t loop_flag=0;
-  temp[loop_flag][LeftWheel] = getLeftSpeed();
-  temp[loop_flag][RightWheel] = -getRightSpeed();
-    
-  loop_flag=(loop_flag+1)%5;
-    
-  GV_speedControlT.Pid[LeftWheel].NowSpeed=0;
-  GV_speedControlT.Pid[RightWheel].NowSpeed=0;
-    
-  for(int i=0;i<5;i++)
-  {
-    GV_speedControlT.Pid[LeftWheel].NowSpeed+=temp[i][LeftWheel];
-    GV_speedControlT.Pid[RightWheel].NowSpeed+=temp[i][RightWheel];
-  }
-  GV_speedControlT.Pid[LeftWheel].NowSpeed = -GV_speedControlT.Pid[LeftWheel].NowSpeed/5;
-  GV_speedControlT.Pid[RightWheel].NowSpeed = -GV_speedControlT.Pid[RightWheel].NowSpeed/5;*/
 
   ActiveDiffSpeed();//计算主动差速
   GV_speedControlT.Pid[LeftWheel].NowSpeed = getLeftSpeed(); //获取当前速度

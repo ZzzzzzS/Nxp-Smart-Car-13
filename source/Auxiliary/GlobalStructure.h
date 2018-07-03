@@ -47,6 +47,7 @@ typedef enum        					//PID误差枚举
 
 typedef struct
 {
+  int16_t SetSpeed;
   int16_t AimSpeed;                 //pid目标速度
   int16_t NowSpeed;	                //pid当前速度
   int16_t IncrementSpeed;           //pid速度增量(pid输出结果)
