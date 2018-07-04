@@ -38,6 +38,7 @@ extern steer_config_t GV_steerControlT;
 extern uint16_t STEER_PWM_MAX;
 extern uint16_t STEER_PWM_MIN;
 
+
 //判断标志位
 extern uint32_t Circle_Flag;
 extern uint8_t Motor_Stop;

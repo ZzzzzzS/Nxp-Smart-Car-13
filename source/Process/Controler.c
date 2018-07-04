@@ -11,10 +11,8 @@ void ImageControlor(uint8_t* img)  //列188，行120
         
 }
 
-void ActiveDiffSpeed()
+void ActiveDiffSpeed(speed_control_config_t *speed,int16_t *steerValue)
 {
-  GV_speedControlT.Pid[LeftWheel].AimSpeed=GV_speedControlT.Pid[LeftWheel].SetSpeed;
-  GV_speedControlT.Pid[RightWheel].AimSpeed=GV_speedControlT.Pid[RightWheel].SetSpeed;
   
 }
 

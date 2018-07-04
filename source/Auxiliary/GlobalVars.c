@@ -40,6 +40,7 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  uint16_t STEER_PWM_MIN=680;
  uint16_t STEER_MIDDLE=720;
 
+
 //判断标志位
  uint32_t Circle_Flag=0;
  uint8_t Motor_Stop=0;
