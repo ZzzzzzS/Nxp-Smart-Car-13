@@ -2,32 +2,8 @@
 
 void ImageControlor(uint8_t* img)  //列188，行120
 {
-  uint8_t use_flag = 1;
-
-  if(READ_LEFT)
-  {
-    GV_speedControlT.Pid[0].SetSpeed +=10;
-    GV_speedControlT.Pid[1].SetSpeed = GV_speedControlT.Pid[0].SetSpeed;
-    Display_Number(0,6,GV_speedControlT.Pid[0].SetSpeed,YELLOW,RED);
-  }
-        
-  led_down();
-  if(READ_KEY2)
-  {
-    NRF24L01_SetMode(MODE_TX);
-    NRF24L01_CE_L;
-    NRF24L01_WriteTxPayload_NOACK((uint8_t*)(&Message), sizeof(Message));
-  }
-
-  NRF24L01_CE_H;   
-		//缩放加二值化
+  //缩放加二值化
   getSmallImage(img,small_image);
-        
-  if(Using_Flag==Using_A)
-    Using_Flag=Using_B;
-  else if(Using_Flag==Using_B)
-    Using_Flag=Using_A;
-
   if(use_flag)
   {
 
@@ -52,6 +28,17 @@ void stop_car()
 
 void meetingControl()
 {
+
+  led_down();
+  if(READ_KEY2)
+  {
+    NRF24L01_SetMode(MODE_TX);
+    NRF24L01_CE_L;
+    NRF24L01_WriteTxPayload_NOACK((uint8_t*)(&Message), sizeof(Message));
+  }
+
+  NRF24L01_CE_H;   
+
   if(READ_KEY2&&Message.distance_between<1500)
   {
     Message.stop = 22;
@@ -88,6 +75,12 @@ void meetingControl()
 
 void SystemCtrl_PIT0CallBack()
 {
+	CAMERA_COUNT = (CAMERA_COUNT+1)%CAMERA_LIMIT;
+	if(CAMERA_COUNT==0&&MT9V034_CaptureAccomplished == true) 
+	{
+		EnableIRQ(MT9V034_DMA_CHANNEL);
+    	EnableIRQ(PORTB_IRQn);
+	}
   //系统时间加一
 	++g_Time;
 	++g_Time_NRF;

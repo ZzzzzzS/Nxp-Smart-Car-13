@@ -44,4 +44,6 @@ extern uint8_t Motor_Stop;
 extern uint8_t DISPLAY_FLAG;
 extern uint8_t STOP_FLAG;
 
+extern 	uint8_t CAMERA_COUNT;
+extern 	const uint8_t CAMERA_LIMIT;
 #endif
