@@ -22,3 +22,20 @@ void SendAdValue(void *wareaddr, uint32_t waresize)
     UART_WriteBlocking(UART4,cmdr,sizeof(cmdr));       //发送数据
 
 }
+
+void SendAdValueUsingAetherUper(void *wareaddr, uint32_t waresize)
+{
+    uint8_t cmdf[2] = {0xaa, 0x10};    //串口调试 使用的前命令
+    uint8_t cmdr[1] = {0xfc};    //串口调试 使用的后命令
+
+    uint8_t dataToSend[24]={0};
+    for(int i=0;i<waresize;i++)
+    {
+        dataToSend[i]=wareaddr[i];
+    }
+
+    UART_WriteBlocking(UART4,cmdf,sizeof(cmdf));       //发送数据
+    UART_WriteBlocking(UART4,dataToSend,sizeof(waresize));       //发送数据
+    UART_WriteBlocking(UART4,cmdr,sizeof(cmdr));       //发送数据
+
+}
