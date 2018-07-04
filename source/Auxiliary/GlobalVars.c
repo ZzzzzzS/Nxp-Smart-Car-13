@@ -38,7 +38,7 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  steer_config_t GV_steerControlT;
  uint16_t STEER_PWM_MAX=824;
  uint16_t STEER_PWM_MIN=674;
- uint16_t STEER_MIDDLE=746
+ uint16_t STEER_MIDDLE=746;
 
 
 //判断标志位
