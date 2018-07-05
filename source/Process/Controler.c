@@ -13,7 +13,11 @@ void ImageControlor(uint8_t* img)  //列188，行120
 
 void ActiveDiffSpeed(speed_control_config_t *speed,int16_t *steerValue)
 {
+  GV_speedControlT.Pid[RightWheel].AimSpeed=GV_speedControlT.Pid[RightWheel].SetSpeed;
+  GV_speedControlT.Pid[LeftWheel].AimSpeed=GV_speedControlT.Pid[LeftWheel].SetSpeed;
+
   
+
 }
 
 void stop_car()
@@ -89,7 +93,11 @@ void SystemCtrl_PIT0CallBack()
   SteerPWMCalculator(); //计算舵机PID
   SteerOut(); //计算舵机最终输出
 
-  ActiveDiffSpeed();//计算主动差速
+  GV_speedControlT.Pid[RightWheel].AimSpeed=GV_speedControlT.Pid[RightWheel].SetSpeed;
+  GV_speedControlT.Pid[LeftWheel].AimSpeed=GV_speedControlT.Pid[LeftWheel].SetSpeed;
+
+  ActiveDiffSpeed(&GV_speedControlT,&GV_steerPwmOutValueI);
+
   GV_speedControlT.Pid[LeftWheel].NowSpeed = getLeftSpeed(); //获取当前速度
   GV_speedControlT.Pid[RightWheel].NowSpeed = -getRightSpeed(); //获取当前速度
     
