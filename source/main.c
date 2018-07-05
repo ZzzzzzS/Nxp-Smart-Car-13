@@ -22,5 +22,6 @@ int main(void)
   {
     meetingControl();
     stop_car();
+    LCD_DrawPicture_Small(MT9V034_IMGBUFF_A);
   }
 }

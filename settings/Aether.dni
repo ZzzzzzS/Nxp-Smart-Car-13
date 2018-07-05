@@ -146,7 +146,7 @@ PowerConnectPC=1
 [ArmDriver]
 EnableCache=1
 [DebugChecksum]
-Checksum=-2055979457
+Checksum=39357073
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]
@@ -258,8 +258,7 @@ ProbeSetup0=2 1 1 2 0 0
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\SOURCE\PROCESS\Controler.c}.90.2" 0 0 1 "" 0 "" 0
-Count=1
+Count=0
 [Aliases]
 A0=_ "G:\Aether\Aether\board\board.c" ""
 A1=_ "G:\Aether\Aether\source\main.c" ""

@@ -4,10 +4,6 @@ void ImageControlor(uint8_t* img)  //列188，行120
 {
   //缩放加二值化
   getSmallImage(img,small_image);
-  if(use_flag)
-  {
-
-  }   
         
 }
 
