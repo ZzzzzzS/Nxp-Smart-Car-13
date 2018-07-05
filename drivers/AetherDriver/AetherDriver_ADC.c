@@ -96,13 +96,20 @@ void ADC_Init()
     hsadcSampleConfigStruct.channel67MuxNumber =2U;
     hsadcSampleConfigStruct.enableDifferentialPair =false;
     HSADC_SetSampleConfig(HSADC0, 0U, &hsadcSampleConfigStruct);
+
     hsadcSampleConfigStruct.channelNumber =7U;
     hsadcSampleConfigStruct.channel67MuxNumber =2U;
     hsadcSampleConfigStruct.enableDifferentialPair =false;
     HSADC_SetSampleConfig(HSADC0, 1U, &hsadcSampleConfigStruct);
 
+    hsadcSampleConfigStruct.channelNumber =3U;
+    hsadcSampleConfigStruct.channel67MuxNumber =0U;
+    hsadcSampleConfigStruct.enableDifferentialPair =false;
+    HSADC_SetSampleConfig(HSADC0, 2U, &hsadcSampleConfigStruct);
+
 	sampleMask = HSADC_SAMPLE_MASK(0U)    /* For converter A. */
-                 | HSADC_SAMPLE_MASK(1U);  /* For converter A. */
+                 | HSADC_SAMPLE_MASK(1U)
+                 |HSADC_SAMPLE_MASK(2U);  /* For converter A. */
      
     HSADC_EnableSample(HSADC0, sampleMask, true);
     HSADC_EnableSample(HSADC0, (uint16_t)(~sampleMask), false); /* Disable other sample slots. */
@@ -115,9 +122,7 @@ void GetADCVal(int16_t* vals)
     int16_t temp[MAX_POSITION] = {0};
 	uint16_t sampleMask = HSADC_SAMPLE_MASK(0U)    /* For converter A. */
                         | HSADC_SAMPLE_MASK(1U)
-                        |HSADC_SAMPLE_MASK(2U)
-                        |HSADC_SAMPLE_MASK(3U)
-                        |HSADC_SAMPLE_MASK(4U);  /* For converter A. */
+                        | HSADC_SAMPLE_MASK(2U);  /* For converter A. */
     // static adc16_channel_config_t ADC1_SExb_config;
     // ADC1_SExb_config.channelNumber = MOTORn;                                  // 4 ~ ADC1 SE4a(b), 4 ~ ADC1 SE5a(b)
     // ADC1_SExb_config.enableDifferentialConversion = false;                    // 不使能差分转换模式
@@ -136,10 +141,8 @@ void GetADCVal(int16_t* vals)
 
         if (sampleMask == (sampleMask & HSADC_GetSampleReadyStatusFlags(HSADC0))){
         temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U);
-        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U);
-        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
-        temp[3] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
-        temp[4] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
+        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
+        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U);
 		}
         HSADC_ClearStatusFlags(HSADC0, kHSADC_ConverterAEndOfScanFlag);
     }
@@ -158,9 +161,7 @@ void GetADCValWithoutUniformization(int16_t* vals)
         int16_t temp[MAX_POSITION] = {0};
 	uint16_t sampleMask = HSADC_SAMPLE_MASK(0U)    /* For converter A. */
                         | HSADC_SAMPLE_MASK(1U)
-                        |HSADC_SAMPLE_MASK(2U)
-                        |HSADC_SAMPLE_MASK(3U)
-                        |HSADC_SAMPLE_MASK(4U);  /* For converter A. */
+                        |HSADC_SAMPLE_MASK(2U);  /* For converter A. */
     // static adc16_channel_config_t ADC1_SExb_config;
     // ADC1_SExb_config.channelNumber = MOTORn;                                  // 4 ~ ADC1 SE4a(b), 4 ~ ADC1 SE5a(b)
     // ADC1_SExb_config.enableDifferentialConversion = false;                    // 不使能差分转换模式
@@ -179,10 +180,8 @@ void GetADCValWithoutUniformization(int16_t* vals)
 
         if (sampleMask == (sampleMask & HSADC_GetSampleReadyStatusFlags(HSADC0))){
         temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U);
-        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U);
-        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
-        temp[3] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
-        temp[4] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
+        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
+        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U);
 		}
         HSADC_ClearStatusFlags(HSADC0, kHSADC_ConverterAEndOfScanFlag);
     }

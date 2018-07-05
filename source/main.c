@@ -20,8 +20,15 @@ int main(void)
   
   while (1)
   {
-    meetingControl();
-    stop_car();
-    LCD_DrawPicture_Small(MT9V034_IMGBUFF_A);
+    delay_ms(100);
+    Display_Number(0,1,InductanceVal[0],YELLOW,RED);
+    Display_Number(0,2,InductanceVal[1],YELLOW,RED);
+    Display_Number(0,3,InductanceVal[2],YELLOW,RED);
+    //meetingControl();
+    //stop_car();
+   // LCD_DrawPicture_Small(MT9V034_IMGBUFF_A);
+    led_blue(1);
+    delay_ms(100);
+    led_blue(0);
   }
 }
