@@ -117,8 +117,8 @@ typedef enum{
 typedef enum 		//枚举定义电感位置
 {
 	LEFT,
-	RIGHT,
-	MIDDLE,
+        RIGHT,
+        MIDDLE,
 	FRONT_LEFT,
 	FRONT_RIGHT,
   MAX_POSITION

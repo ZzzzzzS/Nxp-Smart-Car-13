@@ -91,6 +91,7 @@ void ADC_Init()
 
 
     HSADC_GetDefaultSampleConfig(&hsadcSampleConfigStruct);
+    //hsadcSampleConfigStruct.highLimitValue=0x0000;
 	
 	hsadcSampleConfigStruct.channelNumber =6U;
     hsadcSampleConfigStruct.channel67MuxNumber =2U;
@@ -140,9 +141,9 @@ void GetADCVal(int16_t* vals)
         }
 
         if (sampleMask == (sampleMask & HSADC_GetSampleReadyStatusFlags(HSADC0))){
-        temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U);
-        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
-        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U);
+        temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U)>>2;
+        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U)>>2;
+        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U)>>2;
 		}
         HSADC_ClearStatusFlags(HSADC0, kHSADC_ConverterAEndOfScanFlag);
     }
@@ -179,9 +180,9 @@ void GetADCValWithoutUniformization(int16_t* vals)
         }
 
         if (sampleMask == (sampleMask & HSADC_GetSampleReadyStatusFlags(HSADC0))){
-        temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U);
-        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U);
-        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U);
+        temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U)>>2;
+        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U)>>2;
+        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U)>>2;
 		}
         HSADC_ClearStatusFlags(HSADC0, kHSADC_ConverterAEndOfScanFlag);
     }
