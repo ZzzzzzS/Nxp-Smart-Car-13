@@ -380,7 +380,7 @@ void Display_ASCII8X16(uint8_t x0,uint8_t y0,uint8_t *s,uint16_t bg,uint16_t fc)
 void Display_Number(uint8_t x,uint8_t y,uint32_t num,uint16_t bg,uint16_t fc)
 {
     uint8_t buffer[10];
-    sprintf(buffer,"%ld",num);
+    sprintf(buffer,"%04d",num);
     Display_ASCII8X16(x,y,buffer,bg,fc);
 }
 

@@ -27,8 +27,8 @@ int main(void)
     //meetingControl();
     //stop_car();
    // LCD_DrawPicture_Small(MT9V034_IMGBUFF_A);
-    led_blue(1);
+    led_red(1);
     delay_ms(100);
-    led_blue(0);
+    led_red(0);
   }
 }

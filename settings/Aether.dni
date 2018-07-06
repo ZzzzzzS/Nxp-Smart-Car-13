@@ -146,7 +146,7 @@ PowerConnectPC=1
 [ArmDriver]
 EnableCache=1
 [DebugChecksum]
-Checksum=450957921
+Checksum=38851360
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]
@@ -234,6 +234,12 @@ ShowTimeLog=1
 SumEnabled=0
 ShowTimeSum=1
 SumSortOrder=0
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\source\Gather\Inductance.c}.7.1" 0 0 1 "" 0 "" 0
+Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\source\main.c}.19.3" 0 0 1 "" 0 "" 0
+Count=2
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -241,6 +247,19 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Aliases]
+A0=_ "G:\Aether\Aether\board\board.c" ""
+A1=_ "G:\Aether\Aether\source\main.c" ""
+A2=_ "G:\Aether\Aether\startup\startup_MKV58F24.s" ""
+A3=_ "G:\Aether\board\clock_config.c" ""
+A4=_ "G:\Aether\drivers\fsl_dspi.c" ""
+A5=_ "G:\Aether\drivers\fsl_flexcan.c" ""
+A6=_ "G:\Aether\drivers\fsl_i2c.c" ""
+A7=_ "G:\Aether\source\main.c" ""
+A8=_ "G:\Aether\startup\startup_MKV58F24.s" ""
+A9=_ "Z:\Aether\source\main.c" ""
+Count=10
+SuppressDialog=1
 [DriverProfiling]
 Enabled=0
 Mode=1
@@ -255,23 +274,3 @@ ShowTiming=1
 Frequency=10000
 Probe0=I0
 ProbeSetup0=2 1 1 2 0 0
-[Disassemble mode]
-mode=0
-[Breakpoints2]
-Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\SOURCE\GATHER\Inductance.c}.7.1" 0 0 1 "" 0 "" 0
-Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\SOURCE\main.c}.19.3" 0 0 1 "" 0 "" 0
-Bp2=_ 1 "EMUL_CODE" "{$PROJ_DIR$\SOURCE\GATHER\Inductance.c}.30.1" 0 0 1 "" 0 "" 0
-Count=3
-[Aliases]
-A0=_ "G:\Aether\Aether\board\board.c" ""
-A1=_ "G:\Aether\Aether\source\main.c" ""
-A2=_ "G:\Aether\Aether\startup\startup_MKV58F24.s" ""
-A3=_ "G:\Aether\board\clock_config.c" ""
-A4=_ "G:\Aether\drivers\fsl_dspi.c" ""
-A5=_ "G:\Aether\drivers\fsl_flexcan.c" ""
-A6=_ "G:\Aether\drivers\fsl_i2c.c" ""
-A7=_ "G:\Aether\source\main.c" ""
-A8=_ "G:\Aether\startup\startup_MKV58F24.s" ""
-A9=_ "Z:\Aether\source\main.c" ""
-Count=10
-SuppressDialog=1

@@ -120,7 +120,7 @@ void GetADCVal(int16_t* vals)
 {
 
     int16_t temp[MAX_POSITION] = {0};
-	uint16_t sampleMask = HSADC_SAMPLE_MASK(0U)    /* For converter A. */
+    uint16_t sampleMask = HSADC_SAMPLE_MASK(0U)    /* For converter A. */
                         | HSADC_SAMPLE_MASK(1U)
                         | HSADC_SAMPLE_MASK(2U);  /* For converter A. */
     // static adc16_channel_config_t ADC1_SExb_config;
@@ -150,7 +150,7 @@ void GetADCVal(int16_t* vals)
     for(int i=0;i<MAX_POSITION;i++) //完成归一化操作
     {
         temp[i] = temp[i] / 5;
-        vals[i] = (float)((temp[i] - ADside[i].min) / (ADside[i].max - ADside[i].min))*1000;
+        vals[i] = (float)((float)(temp[i] - ADside[i].min) / (float)(ADside[i].max - ADside[i].min))*1000;
     }
 
 }

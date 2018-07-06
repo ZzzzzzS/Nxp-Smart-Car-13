@@ -17,7 +17,10 @@ void AD_Get_side()
 
     while(READ_KEY1)
     {
-		 GetADCValWithoutUniformization(Read_Data);
+      GetADCValWithoutUniformization(Read_Data);
+      Display_Number(0,1,InductanceVal[0],YELLOW,RED);
+      Display_Number(0,2,InductanceVal[1],YELLOW,RED);
+      Display_Number(0,3,InductanceVal[2],YELLOW,RED);
          
          for(int i=0;i<MAX_POSITION;i++)
          {
