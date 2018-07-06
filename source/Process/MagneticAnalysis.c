@@ -28,8 +28,8 @@ int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 		sum[2] = 0;
 	}
 	
-	sum[2] = Rk*sum[2] + Rb;
-	sum[1] = Lk*sum[1] + Lb;
+	sum[2] = Rk*(float)sum[2] + Rb;
+	sum[1] = Lk*(float)sum[1] + Lb;
 
 	return (sum[0]*5 + sum[1] + sum[2])/7;						//计算出最终误差
 

@@ -44,8 +44,8 @@ void Init()
     Display_ASCII8X16(0,0,"NRF",BLACK,WHITE);
     PIDInit(&GV_speedControlT.Pid[0],0.8,0,0);
     PIDInit(&GV_speedControlT.Pid[1],0.8,0,0);
-    GV_speedControlT.Pid[0].SetSpeed = 50;
-    GV_speedControlT.Pid[1].SetSpeed = 50;
+    GV_speedControlT.Pid[0].SetSpeed = 100;
+    GV_speedControlT.Pid[1].SetSpeed = 100;
     //iic_init();   
     //MPU6050_Inital();
     result = Flash_init();

@@ -15,7 +15,7 @@ void SteerInit() {
   GV_steerControlT.LastErrorDistance = 0;
   GV_steerControlT.PD.Steer_P = 4;
   GV_steerControlT.PD.Steer_D = 1;
-  GV_steerControlT.PD.Steer_P_Small = 2;
+  GV_steerControlT.PD.Steer_P_Small = 1;
   GV_steerControlT.PD.Steer_D_Small = 1;
   // ftm_pwm_init(STEER_FTM, STEER_FTM_CHANAL,100, 0);
 

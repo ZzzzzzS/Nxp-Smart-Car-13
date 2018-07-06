@@ -24,12 +24,14 @@ int main(void)
     Display_Number(0,1,InductanceVal[LEFT],YELLOW,RED);
     Display_Number(0,2,InductanceVal[MIDDLE],YELLOW,RED);
     Display_Number(0,3,InductanceVal[RIGHT],YELLOW,RED);
+    Display_Number(0,4,GV_steerControlT.ErrorDistance,YELLOW,RED);
     //meetingControl();
     //stop_car();
     //LCD_DrawPicture(IMG_NOW);
-    led_red(1);
+    //led_red(1);
     delay_ms(100);
-    led_red(0);
+    //led_red(0);
+    SendAdValue(InductanceVal, sizeof(InductanceVal));//发送到山外上位机显示
     
   }
 }
