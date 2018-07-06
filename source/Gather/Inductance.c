@@ -41,6 +41,8 @@ void AD_Get_side()
             if(ADside[i].min<50)
               ADside[i].min=50;
          }
+         
+     SendAdValue(Read_Data, sizeof(Read_Data));//发送到山外上位机显示
     }
 }
 

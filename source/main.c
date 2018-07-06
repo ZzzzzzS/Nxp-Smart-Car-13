@@ -26,10 +26,10 @@ int main(void)
     Display_Number(0,3,InductanceVal[RIGHT],YELLOW,RED);
     //meetingControl();
     //stop_car();
-   // LCD_DrawPicture_Small(MT9V034_IMGBUFF_A);
+    //LCD_DrawPicture(IMG_NOW);
     led_red(1);
     delay_ms(100);
     led_red(0);
-    //SendAdValue(void *wareaddr, uint32_t waresize);发送到山外上位机显示
+    
   }
 }

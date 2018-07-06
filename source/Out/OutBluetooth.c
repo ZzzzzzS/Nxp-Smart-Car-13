@@ -18,7 +18,7 @@ void SendAdValue(void *wareaddr, uint32_t waresize)
     uint8_t cmdr[2] = {~CMD_WARE, CMD_WARE};    //串口调试 使用的后命令
 
     UART_WriteBlocking(UART4,cmdf,sizeof(cmdf));       //发送数据
-    UART_WriteBlocking(UART4,wareaddr,sizeof(waresize));       //发送数据
+    UART_WriteBlocking(UART4,wareaddr,waresize);       //发送数据
     UART_WriteBlocking(UART4,cmdr,sizeof(cmdr));       //发送数据
 
 }
