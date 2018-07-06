@@ -13,6 +13,7 @@
 //extern void SteerOut();
 extern void SteerInit();
 extern void SteerPWMCalculator();
+extern void SteerPWMCalculator2();
 extern void SteerOut(void);
 extern void Steer_ajust();
 extern void SteerSet(uint16_t pwm);

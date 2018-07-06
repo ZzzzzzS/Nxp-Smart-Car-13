@@ -70,6 +70,31 @@ void SteerPWMCalculator()
 
 }
 
+
+void SteerPWMCalculator2()
+{
+  float P,D;
+  int16_t addPwm = 0;
+  if(GV_steerControlT.ErrorDistance>0)
+  {
+    P=0.0005*GV_steerControlT.ErrorDistance;
+    D=0.01*GV_steerControlT.ErrorDistance;
+  }
+  else
+  {
+    P=-0.0005*GV_steerControlT.ErrorDistance;
+    D=-0.01*GV_steerControlT.ErrorDistance;
+  }
+
+  addPwm = (int16_t)(P * GV_steerControlT.ErrorDistance +
+                     D *(GV_steerControlT.ErrorDistance-GV_steerControlT.LastErrorDistance));
+
+  GV_steerControlT.LastErrorDistance = GV_steerControlT.ErrorDistance;
+  GV_steerPwmOutValueI = STEER_MIDDLE-addPwm;
+
+}
+
+
 void SteerOut(void) 
 {  //对输入上界进行保护
   if(GV_steerPwmOutValueI>STEER_PWM_MAX)

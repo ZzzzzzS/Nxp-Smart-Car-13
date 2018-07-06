@@ -83,7 +83,7 @@ void SystemCtrl_PIT0CallBack()
   GetADCVal(InductanceVal);  //获取adc采集的值
   GV_steerControlT.ErrorDistance=getDirectionError3(InductanceVal); //差比和计算误差
   //circleAnalysis(InductanceVal); //分析入圆
-  SteerPWMCalculator(); //计算舵机PID
+  SteerPWMCalculator2(); //计算舵机PID
   SteerOut(); //计算舵机最终输出
 
   GV_speedControlT.Pid[RightWheel].AimSpeed=GV_speedControlT.Pid[RightWheel].SetSpeed;
