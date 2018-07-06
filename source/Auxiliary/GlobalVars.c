@@ -11,7 +11,7 @@
 #include "include.h"
 
 //电感
-int16_t InductanceVal[MAX_POSITION];
+uint16_t InductanceVal[MAX_POSITION];
 uint8_t InductanceMiddle=INDUCTANCE_MIDDLE; 
 
 //图像

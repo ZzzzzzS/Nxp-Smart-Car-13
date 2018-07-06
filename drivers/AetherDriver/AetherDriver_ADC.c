@@ -120,7 +120,7 @@ void ADC_Init()
 void GetADCVal(int16_t* vals)
 {
 
-    int16_t temp[MAX_POSITION] = {0};
+    uint16_t temp[MAX_POSITION] = {0};
     uint16_t sampleMask = HSADC_SAMPLE_MASK(0U)    /* For converter A. */
                         | HSADC_SAMPLE_MASK(1U)
                         | HSADC_SAMPLE_MASK(2U);  /* For converter A. */
@@ -141,9 +141,9 @@ void GetADCVal(int16_t* vals)
         }
 
         if (sampleMask == (sampleMask & HSADC_GetSampleReadyStatusFlags(HSADC0))){
-        temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U)>>2;
-        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U)>>2;
-        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U)>>2;
+        temp[0] += (HSADC_GetSampleResultValue(HSADC0, 0U)>>2);
+        temp[1] += (HSADC_GetSampleResultValue(HSADC0, 1U)>>2);
+        temp[2] += (HSADC_GetSampleResultValue(HSADC0, 2U)>>2);
 		}
         HSADC_ClearStatusFlags(HSADC0, kHSADC_ConverterAEndOfScanFlag);
     }
@@ -159,7 +159,7 @@ void GetADCVal(int16_t* vals)
 
 void GetADCValWithoutUniformization(int16_t* vals)
 {
-        int16_t temp[MAX_POSITION] = {0};
+        uint16_t temp[MAX_POSITION] = {0};
 	uint16_t sampleMask = HSADC_SAMPLE_MASK(0U)    /* For converter A. */
                         | HSADC_SAMPLE_MASK(1U)
                         |HSADC_SAMPLE_MASK(2U);  /* For converter A. */
@@ -180,9 +180,9 @@ void GetADCValWithoutUniformization(int16_t* vals)
         }
 
         if (sampleMask == (sampleMask & HSADC_GetSampleReadyStatusFlags(HSADC0))){
-        temp[0] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 0U)>>2;
-        temp[1] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 1U)>>2;
-        temp[2] += (int16_t)HSADC_GetSampleResultValue(HSADC0, 2U)>>2;
+        temp[0] += (HSADC_GetSampleResultValue(HSADC0, 0U)>>2);
+        temp[1] += (HSADC_GetSampleResultValue(HSADC0, 1U)>>2);
+        temp[2] += (HSADC_GetSampleResultValue(HSADC0, 2U)>>2);
 		}
         HSADC_ClearStatusFlags(HSADC0, kHSADC_ConverterAEndOfScanFlag);
     }

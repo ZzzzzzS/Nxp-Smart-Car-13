@@ -30,5 +30,6 @@ int main(void)
     led_red(1);
     delay_ms(100);
     led_red(0);
+    //SendAdValue(void *wareaddr, uint32_t waresize);发送到山外上位机显示
   }
 }

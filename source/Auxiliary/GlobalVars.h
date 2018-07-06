@@ -14,7 +14,7 @@
 #include "GlobalStructure.h"
 
 //电感
-extern int16_t InductanceVal[MAX_POSITION];
+extern uint16_t InductanceVal[MAX_POSITION];
 extern uint8_t InductanceMiddle; 
 
 //图像
