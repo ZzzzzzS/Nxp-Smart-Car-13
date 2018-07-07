@@ -1,6 +1,5 @@
 #include "include.h"
 
-uint16_t g_Speed = 2000;
 
 void Speed_Init()
 {

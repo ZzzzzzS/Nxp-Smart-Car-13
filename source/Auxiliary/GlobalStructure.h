@@ -121,13 +121,13 @@ typedef enum 		//枚举定义电感位置
         MIDDLE,
 	FRONT_LEFT,
 	FRONT_RIGHT,
-  MAX_POSITION
+  MAX_POSITION=8
 }InductancePosition_e;
 
 
-#define Rk -1.4002
-#define Rb -0.5324
-#define Lk 1.3998
-#define Lb 0.5072
+#define Rk -1.3109
+#define Rb -0.4586
+#define Lk 1.3377
+#define Lb 0.4338
 
 #endif

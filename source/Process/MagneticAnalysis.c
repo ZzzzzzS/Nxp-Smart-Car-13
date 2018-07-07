@@ -45,23 +45,19 @@ void circleAnalysis(int16_t* value)
 {
 
 //圆环检测
-	if(value[MIDDLE]>3500&&Circle_Flag==0)//检测入环
+	if(value[MIDDLE]>2000&&Circle_Flag==0)//检测入环
 	{
 		Circle_Flag=1; //检测到圆环将标志位 置1,并当作超时计数器使用
+		if(value[LEFT]>value[RIGHT])
+			Circle_Direction = LEFT;
+		else
+			Circle_Direction = RIGHT;
 	}
-	else if(value[MIDDLE]>3500&&Circle_Flag>=50)//检测出环
-	{
-		Circle_Flag=0; //将圆环标志位置零
-	}
-
-	if(Circle_Flag!=0)
-	{
-		Circle_Flag++; //不为0时计数
-	}
-
-	if(Circle_Flag>=200) //超过200个系统周期后认为出圆环
+	
+	if(DistanceAddFlag>1500)
 	{
 		Circle_Flag=0;
+		DistanceAddFlag = 0;
 	}
 
 	if(Circle_Flag!=0) //控制声音
@@ -76,20 +72,13 @@ void circleAnalysis(int16_t* value)
 //圆环控制
 	if(Circle_Flag!=0)
 	{
-		if(Circle_Flag>=50)//刚入环的时候
+		if(Circle_Direction == LEFT)//刚入环的时候让它疯狂转一下
 		{
-			if(GV_steerControlT.ErrorDistance>0)//刚入环的时候让它疯狂转一下
-			{
-				GV_steerControlT.ErrorDistance+=100;
-			}
-			else
-			{
-				GV_steerControlT.ErrorDistance-=100;
-			}
+			GV_steerControlT.ErrorDistance+=500;
 		}
-		else //在圆环中的时候
+		else
 		{
-
+			GV_steerControlT.ErrorDistance-=500;
 		}
 	}
 	else

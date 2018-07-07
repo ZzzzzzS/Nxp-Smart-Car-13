@@ -25,6 +25,8 @@ int main(void)
     Display_Number(0,2,InductanceVal[MIDDLE],YELLOW,RED);
     Display_Number(0,3,InductanceVal[RIGHT],YELLOW,RED);
     Display_Number(0,4,GV_steerControlT.ErrorDistance,YELLOW,RED);
+    Display_Number(0,5,GV_speedControlT.Pid[LeftWheel].NowSpeed,YELLOW,RED);
+    Display_Number(10,5,GV_speedControlT.Pid[RightWheel].NowSpeed,YELLOW,RED);
     //meetingControl();
     //stop_car();
     //LCD_DrawPicture(IMG_NOW);

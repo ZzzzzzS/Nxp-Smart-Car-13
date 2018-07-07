@@ -151,7 +151,11 @@ void GetADCVal(int16_t* vals)
     for(int i=0;i<MAX_POSITION;i++) //完成归一化操作
     {
         temp[i] = temp[i] / 5;
+        if(temp[i]<20)
+          temp[i]=20;
+        
         vals[i] = (float)((float)(temp[i] - ADside[i].min) / (float)(ADside[i].max - ADside[i].min))*1000;
+    
     }
 
 }

@@ -265,7 +265,6 @@ __ramfunc void MT9V034_FrameValid_Callback(uint32_t ISFR_FLAG)
             line = 0;
             IMG_NOW = (uint8_t*)MT9V034_IMGBUFF_A;
             MT9V034_CaptureAccomplished = true;
-			DisableIRQ(MT9V034_DMA_CHANNEL);
 			DisableIRQ(PORTB_IRQn);
 			ImageControlor(IMG_NOW);
         }

@@ -38,11 +38,12 @@ void AD_Get_side()
             else if(Read_Data[i]<ADside[i].min)
                 ADside[i].min=Read_Data[i];
             
-            if(ADside[i].min<50)
-              ADside[i].min=50;
+            if(ADside[i].min<20)
+              ADside[i].min=20;
          }
          
      
     }
+    flash_write(2,sizeof(ADside),(uint8_t*)&ADside);
 }
 

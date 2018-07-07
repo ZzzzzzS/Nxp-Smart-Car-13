@@ -2,6 +2,8 @@
 #define USE_LANDSCAPE
 
 menu_item menu_list[MENU_ITEM_COUNT];
+uint8_t MENU_LAST=13;
+
 //向液晶屏写一个8位指令
 void  Lcd_WriteIndex(uint8_t Data)
 {
@@ -443,56 +445,56 @@ void flash_from_menu()
 void menu_in()
 {
     memset(menu_list,0,sizeof(menu_list));
-    sprintf(menu_list[0].item_name,"STEERP");
-    sprintf(menu_list[1].item_name,"STEERD");
-    sprintf(menu_list[2].item_name,"MOTOLP");
-    sprintf(menu_list[3].item_name,"MOTOLI");
-    sprintf(menu_list[4].item_name,"MOTOLD");
-    sprintf(menu_list[5].item_name,"MOTORP");
-    sprintf(menu_list[6].item_name,"MOTORI");
-    sprintf(menu_list[7].item_name,"MOTORD");
-    sprintf(menu_list[8].item_name,"DIV   ");
-    sprintf(menu_list[9].item_name,"LEFT");
-    sprintf(menu_list[10].item_name,"RIGHT");
-    sprintf(menu_list[11].item_name,"STEESP");
-    sprintf(menu_list[12].item_name,"STEESD");
-    sprintf(menu_list[13].item_name,"ADLEFT");
-    sprintf(menu_list[14].item_name,"ADRIGT");
-    
+    sprintf(menu_list[0].item_name,"STEESP");
+    sprintf(menu_list[1].item_name,"STEESD");
+    sprintf(menu_list[2].item_name,"STEERP");
+    sprintf(menu_list[3].item_name,"STEERD");
+    sprintf(menu_list[4].item_name,"MOTOLP");
+    sprintf(menu_list[5].item_name,"MOTOLI");
+    sprintf(menu_list[6].item_name,"MOTOLD");
+    sprintf(menu_list[7].item_name,"MOTORP");
+    sprintf(menu_list[8].item_name,"MOTORI");
+    sprintf(menu_list[9].item_name,"MOTORD");
+    sprintf(menu_list[10].item_name,"DIV   ");
+    sprintf(menu_list[11].item_name,"LEFT  ");
+    sprintf(menu_list[12].item_name,"RIGHT ");
+    sprintf(menu_list[13].item_name,"GSPEED");
 }
 
 void menu_out()
 {
-    GV_steerControlT.PD.Steer_P=menu_list[0].item_value; 
-    GV_steerControlT.PD.Steer_D=menu_list[1].item_value;
-    GV_speedControlT.Pid[0].PidCore.Kp=menu_list[2].item_value; 
-    GV_speedControlT.Pid[0].PidCore.Ki=menu_list[3].item_value; 
-    GV_speedControlT.Pid[0].PidCore.Kd=menu_list[4].item_value; 
-    GV_speedControlT.Pid[1].PidCore.Kp=menu_list[5].item_value; 
-    GV_speedControlT.Pid[1].PidCore.Ki=menu_list[6].item_value; 
-    GV_speedControlT.Pid[1].PidCore.Kd=menu_list[7].item_value;
-    STEER_MIDDLE=(uint16_t)menu_list[8].item_value;
-	STEER_PWM_MAX=(uint16_t)menu_list[9].item_value;
-	STEER_PWM_MIN=(uint16_t)menu_list[10].item_value;
-    GV_steerControlT.PD.Steer_P_Small=menu_list[11].item_value;
-    GV_steerControlT.PD.Steer_D_Small=menu_list[12].item_value;
+    GV_steerControlT.PD.Steer_P_Small=menu_list[0].item_value;
+    GV_steerControlT.PD.Steer_D_Small=menu_list[1].item_value;
+    GV_steerControlT.PD.Steer_P=menu_list[2].item_value; 
+    GV_steerControlT.PD.Steer_D=menu_list[3].item_value;
+    GV_speedControlT.Pid[0].PidCore.Kp=menu_list[4].item_value; 
+    GV_speedControlT.Pid[0].PidCore.Ki=menu_list[5].item_value; 
+    GV_speedControlT.Pid[0].PidCore.Kd=menu_list[6].item_value; 
+    GV_speedControlT.Pid[1].PidCore.Kp=menu_list[7].item_value; 
+    GV_speedControlT.Pid[1].PidCore.Ki=menu_list[8].item_value; 
+    GV_speedControlT.Pid[1].PidCore.Kd=menu_list[9].item_value;
+    STEER_MIDDLE=(uint16_t)menu_list[10].item_value;
+	STEER_PWM_MAX=(uint16_t)menu_list[11].item_value;
+	STEER_PWM_MIN=(uint16_t)menu_list[12].item_value;
+    g_Speed = (uint16_t)menu_list[13].item_value;
 }
 
 void menu_from_code()
 {
-    menu_list[0].item_value = GV_steerControlT.PD.Steer_P;
-    menu_list[1].item_value = GV_steerControlT.PD.Steer_D;
-    menu_list[2].item_value = GV_speedControlT.Pid[0].PidCore.Kp;
-    menu_list[3].item_value = GV_speedControlT.Pid[0].PidCore.Ki;
-    menu_list[4].item_value = GV_speedControlT.Pid[0].PidCore.Kd;
-    menu_list[5].item_value = GV_speedControlT.Pid[1].PidCore.Kp;
-    menu_list[6].item_value = GV_speedControlT.Pid[1].PidCore.Ki;
-    menu_list[7].item_value = GV_speedControlT.Pid[1].PidCore.Kd;
-    menu_list[8].item_value = STEER_MIDDLE;
-    menu_list[9].item_value =STEER_PWM_MAX;
-    menu_list[10].item_value =STEER_PWM_MIN;
-    menu_list[11].item_value = GV_steerControlT.PD.Steer_P_Small;
-    menu_list[12].item_value = GV_steerControlT.PD.Steer_D_Small;
+    menu_list[0].item_value = GV_steerControlT.PD.Steer_P_Small;
+    menu_list[1].item_value = GV_steerControlT.PD.Steer_D_Small;
+    menu_list[2].item_value = GV_steerControlT.PD.Steer_P;
+    menu_list[3].item_value = GV_steerControlT.PD.Steer_D;
+    menu_list[4].item_value = GV_speedControlT.Pid[0].PidCore.Kp;
+    menu_list[5].item_value = GV_speedControlT.Pid[0].PidCore.Ki;
+    menu_list[6].item_value = GV_speedControlT.Pid[0].PidCore.Kd;
+    menu_list[7].item_value = GV_speedControlT.Pid[1].PidCore.Kp;
+    menu_list[8].item_value = GV_speedControlT.Pid[1].PidCore.Ki;
+    menu_list[9].item_value = GV_speedControlT.Pid[1].PidCore.Kd;
+    menu_list[10].item_value = STEER_MIDDLE;
+    menu_list[11].item_value =STEER_PWM_MAX;
+    menu_list[12].item_value =STEER_PWM_MIN;
+    menu_list[13].item_value =g_Speed;
 }
 
 void display_menu()
@@ -528,38 +530,35 @@ void display_menu()
     }
   }
   while(1){
-    GetADCVal(InductanceVal);
-    menu_list[13].item_value = (float)InductanceVal[0];
-    menu_list[14].item_value = (float)InductanceVal[1];
     if(KEY_UP){
       delay_ms(10);
       if(KEY_UP){
-        delay_ms(50);
+        delay_ms(100);
         selected -= 1;
         if(selected<0)
-          selected =14;
+          selected = MENU_LAST;
       }
     }
     if(KEY_DOWN){
       delay_ms(10);
       if(KEY_DOWN){
-        delay_ms(50);
-        selected = (selected+1)%15;
+        delay_ms(100);
+        selected = (selected+1)%(MENU_LAST+1);
       }
     }
     if(KEY_LEFT)
     {
       delay_ms(10);
       if(KEY_LEFT){
-        delay_ms(50);
-        if(selected<=7||(selected>10&&selected<13))
+        delay_ms(100);
+        if(selected<=9)
           menu_list[selected].item_value -= 0.1;
-        else if(selected>=8&&selected<=10){
+        else{
           menu_list[selected].item_value -= 1;
 
-          if(menu_list[8].item_value<menu_list[10].item_value)
-            menu_list[8].item_value=menu_list[10].item_value;
-          SteerSet((uint16_t)menu_list[8].item_value);
+          if(menu_list[10].item_value>menu_list[11].item_value)
+              menu_list[10].item_value=menu_list[12].item_value;
+            SteerSet((uint16_t)menu_list[10].item_value);
         }
       }
         
@@ -568,15 +567,16 @@ void display_menu()
     {
       delay_ms(10);
       if(KEY_RIGHT){
-        delay_ms(50);
-          if(selected<=7||(selected>10&&selected<13))
+        delay_ms(100);
+          if(selected<=9)
             menu_list[selected].item_value += 0.1;
-          else if(selected>=8&&selected<=10){
+          else
+          {
             menu_list[selected].item_value += 1;
 			
-            if(menu_list[8].item_value>menu_list[9].item_value)
-              menu_list[8].item_value=menu_list[9].item_value;
-            SteerSet((uint16_t)menu_list[8].item_value);
+            if(menu_list[10].item_value>menu_list[11].item_value)
+              menu_list[10].item_value=menu_list[12].item_value;
+            SteerSet((uint16_t)menu_list[10].item_value);
           }
         }
     }

@@ -46,13 +46,8 @@ void SteerPWMCalculator()
 {
   int16_t addPwm = 0;
 
-	if((GV_steerControlT.ErrorDistance<20) && (GV_steerControlT.ErrorDistance>-20))
-    {
-      GV_steerControlT.ErrorDistance += GV_steerControlT.ErrorDistance<0? 10:-10;
-    }
-  
 	//分段pd
-    if(I_abs(GV_steerControlT.ErrorDistance)<20)
+    if(I_abs(GV_steerControlT.ErrorDistance)<300)
     {
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Small * GV_steerControlT.ErrorDistance +
                                GV_steerControlT.PD.Steer_D_Small *(GV_steerControlT.ErrorDistance - GV_steerControlT.LastErrorDistance));

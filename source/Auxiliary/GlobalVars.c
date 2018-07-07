@@ -39,6 +39,7 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  uint16_t STEER_PWM_MAX=824;
  uint16_t STEER_PWM_MIN=674;
  uint16_t STEER_MIDDLE=746;
+ uint16_t g_Speed = 0;
 
 
 //判断标志位
@@ -46,6 +47,9 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  uint8_t Motor_Stop=0;
  uint8_t DISPLAY_FLAG=0;
  uint8_t STOP_FLAG=0;
+ uint32_t DistanceAddFlag=0;
+ uint8_t Circle_Direction = LEFT;
 //摄像头采集延迟计数
 uint8_t CAMERA_COUNT=0;
 const uint8_t CAMERA_LIMIT=5;
+

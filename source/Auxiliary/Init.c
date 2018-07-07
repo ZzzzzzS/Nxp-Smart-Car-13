@@ -44,8 +44,7 @@ void Init()
     Display_ASCII8X16(0,0,"NRF",BLACK,WHITE);
     PIDInit(&GV_speedControlT.Pid[0],0.8,0,0);
     PIDInit(&GV_speedControlT.Pid[1],0.8,0,0);
-    GV_speedControlT.Pid[0].SetSpeed = 100;
-    GV_speedControlT.Pid[1].SetSpeed = 100;
+    g_Speed = 30;
     //iic_init();   
     //MPU6050_Inital();
     result = Flash_init();
@@ -63,8 +62,14 @@ void Init()
     NVIC_SetPriority(PIT2_IRQn, 0x03U);
 	record = DisableGlobalIRQ();
         delay_ms(500);
-	AD_Get_side();
+    if(READ_KEY1)
+	    AD_Get_side();
+    else 
+        flash_read(2,sizeof(ADside),(uint8_t*)&ADside);
+    
     display_menu();
+    GV_speedControlT.Pid[0].SetSpeed = g_Speed;
+    GV_speedControlT.Pid[1].SetSpeed = g_Speed;
 	EnableGlobalIRQ(record);
     EnableIRQ(PORTA_IRQn);
     PIT_StartTimer(PIT, kPIT_Chnl_0);

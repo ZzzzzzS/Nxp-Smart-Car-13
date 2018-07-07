@@ -14,19 +14,18 @@
 #define RIGHT_A_PIN      10
 #define RIGHT_B_PIN      11
 
-extern uint16_t g_Speed;
 extern void Speed_Init();
 
 static inline int16_t getLeftSpeed()
 {
-    int16_t temp_qL = FTM_GetQuadDecoderCounterValue(FTM1);
+    int16_t temp_qL = -FTM_GetQuadDecoderCounterValue(FTM1);
     FTM_ClearQuadDecoderCounterValue(FTM1);
     return temp_qL;
 }
 
 static inline int16_t getRightSpeed()
 {
-    int16_t temp_qR = FTM_GetQuadDecoderCounterValue(FTM2);
+    int16_t temp_qR = -FTM_GetQuadDecoderCounterValue(FTM2);
     FTM_ClearQuadDecoderCounterValue(FTM2);
     return temp_qR;
 }

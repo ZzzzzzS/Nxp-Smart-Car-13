@@ -73,7 +73,6 @@ void SystemCtrl_PIT0CallBack()
 	CAMERA_COUNT = (CAMERA_COUNT+1)%CAMERA_LIMIT;
 	if(CAMERA_COUNT==0&&MT9V034_CaptureAccomplished == true) 
 	{
-		EnableIRQ(MT9V034_DMA_CHANNEL);
     	EnableIRQ(PORTB_IRQn);
 	}
   //系统时间加一
@@ -81,9 +80,10 @@ void SystemCtrl_PIT0CallBack()
 	++g_Time_NRF;
 
   GetADCVal(InductanceVal);  //获取adc采集的值
+  //InductanceVal[MIDDLE] = InductanceVal[MIDDLE]>2000? 1000:InductanceVal[MIDDLE];
   GV_steerControlT.ErrorDistance=getDirectionError3(InductanceVal); //差比和计算误差
-  //circleAnalysis(InductanceVal); //分析入圆
-  SteerPWMCalculator2(); //计算舵机PID
+  circleAnalysis(InductanceVal); //分析入圆
+  SteerPWMCalculator(); //计算舵机PID
   SteerOut(); //计算舵机最终输出
 
   GV_speedControlT.Pid[RightWheel].AimSpeed=GV_speedControlT.Pid[RightWheel].SetSpeed;
@@ -93,10 +93,22 @@ void SystemCtrl_PIT0CallBack()
 
   GV_speedControlT.Pid[LeftWheel].NowSpeed = getLeftSpeed(); //获取当前速度
   GV_speedControlT.Pid[RightWheel].NowSpeed = -getRightSpeed(); //获取当前速度
+  if(Circle_Flag!=0)
+  {
+      DistanceAddFlag+=(GV_speedControlT.Pid[LeftWheel].NowSpeed+
+                       GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
+  }
     
   PIDControl(&GV_speedControlT.Pid[LeftWheel]); //计算PID
   PIDControl(&GV_speedControlT.Pid[RightWheel]);
-   
+  if((InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT])<100)
+  {
+    STOP_FLAG = 1;
+  }
+  else
+  {
+    STOP_FLAG = 0;
+  }
   SpeedComput(&GV_speedControlT); //检查速度合法性
   MotorOut(&GV_speedControlT); //输出动力
 }
