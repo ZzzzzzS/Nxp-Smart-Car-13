@@ -3,7 +3,7 @@
 void ImageControlor(uint8_t* img)  //列188，行120
 {
   //缩放加二值化
-  getSmallImage(img,small_image);
+  //getSmallImage(img,small_image);
         
 }
 
@@ -70,11 +70,6 @@ void meetingControl()
 
 void SystemCtrl_PIT0CallBack()
 {
-	CAMERA_COUNT = (CAMERA_COUNT+1)%CAMERA_LIMIT;
-	if(CAMERA_COUNT==0&&MT9V034_CaptureAccomplished == true) 
-	{
-    	EnableIRQ(PORTB_IRQn);
-	}
   //系统时间加一
 	++g_Time;
 	++g_Time_NRF;
@@ -82,7 +77,7 @@ void SystemCtrl_PIT0CallBack()
   GetADCVal(InductanceVal);  //获取adc采集的值
   //InductanceVal[MIDDLE] = InductanceVal[MIDDLE]>2000? 1000:InductanceVal[MIDDLE];
   GV_steerControlT.ErrorDistance=getDirectionError3(InductanceVal); //差比和计算误差
-  circleAnalysis(InductanceVal); //分析入圆
+  //circleAnalysis(InductanceVal); //分析入圆
   SteerPWMCalculator(); //计算舵机PID
   SteerOut(); //计算舵机最终输出
 

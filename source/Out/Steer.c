@@ -17,6 +17,8 @@ void SteerInit() {
   GV_steerControlT.PD.Steer_D = 1;
   GV_steerControlT.PD.Steer_P_Small = 1;
   GV_steerControlT.PD.Steer_D_Small = 1;
+  GV_steerControlT.PD.Steer_P_Big = 1;
+  GV_steerControlT.PD.Steer_D_Big = 1;
   // ftm_pwm_init(STEER_FTM, STEER_FTM_CHANAL,100, 0);
 
   ftm_config_t FTM3Info;
@@ -47,13 +49,22 @@ void SteerPWMCalculator()
   int16_t addPwm = 0;
 
 	//分段pd
-    if(I_abs(GV_steerControlT.ErrorDistance)<300)
+    if(I_abs(GV_steerControlT.ErrorDistance)<20)
     {
+      led_red(1);
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Small * GV_steerControlT.ErrorDistance +
                                GV_steerControlT.PD.Steer_D_Small *(GV_steerControlT.ErrorDistance - GV_steerControlT.LastErrorDistance));
     }
+    else if(I_abs(GV_steerControlT.ErrorDistance)>37)
+    {
+      led_green(1);
+      addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Big * GV_steerControlT.ErrorDistance +
+                               GV_steerControlT.PD.Steer_D_Big *(GV_steerControlT.ErrorDistance - GV_steerControlT.LastErrorDistance));
+    }
     else
     {
+      led_red(0);
+      led_green(0);
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P * GV_steerControlT.ErrorDistance +
                            GV_steerControlT.PD.Steer_D *(GV_steerControlT.ErrorDistance-GV_steerControlT.LastErrorDistance));
     }
@@ -72,13 +83,13 @@ void SteerPWMCalculator2()
   int16_t addPwm = 0;
   if(GV_steerControlT.ErrorDistance>0)
   {
-    P=0.0005*GV_steerControlT.ErrorDistance;
-    D=0.01*GV_steerControlT.ErrorDistance;
+    P=GV_steerControlT.PD.Steer_P/10*GV_steerControlT.ErrorDistance;
+    D=GV_steerControlT.PD.Steer_D /10*GV_steerControlT.ErrorDistance;
   }
   else
   {
-    P=-0.0005*GV_steerControlT.ErrorDistance;
-    D=-0.01*GV_steerControlT.ErrorDistance;
+    P=-GV_steerControlT.PD.Steer_P/10*GV_steerControlT.ErrorDistance;
+    D=-GV_steerControlT.PD.Steer_D /10*GV_steerControlT.ErrorDistance;
   }
 
   addPwm = (int16_t)(P * GV_steerControlT.ErrorDistance +

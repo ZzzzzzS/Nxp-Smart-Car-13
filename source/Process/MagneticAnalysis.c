@@ -5,7 +5,7 @@ int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
     int16_t sum[3];
     if (Road_Data[RIGHT] + Road_Data[LEFT] != 0)
 	{
-		sum[0] = 1000 * (float)(Road_Data[RIGHT] - Road_Data[LEFT]) /(Road_Data[LEFT] + Road_Data[RIGHT]);				//差比和计算
+		sum[0] = 100 * (float)(Road_Data[RIGHT] - Road_Data[LEFT]) /(Road_Data[LEFT] + Road_Data[RIGHT]);				//差比和计算
 	}
 	else
 	{
@@ -13,7 +13,7 @@ int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 	}
 	if (Road_Data[LEFT]+ Road_Data[MIDDLE] != 0)
 	{
-		sum[1] = 1000 * (float)(Road_Data[LEFT] - Road_Data[MIDDLE]) / (Road_Data[LEFT] + Road_Data[MIDDLE]);			//差比和计算
+		sum[1] = 100 * (float)(Road_Data[LEFT] - Road_Data[MIDDLE]) / (Road_Data[LEFT] + Road_Data[MIDDLE]);			//差比和计算
 	}
 	else
 	{
@@ -74,11 +74,11 @@ void circleAnalysis(int16_t* value)
 	{
 		if(Circle_Direction == LEFT)//刚入环的时候让它疯狂转一下
 		{
-			GV_steerControlT.ErrorDistance+=500;
+			GV_steerControlT.ErrorDistance-=50;
 		}
 		else
 		{
-			GV_steerControlT.ErrorDistance-=500;
+			GV_steerControlT.ErrorDistance+=50;
 		}
 	}
 	else

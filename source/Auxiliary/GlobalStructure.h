@@ -91,6 +91,8 @@ typedef struct{
   float Steer_D;
   float Steer_P_Small;
   float Steer_D_Small;
+  float Steer_P_Big;
+  float Steer_D_Big;
 }steer_PD_control_config_t;
 
 typedef struct{

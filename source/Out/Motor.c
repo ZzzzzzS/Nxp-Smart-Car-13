@@ -24,17 +24,20 @@ void PIDControl(pid_control_config_t* base)
 
   base->IncrementSpeed = (int16_t)((base->PidCore.Kp) * (base->PidCore.state[NowError]))+
                          (int16_t)(base->PidCore.Ki * (base->PidCore.state[NowError] + base->PidCore.state[lastError]));
+  
+  base->IncrementSpeed+= (int16_t)(base->PidCore.Kd)*(base->PidCore.state[NowError] - 2*base->PidCore.state[lastError]+base->PidCore.state[lastestError]);
  
   base->PidCore.state[lastestError] = base->PidCore.state[lastError];
   base->PidCore.state[lastError] = base->PidCore.state[NowError];
 
+  
 }
 
 void SpeedComput(speed_control_config_t* base)
 {
   base->OutSpeed[LeftWheel]+= base->Pid[LeftWheel].IncrementSpeed;
   base->OutSpeed[RightWheel]+= base->Pid[RightWheel].IncrementSpeed;
-
+  
   if(base->OutSpeed[LeftWheel]>MAX_SPEED)
     base->OutSpeed[LeftWheel] = MAX_SPEED;
   else if(base->OutSpeed[LeftWheel]<MIN_SPEED)

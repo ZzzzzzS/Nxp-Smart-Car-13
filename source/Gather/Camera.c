@@ -263,10 +263,11 @@ __ramfunc void MT9V034_FrameValid_Callback(uint32_t ISFR_FLAG)
         if(line == MT9V034_H-1)
         {
             line = 0;
-            IMG_NOW = (uint8_t*)MT9V034_IMGBUFF_A;
+            if(Using_Flag==Using_A)
+              IMG_NOW = (uint8_t*)MT9V034_IMGBUFF_B;
+            else if(Using_Flag==Using_B)
+              IMG_NOW = (uint8_t*)MT9V034_IMGBUFF_A;
             MT9V034_CaptureAccomplished = true;
-			DisableIRQ(PORTB_IRQn);
-			ImageControlor(IMG_NOW);
         }
     }
 }
