@@ -23,13 +23,20 @@ void AD_Get_side()
       Display_Number(0,1,Read_Data[LEFT],YELLOW,RED);
       Display_Number(0,2,Read_Data[MIDDLE],YELLOW,RED);
       Display_Number(0,3,Read_Data[RIGHT],YELLOW,RED);
+      Display_Number(0,4,Read_Data[FRONT_LEFT],YELLOW,RED);
+      Display_Number(0,5,Read_Data[FRONT_RIGHT],YELLOW,RED);
       
-      Display_Number(0,4,ADside[LEFT].max,YELLOW,RED);
-      Display_Number(0,5,ADside[MIDDLE].max,YELLOW,RED);
-      Display_Number(0,6,ADside[RIGHT].max,YELLOW,RED);
-      Display_Number(9,4,ADside[LEFT].min,YELLOW,RED);
-      Display_Number(9,5,ADside[MIDDLE].min,YELLOW,RED);
-      Display_Number(9,6,ADside[RIGHT].min,YELLOW,RED);
+      Display_Number(6,1,ADside[LEFT].max,YELLOW,RED);
+      Display_Number(6,2,ADside[MIDDLE].max,YELLOW,RED);
+      Display_Number(6,3,ADside[RIGHT].max,YELLOW,RED);
+      Display_Number(6,4,ADside[FRONT_LEFT].max,YELLOW,RED);
+      Display_Number(6,5,ADside[FRONT_RIGHT].max,YELLOW,RED);
+
+      Display_Number(11,1,ADside[LEFT].min,YELLOW,RED);
+      Display_Number(11,2,ADside[MIDDLE].min,YELLOW,RED);
+      Display_Number(11,3,ADside[RIGHT].min,YELLOW,RED);
+      Display_Number(11,4,ADside[FRONT_LEFT].min,YELLOW,RED);
+      Display_Number(11,5,ADside[FRONT_RIGHT].min,YELLOW,RED);
          
          for(int i=0;i<MAX_POSITION;i++)
          {
