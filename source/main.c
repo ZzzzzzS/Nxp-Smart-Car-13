@@ -20,24 +20,26 @@ int main(void)
   
   while (1)
   {
-    delay_ms(100);
-    Display_Number(0,1,InductanceVal[LEFT],YELLOW,RED);
-    Display_Number(0,2,InductanceVal[MIDDLE],YELLOW,RED);
-    Display_Number(0,3,InductanceVal[RIGHT],YELLOW,RED);
-    Display_Number(10,1,InductanceVal[FRONT_LEFT],YELLOW,RED);
-    Display_Number(10,2,InductanceVal[FRONT_RIGHT],YELLOW,RED);
+    if(!DISPLAY_FLAG)
+    {   
+        delay_ms(100);
+        Display_Number(0,1,InductanceVal[LEFT],YELLOW,RED);
+        Display_Number(0,2,InductanceVal[MIDDLE],YELLOW,RED);
+        Display_Number(0,3,InductanceVal[RIGHT],YELLOW,RED);
+        Display_Number(10,1,InductanceVal[FRONT_LEFT],YELLOW,RED);
+        Display_Number(10,2,InductanceVal[FRONT_RIGHT],YELLOW,RED);
 
-    Display_Number(0,4,GV_steerControlT.ErrorDistance,YELLOW,RED);
-    Display_Number(0,5,GV_speedControlT.Pid[LeftWheel].NowSpeed,YELLOW,RED);
-    Display_Number(10,5,GV_speedControlT.Pid[RightWheel].NowSpeed,YELLOW,RED);
-    
-    Display_Number(0,7,DistanceAddFlag,YELLOW,RED);
-    Display_Number(5,7,Circle_Flag,YELLOW,RED);
+        Display_Number(0,4,GV_steerControlT.ErrorDistance,YELLOW,RED);
+        Display_Number(0,5,GV_speedControlT.Pid[LeftWheel].NowSpeed,YELLOW,RED);
+        Display_Number(10,5,GV_speedControlT.Pid[RightWheel].NowSpeed,YELLOW,RED);
+
+        Display_Number(0,7,DistanceAddFlag,YELLOW,RED);
+        Display_Number(5,7,Circle_Flag,YELLOW,RED);
+    }
     //meetingControl();
     //stop_car();
     //LCD_DrawPicture(IMG_NOW);
-    //led_red(1);
-    delay_ms(100);
+    //led_red(1);   
     //led_red(0);
     SendAdValue(InductanceVal, sizeof(InductanceVal));//发送到山外上位机显示
     if(Using_Flag==Using_A&&IMG_NOW==(uint8_t*)MT9V034_IMGBUFF_B)

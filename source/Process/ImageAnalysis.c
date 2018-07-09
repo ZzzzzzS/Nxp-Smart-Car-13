@@ -580,7 +580,7 @@ __ramfunc uint8_t findCircle(uint8_t* img)
 
 __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 {
-    uint8_t column = 0;             //列
+	 uint8_t column = 0;             //列
     uint8_t row = 59;                //行
 	uint32_t line_sum = 0;
 	uint32_t average = 0;
@@ -600,14 +600,11 @@ __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 		else 
 			average = (line_sum*2/MT9V034_W + average) / 2;
 		
+		
+
 		for(int j=0;j<MT9V034_W;j+=2)
 		{
-			if(i<40)
-				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<average? 0:255;
-			else{ 
-				newimage[row*94+column] = origin_image[i*MT9V034_W+j]<70? 0:255;
-				average = 70;
-			}
+			newimage[row*94+column] = origin_image[i*MT9V034_W+j]<average? 0:255;
 			++column;
 		}
         --row;

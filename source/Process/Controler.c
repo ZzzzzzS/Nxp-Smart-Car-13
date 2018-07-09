@@ -2,8 +2,17 @@
 
 void ImageControlor(uint8_t* img)  //列188，行120
 {
-  //缩放加二值化
-  //getSmallImage(img,small_image);
+  getSmallImage(img,small_image);
+  if(Using_Flag==Using_A){
+    Using_Flag=Using_B;
+  }else{
+    Using_Flag=Using_A;
+  }
+  
+  if(DISPLAY_FLAG)
+  {
+    LCD_DrawPicture_Small(small_image);
+  }
         
 }
 

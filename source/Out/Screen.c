@@ -592,7 +592,7 @@ void display_menu()
    	if(READ_RIGHT)
 	{
 		DISPLAY_FLAG=1;
-		break;
+        break;
 	}	
 
     if(selected<=7)
