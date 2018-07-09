@@ -40,7 +40,7 @@ extern uint16_t STEER_PWM_MIN;
 extern uint16_t g_Speed;
 
 //判断标志位
-extern uint32_t Circle_Flag;
+extern int32_t Circle_Flag;
 extern uint8_t Motor_Stop;
 extern uint8_t DISPLAY_FLAG;
 extern uint8_t STOP_FLAG;

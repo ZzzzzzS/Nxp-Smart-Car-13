@@ -43,13 +43,13 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
 
 
 //判断标志位
- uint32_t Circle_Flag=0;
+ int32_t Circle_Flag=0;
  uint8_t Motor_Stop=0;
  uint8_t DISPLAY_FLAG=0;
  uint8_t STOP_FLAG=0;
  uint32_t DistanceAddFlag=0;
  uint8_t Circle_Direction = LEFT;
-//摄像头采集延迟计数
+ //摄像头采集延迟计数
 uint8_t CAMERA_COUNT=0;
 const uint8_t CAMERA_LIMIT=5;
 

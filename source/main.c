@@ -30,6 +30,9 @@ int main(void)
     Display_Number(0,4,GV_steerControlT.ErrorDistance,YELLOW,RED);
     Display_Number(0,5,GV_speedControlT.Pid[LeftWheel].NowSpeed,YELLOW,RED);
     Display_Number(10,5,GV_speedControlT.Pid[RightWheel].NowSpeed,YELLOW,RED);
+    
+    Display_Number(0,7,DistanceAddFlag,YELLOW,RED);
+    Display_Number(5,7,Circle_Flag,YELLOW,RED);
     //meetingControl();
     //stop_car();
     //LCD_DrawPicture(IMG_NOW);

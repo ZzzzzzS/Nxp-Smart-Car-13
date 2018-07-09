@@ -146,7 +146,7 @@ PowerConnectPC=1
 [ArmDriver]
 EnableCache=1
 [DebugChecksum]
-Checksum=1511057580
+Checksum=295822751
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]
@@ -242,9 +242,8 @@ ShowSource=1
 mode=0
 [Breakpoints2]
 Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\source\Gather\Inductance.c}.7.1" 0 0 1 "" 0 "" 0
-Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\source\Auxiliary\Init.c}.65.5" 0 0 1 "" 0 "" 0
-Bp2=_ 1 "EMUL_CODE" "{$PROJ_DIR$\source\Gather\Inductance.c}.21.7" 0 0 1 "" 0 "" 0
-Count=3
+Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\source\Gather\Inductance.c}.21.7" 0 0 1 "" 0 "" 0
+Count=2
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

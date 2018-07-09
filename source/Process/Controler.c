@@ -75,9 +75,9 @@ void SystemCtrl_PIT0CallBack()
 	++g_Time_NRF;
 
   GetADCVal(InductanceVal);  //获取adc采集的值
+  circleAnalysis(InductanceVal); //分析入圆
   //InductanceVal[MIDDLE] = InductanceVal[MIDDLE]>2000? 1000:InductanceVal[MIDDLE];
   GV_steerControlT.ErrorDistance=getDirectionError3(InductanceVal); //差比和计算误差
-  //circleAnalysis(InductanceVal); //分析入圆
   SteerPWMCalculator(); //计算舵机PID
   SteerOut(); //计算舵机最终输出
 
@@ -88,7 +88,7 @@ void SystemCtrl_PIT0CallBack()
 
   GV_speedControlT.Pid[LeftWheel].NowSpeed = getLeftSpeed(); //获取当前速度
   GV_speedControlT.Pid[RightWheel].NowSpeed = -getRightSpeed(); //获取当前速度
-  if(Circle_Flag!=0)
+  if(Circle_Flag==3)
   {
       DistanceAddFlag+=(GV_speedControlT.Pid[LeftWheel].NowSpeed+
                        GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
