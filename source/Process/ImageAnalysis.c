@@ -580,14 +580,14 @@ __ramfunc uint8_t findCircle(uint8_t* img)
 
 __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 {
-	 uint8_t column = 0;             //列
-    uint8_t row = 59;                //行
+	 uint8_t column = 94;             //列
+    uint8_t row = 0;                //行
 	uint32_t line_sum = 0;
 	uint32_t average = 0;
 
     for(int i=MT9V034_W-1;i>=0;i-=2)
     {
-        row = 59;
+        row = 0;
 	line_sum = 0;
         for(int j=0;j<MT9V034_H;j+=2)
         {
@@ -605,9 +605,13 @@ __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 		for(int j=0;j<MT9V034_H;j+=2)
 		{
 			newimage[row*94+column] = origin_image[j*MT9V034_W+i]<average? 0:255;
-			--row;
+			if(origin_image[j*MT9V034_W+i]>180)
+				newimage[row*94+column]=255;
+			else if(origin_image[j*MT9V034_W+i]<40)
+				newimage[row*94+column]=0;
+			++row;
 		}
-        ++column;
+        --column;
     }
     return column>wigth||row>height? 0:1;   //对数组越界进行检测　
 }

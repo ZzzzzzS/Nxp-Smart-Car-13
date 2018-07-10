@@ -54,7 +54,7 @@ void MT9V034_SetAutoExposure(uint8_t MT9V034_I2C_ADDR, bool enable)
     uint16_t reg = MT9V034_ReadReg(MT9V034_I2C_ADDR, MT9V034_AEC_AGC_ENABLE);
     if(true == enable)
     {
-        MT9V034_WriteReg(MT9V034_I2C_ADDR, MT9V034_AEC_AGC_ENABLE, reg|MT9V034_AEC_ENABLE);
+        MT9V034_WriteReg(MT9V034_I2C_ADDR, MT9V034_AEC_AGC_ENABLE, reg|MT9V034_AEC_ENABLE|MT9V034_AGC_ENABLE);
     }
     else
     {
