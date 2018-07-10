@@ -585,29 +585,29 @@ __ramfunc uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 	uint32_t line_sum = 0;
 	uint32_t average = 0;
 
-    for(int i=MT9V034_H-1;i>=0;i-=2)
+    for(int i=MT9V034_W-1;i>=0;i-=2)
     {
-        column = 0;
+        row = 59;
 	line_sum = 0;
-        for(int j=0;j<MT9V034_W;j+=2)
+        for(int j=0;j<MT9V034_H;j+=2)
         {
             //隔点选取并二值化
-			line_sum += origin_image[i*MT9V034_W+j];
+			line_sum += origin_image[j*MT9V034_W+i];
         }
 
 		if(average==0)
-			average = line_sum*2/MT9V034_W;
+			average = line_sum*2/MT9V034_H;
 		else 
-			average = (line_sum*2/MT9V034_W + average) / 2;
+			average = (line_sum*2/MT9V034_H + average) / 2;
 		
 		
 
-		for(int j=0;j<MT9V034_W;j+=2)
+		for(int j=0;j<MT9V034_H;j+=2)
 		{
-			newimage[row*94+column] = origin_image[i*MT9V034_W+j]<average? 0:255;
-			++column;
+			newimage[row*94+column] = origin_image[j*MT9V034_W+i]<average? 0:255;
+			--row;
 		}
-        --row;
+        ++column;
     }
     return column>wigth||row>height? 0:1;   //对数组越界进行检测　
 }
