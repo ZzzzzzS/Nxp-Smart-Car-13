@@ -33,7 +33,7 @@ typedef struct{
 extern LineBorder linesborder[MT9V034_H/2];
 extern uint8_t small_image[MT9V034_H/2][MT9V034_W/2];   //二值化后图像
 extern uint8_t converted_image[MT9V034_H/2][MT9V034_W/2];
-extern volatile uint16_t map[60*94];
+extern const uint16_t map[60*94];
 extern Stack SpaceMiddles;
 extern Stack EdgeLeft;
 extern Stack EdgeRight;

@@ -22,7 +22,7 @@ int main(void)
   {
     if(!DISPLAY_FLAG)
     {   
-        delay_ms(100);
+        //delay_ms(100);
         Display_Number(0,1,InductanceVal[LEFT],YELLOW,RED);
         Display_Number(0,2,InductanceVal[MIDDLE],YELLOW,RED);
         Display_Number(0,3,InductanceVal[RIGHT],YELLOW,RED);
@@ -48,6 +48,6 @@ int main(void)
       }else if(Using_Flag==Using_B&&IMG_NOW==(uint8_t*)MT9V034_IMGBUFF_A){
         ImageControlor(MT9V034_IMGBUFF_B);
       }
-    Camera_ajust();
+    //Camera_ajust();
   }
 }

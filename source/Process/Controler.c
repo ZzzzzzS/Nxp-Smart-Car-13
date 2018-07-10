@@ -3,12 +3,16 @@
 void ImageControlor(uint8_t* img)  //列188，行120
 {
   getSmallImage(img,small_image);
-  if(Using_Flag==Using_A){
+  
+  if(Using_Flag==Using_A)
+  {
     Using_Flag=Using_B;
-  }else{
+  }
+  else
+  {
     Using_Flag=Using_A;
   }
-  
+  correctSmallImage(small_image, converted_image);
   if(DISPLAY_FLAG)
   {
     LCD_DrawPicture_Small(small_image);
@@ -105,7 +109,7 @@ void SystemCtrl_PIT0CallBack()
     
   PIDControl(&GV_speedControlT.Pid[LeftWheel]); //计算PID
   PIDControl(&GV_speedControlT.Pid[RightWheel]);
-  if((InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT])<100)
+  if((InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT])<200)
   {
     STOP_FLAG = 1;
   }
