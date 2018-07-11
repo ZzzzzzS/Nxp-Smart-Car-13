@@ -45,9 +45,14 @@ int main(void)
     if(Using_Flag==Using_A&&IMG_NOW==(uint8_t*)MT9V034_IMGBUFF_B)
       {
         ImageControlor(MT9V034_IMGBUFF_A);
-      }else if(Using_Flag==Using_B&&IMG_NOW==(uint8_t*)MT9V034_IMGBUFF_A){
-        ImageControlor(MT9V034_IMGBUFF_B);
+        Using_Flag=Using_B;
       }
+      else if(Using_Flag==Using_B&&IMG_NOW==(uint8_t*)MT9V034_IMGBUFF_A)
+      {
+        ImageControlor(MT9V034_IMGBUFF_B);
+        Using_Flag=Using_A;
+      }
+    
     //Camera_ajust();
   }
 }

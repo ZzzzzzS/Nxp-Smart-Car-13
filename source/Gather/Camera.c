@@ -260,7 +260,7 @@ __ramfunc void MT9V034_FrameValid_Callback(uint32_t ISFR_FLAG)
         
         PORTB->ISFR |= (1U<<19U);
         MT9V034_LineValid_Callback(line++,IMG_NOW);
-        if(line == MT9V034_H-1)
+        if(line == MT9V034_H+1)
         {
             line = 0;
             if(Using_Flag==Using_A)

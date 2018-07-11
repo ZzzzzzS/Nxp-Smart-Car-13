@@ -46,6 +46,5 @@ extern uint8_t DISPLAY_FLAG;
 extern uint8_t STOP_FLAG;
 extern uint32_t DistanceAddFlag;
 extern uint8_t Circle_Direction;
-extern 	uint8_t CAMERA_COUNT;
-extern 	const uint8_t CAMERA_LIMIT;
+extern uint8_t MeetingArea;
 #endif

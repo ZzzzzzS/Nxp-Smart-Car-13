@@ -9,6 +9,11 @@
 
 #include "include.h"
 
+static inline int16_t I_abs(int16_t a)
+{
+  return a>0?a:-a;
+}
+   
 void SteerInit() {
   PORT_SetPinMux(PORTE, 12, kPORT_MuxAlt6);  //引脚复用
   GV_steerControlT.ErrorDistance = 0;
@@ -51,13 +56,13 @@ void SteerPWMCalculator()
 	//分段pd
     if(I_abs(GV_steerControlT.ErrorDistance)<20)
     {
-      led_red(1);
+      //led_red(1);
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Small * GV_steerControlT.ErrorDistance +
                                GV_steerControlT.PD.Steer_D_Small *(GV_steerControlT.ErrorDistance - GV_steerControlT.LastErrorDistance));
     }
     else if(I_abs(GV_steerControlT.ErrorDistance)>37)
     {
-      led_green(1);
+      //led_green(1);
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Big * GV_steerControlT.ErrorDistance +
                                GV_steerControlT.PD.Steer_D_Big *(GV_steerControlT.ErrorDistance - GV_steerControlT.LastErrorDistance));
     }

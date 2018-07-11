@@ -2,21 +2,15 @@
 
 void ImageControlor(uint8_t* img)  //列188，行120
 {
-  getSmallImage(img,small_image);
-  
-  if(Using_Flag==Using_A)
-  {
-    Using_Flag=Using_B;
-  }
-  else
-  {
-    Using_Flag=Using_A;
-  }
-  correctSmallImage(small_image, converted_image);
+
+    getSmallImage(img,small_image);
+  //correctSmallImage(small_image, converted_image);
   if(DISPLAY_FLAG)
   {
     LCD_DrawPicture_Small(small_image);
+    //LCD_DrawPicture(img);
   }
+  FindMeetingArea(small_image);
         
 }
 

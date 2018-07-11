@@ -146,7 +146,7 @@ PowerConnectPC=1
 [ArmDriver]
 EnableCache=1
 [DebugChecksum]
-Checksum=-915486635
+Checksum=-416114007
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]

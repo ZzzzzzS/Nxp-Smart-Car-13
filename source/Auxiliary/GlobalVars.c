@@ -49,7 +49,5 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  uint8_t STOP_FLAG=0;
  uint32_t DistanceAddFlag=0;
  uint8_t Circle_Direction = LEFT;
- //摄像头采集延迟计数
-uint8_t CAMERA_COUNT=0;
-const uint8_t CAMERA_LIMIT=5;
 
+ uint8_t MeetingArea=0;
