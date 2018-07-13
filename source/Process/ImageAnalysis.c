@@ -30,11 +30,11 @@ uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 
 		for(int j=0;j<MT9V034_H;j+=2)
 		{
-			newimage[row*94+column] = origin_image[j*MT9V034_W+i]<average? 0:255;
+			//newimage[row*94+column] = origin_image[j*MT9V034_W+i]<average? 0:255;
                         //newimage[row*94+column] = origin_image[j*MT9V034_W+i];
-			if(origin_image[j*MT9V034_W+i]>180)
+			if(origin_image[j*MT9V034_W+i]>100)
 				newimage[row*94+column]=255;
-			else if(origin_image[j*MT9V034_W+i]<40)
+			else if(origin_image[j*MT9V034_W+i]<=100)
 				newimage[row*94+column]=0;
 			row++;
 		}
@@ -52,7 +52,8 @@ __ramfunc void correctSmallImage(uint8_t* smallimage, uint8_t* IMAGEMAP)
 
 void FindMeetingArea(uint8_t *Img)
 {
-  /*int edge[9]={0};
+  static int time;
+  int edge[9]={0};
   int sum[3]={0};
 	for(int i=0;i<60;i++)
 	{
@@ -64,9 +65,9 @@ void FindMeetingArea(uint8_t *Img)
 		edge[4]+=(Img[i*94+45]==0?0:1);
 		edge[5]+=(Img[i*94+47]==0?0:1);
 
-		edge[6]+=(Img[i*94+74]==0?0:1);
-		edge[7]+=(Img[i*94+72]==0?0:1);
-		edge[8]+=(Img[i*94+76]==0?0:1);
+		edge[6]+=(Img[i*94+88]==0?0:1);
+		edge[7]+=(Img[i*94+90]==0?0:1);
+		edge[8]+=(Img[i*94+92]==0?0:1);
 
 	}
 	sum[0]=edge[0]+edge[1]+edge[2];
@@ -75,8 +76,31 @@ void FindMeetingArea(uint8_t *Img)
 
 	Display_Number(0,7,sum[0],YELLOW,RED);
     Display_Number(5,7,sum[1],YELLOW,RED);
-	Display_Number(10,7,sum[2],YELLOW,RED);*/
-	int edge[94]={0};
+	Display_Number(10,7,sum[2],YELLOW,RED);
+        
+        if(sum[1]-12>sum[0]&&sum[1]-12>sum[2]&&MeetingArea==0)
+        {
+          MeetingArea=1;
+          Beep_Down();
+        }
+        if(sum[1]+12<sum[0]&&sum[1]+12<sum[2]&&MeetingArea==1)
+        {
+          MeetingArea=2;
+          Beep_Down();
+          
+        }
+        if(sum[1]-12>sum[0]&&sum[1]-12>sum[2]&&MeetingArea==2)
+        {
+          MeetingArea=3;
+          Beep_Up();
+        }
+        
+        if(DistanceAddFlag>=1000&&MeetingArea!=0)
+        {
+          MeetingArea=0;
+          Beep_Down();
+        }
+	/*int edge[94]={0};
 
 	for(int i=0;i<94;i++)
 	{
@@ -88,15 +112,17 @@ void FindMeetingArea(uint8_t *Img)
 
 	MeetingArea=0;
 
-	for(int i=0;i<93;i++)
+	for(int i=0;i<89;i++)
 	{
-		edge[i]=edge[i+1]-edge[i]; //求一阶差商使信号变尖锐
-		if(edge[i]>10||edge[i]<-10)
+		edge[i]=edge[i+4]-edge[i]; //求一阶差商使信号变尖锐
+		if(edge[i]>4||edge[i]<-4)
 		{
 			MeetingArea++;
 		}
-	}
-	Display_Number(0,7,MeetingArea,YELLOW,RED);
+	}*/
+	Display_Number(0,6,MeetingArea,YELLOW,RED);
+        Display_Number(5,6,DistanceAddFlag,YELLOW,RED);
+        
 }
 
 

@@ -58,7 +58,7 @@ void circleAnalysis(int16_t* value)
 			Circle_Direction=LEFT;
 		else
 			Circle_Direction=RIGHT;
-		Beep_Up();
+		//Beep_Up();
         }
 	
 	if(value[MIDDLE]>1300&&Circle_Flag==3 && DistanceAddFlag>3500)

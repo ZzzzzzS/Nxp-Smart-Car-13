@@ -57,6 +57,7 @@ dkms.conf
 *.bak
 *.sim
 
+release/obj/*
 debug/obj/*
 *.dep
 Backup of Aether.*

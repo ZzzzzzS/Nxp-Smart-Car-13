@@ -95,7 +95,7 @@ void SystemCtrl_PIT0CallBack()
 
   GV_speedControlT.Pid[LeftWheel].NowSpeed = getLeftSpeed(); //获取当前速度
   GV_speedControlT.Pid[RightWheel].NowSpeed = -getRightSpeed(); //获取当前速度
-  if(Circle_Flag==3)
+  if(Circle_Flag==3||MeetingArea!=0 )
   {
       DistanceAddFlag+=(GV_speedControlT.Pid[LeftWheel].NowSpeed+
                        GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
@@ -103,14 +103,14 @@ void SystemCtrl_PIT0CallBack()
     
   PIDControl(&GV_speedControlT.Pid[LeftWheel]); //计算PID
   PIDControl(&GV_speedControlT.Pid[RightWheel]);
-  /*if((InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT])<200)
+  if((InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT])<200)
   {
     STOP_FLAG = 1;
   }
   else
   {
     STOP_FLAG = 0;
-  }*/
+  }
   SpeedComput(&GV_speedControlT); //检查速度合法性
   MotorOut(&GV_speedControlT); //输出动力
 }
