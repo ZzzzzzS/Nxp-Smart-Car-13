@@ -52,7 +52,7 @@ __ramfunc void correctSmallImage(uint8_t* smallimage, uint8_t* IMAGEMAP)
 
 void FindMeetingArea(uint8_t *Img)
 {
-  int edge[9]={0};
+  /*int edge[9]={0};
   int sum[3]={0};
 	for(int i=0;i<60;i++)
 	{
@@ -75,7 +75,28 @@ void FindMeetingArea(uint8_t *Img)
 
 	Display_Number(0,7,sum[0],YELLOW,RED);
     Display_Number(5,7,sum[1],YELLOW,RED);
-	Display_Number(10,7,sum[2],YELLOW,RED);
+	Display_Number(10,7,sum[2],YELLOW,RED);*/
+	int edge[94]={0};
+
+	for(int i=0;i<94;i++)
+	{
+		for(int j=0;j<60;j++)
+		{
+			edge[i]+=(Img[j*94+i]==0)?0:1;
+		}
+	}
+
+	MeetingArea=0;
+
+	for(int i=0;i<93;i++)
+	{
+		edge[i]=edge[i+1]-edge[i]; //求一阶差商使信号变尖锐
+		if(edge[i]>10||edge[i]<-10)
+		{
+			MeetingArea++;
+		}
+	}
+	Display_Number(0,7,MeetingArea,YELLOW,RED);
 }
 
 

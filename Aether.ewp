@@ -132,11 +132,11 @@
         </option>
         <option>
           <name>OGUseCmsis</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>OGUseCmsisDspLib</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GRuntimeLibThreads</name>
@@ -2116,49 +2116,49 @@
     <group>
       <name>Aether</name>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_ADC.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_ADC.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_FLASH.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_FLASH.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_FTM.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_FTM.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_GPIO.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_GPIO.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_KeyBoard.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_KeyBoard.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_LPTMR.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_LPTMR.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_NRF.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_NRF.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_PIT.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_PIT.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_RingBuff.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_SCCB.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_SCCB.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_SoftIIC.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_SoftIIC.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_SPI.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_SPI.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_SuperSonic.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_UART.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_UART.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\drivers\AETHERDRIVER\AetherDriver_UART_DataAnalysis.c</name>
+        <name>$PROJ_DIR$\drivers\AetherDriver\AetherDriver_UART_DataAnalysis.c</name>
       </file>
     </group>
     <group>
@@ -2564,13 +2564,13 @@
         <name>$PROJ_DIR$\source\Auxiliary\GlobalStructure.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\source\AUXILIARY\GlobalVars.c</name>
+        <name>$PROJ_DIR$\source\Auxiliary\GlobalVars.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\source\Auxiliary\GlobalVars.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\source\AUXILIARY\Init.c</name>
+        <name>$PROJ_DIR$\source\Auxiliary\Init.c</name>
       </file>
     </group>
     <group>
@@ -2643,7 +2643,7 @@
   <group>
     <name>utilities</name>
     <file>
-      <name>$PROJ_DIR$\UTILITIES\fsl_assert.c</name>
+      <name>$PROJ_DIR$\utilities\fsl_assert.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\utilities\fsl_debug_console.c</name>
