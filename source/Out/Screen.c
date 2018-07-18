@@ -406,9 +406,6 @@ int16_t windows(int16_t num,uint16_t bg,uint16_t fc)
 void menu(uint8_t start,uint8_t end,uint8_t selected)
 {
 	uint8_t buffer[17];
-        int integer = 0;
-        uint8_t f = 0;
-	uint8_t num_length=0;
 	for(int i=start;i<=end;i++)
 	{
 		sprintf(buffer,"%s   %2d.%d",menu_list[i].item_name,(int)(menu_list[i].item_value),((int)(menu_list[i].item_value*10.0))%10);

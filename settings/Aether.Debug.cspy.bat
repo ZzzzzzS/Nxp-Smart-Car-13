@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"D:\iar\common\bin\cspybat" -f "C:\Users\Administrator\Desktop\stu\双车pcb\双车主板1.0\代码\code.zzs-Aether-dev (1)\Aether\settings\Aether.Debug.general.xcl" --backend -f "C:\Users\Administrator\Desktop\stu\双车pcb\双车主板1.0\代码\code.zzs-Aether-dev (1)\Aether\settings\Aether.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "C:\Users\m1899\Documents\MyFile\项目与比赛\2018NXP智能车\Aether_New\settings\Aether.Debug.general.xcl" --backend -f "C:\Users\m1899\Documents\MyFile\项目与比赛\2018NXP智能车\Aether_New\settings\Aether.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"D:\iar\common\bin\cspybat" -f "C:\Users\Administrator\Desktop\stu\双车pcb\双车主板1.0\代码\code.zzs-Aether-dev (1)\Aether\settings\Aether.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\Administrator\Desktop\stu\双车pcb\双车主板1.0\代码\code.zzs-Aether-dev (1)\Aether\settings\Aether.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\common\bin\cspybat" -f "C:\Users\m1899\Documents\MyFile\项目与比赛\2018NXP智能车\Aether_New\settings\Aether.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\m1899\Documents\MyFile\项目与比赛\2018NXP智能车\Aether_New\settings\Aether.Debug.driver.xcl" 
 
 @echo off 
 :end

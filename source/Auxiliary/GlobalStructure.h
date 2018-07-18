@@ -10,7 +10,7 @@
 #ifndef __GLOBALSTRUCTURES_H__
 #define __GLOBALSTRUCTURES_H__
 
-#define ARM_MATH_CM7                    //定义内核为CM7内核
+//#define ARM_MATH_CM7                    //定义内核为CM7内核
 #include "MKV58F24.h"
 #include "fsl_common.h"
 #include "arm_math.h"

@@ -41,7 +41,7 @@ int main(void)
     //LCD_DrawPicture(IMG_NOW);
     //led_red(1);   
     //led_red(0);
-    SendAdValue(InductanceVal, sizeof(InductanceVal));//发送到山外上位机显示
+    //SendAdValue(InductanceVal, sizeof(InductanceVal));//发送到山外上位机显示
     if(Using_Flag==Using_A&&IMG_NOW==(uint8_t*)MT9V034_IMGBUFF_B)
       {
         ImageControlor(MT9V034_IMGBUFF_A);

@@ -15,27 +15,20 @@ uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
     {
         row = 0;
 	line_sum = 0;
-        for(int j=0;j<MT9V034_H;j+=2)
+        for(int j=0;j<MT9V034_H-5;j+=2)
         {
             //隔点选取并二值化
 			line_sum += origin_image[j*MT9V034_W+i];
         }
-
-		if(average==0)
-			average = line_sum*2/MT9V034_H;
-		else 
-			average = (line_sum*2/MT9V034_H + average) / 2;
-		
-		
-
+        
 		for(int j=0;j<MT9V034_H;j+=2)
 		{
 			//newimage[row*94+column] = origin_image[j*MT9V034_W+i]<average? 0:255;
                         //newimage[row*94+column] = origin_image[j*MT9V034_W+i];
-			if(origin_image[j*MT9V034_W+i]>100)
-				newimage[row*94+column]=255;
-			else if(origin_image[j*MT9V034_W+i]<=100)
+			if(origin_image[j*MT9V034_W+i]<70&&origin_image[(j+2)*MT9V034_W+i]<70&&origin_image[(j+4)*MT9V034_W+i]<70)
 				newimage[row*94+column]=0;
+			else         
+				newimage[row*94+column]=255;
 			row++;
 		}
         column++;
@@ -52,24 +45,70 @@ __ramfunc void correctSmallImage(uint8_t* smallimage, uint8_t* IMAGEMAP)
 
 void FindMeetingArea(uint8_t *Img)
 {
+	static int16_t speed_origin;
   static int time;
   int edge[9]={0};
   int sum[3]={0};
-	for(int i=0;i<60;i++)
+	for(int i=0;i<57;i++) 
 	{
 		edge[0]+=(Img[i*94+5]==0?0:1);
+                if(Img[i*94+5]==1&&Img[(i+1)*94+5]==1&&Img[(i+2)*94+5]==1)
+                  break;
+	}
+        
+        for(int i=0;i<57;i++) 
+	{
 		edge[1]+=(Img[i*94+7]==0?0:1);
-		edge[2]+=(Img[i*94+9]==0?0:1);
-
-		edge[3]+=(Img[i*94+43]==0?0:1);
-		edge[4]+=(Img[i*94+45]==0?0:1);
-		edge[5]+=(Img[i*94+47]==0?0:1);
-
-		edge[6]+=(Img[i*94+88]==0?0:1);
-		edge[7]+=(Img[i*94+90]==0?0:1);
-		edge[8]+=(Img[i*94+92]==0?0:1);
+                if(Img[i*94+7]==1&&Img[(i+1)*94+7]==1&&Img[(i+2)*94+7]==1)
+                  break;
 
 	}
+        for(int i=0;i<57;i++) 
+	{
+		edge[2]+=(Img[i*94+9]==0?0:1);
+                if(Img[i*94+9]==1&&Img[(i+1)*94+9]==1&&Img[(i+2)*94+9]==1)
+                  break;
+	}
+        for(int i=0;i<57;i++) 
+	{
+		edge[3]+=(Img[i*94+43]==0?0:1);
+                if(Img[i*94+43]==1&&Img[(i+1)*94+43]==1&&Img[(i+2)*94+43]==1)
+                  break;
+	}
+        for(int i=0;i<57;i++) 
+	{
+		edge[4]+=(Img[i*94+45]==0?0:1);
+                if(Img[i*94+45]==1&&Img[(i+1)*94+45]==1&&Img[(i+2)*94+45]==1)
+                  break;
+
+	}
+        for(int i=0;i<57;i++) 
+	{
+		edge[5]+=(Img[i*94+47]==0?0:1);
+                if(Img[i*94+47]==1&&Img[(i+1)*94+47]==1&&Img[(i+2)*94+47]==1)
+                  break;
+
+	}
+        for(int i=0;i<57;i++) 
+	{
+		edge[6]+=(Img[i*94+88]==0?0:1);
+                if(Img[i*94+88]==1&&Img[(i+1)*94+88]==1&&Img[(i+2)*94+88]==1)
+                  break;
+	}
+        for(int i=0;i<57;i++) 
+	{
+
+		edge[7]+=(Img[i*94+90]==0?0:1);
+                if(Img[i*94+90]==1&&Img[(i+1)*94+90]==1&&Img[(i+2)*94+90]==1)
+                  break;
+	}
+        for(int i=0;i<57;i++) 
+	{
+		edge[8]+=(Img[i*94+92]==0?0:1);
+                if(Img[i*94+92]==1&&Img[(i+1)*94+92]==1&&Img[(i+2)*94+92]==1)
+                  break;
+	}
+
 	sum[0]=edge[0]+edge[1]+edge[2];
 	sum[1]=edge[3]+edge[4]+edge[5];
 	sum[2]=edge[6]+edge[7]+edge[8];
@@ -77,32 +116,43 @@ void FindMeetingArea(uint8_t *Img)
 	if(DISPLAY_FLAG)
 	{
 		Display_Number(0,7,sum[0],YELLOW,RED);
-    	Display_Number(5,7,sum[1],YELLOW,RED);
+                Display_Number(5,7,sum[1],YELLOW,RED);
 		Display_Number(10,7,sum[2],YELLOW,RED);
 	}
 	
         
-        if(sum[1]-12>sum[0]&&sum[1]-12>sum[2]&&MeetingArea==0)
+        if((sum[1]-10>sum[0]&&sum[1]-10>sum[2]&&MeetingArea==0))
         {
           MeetingArea=1;
+          DistanceAddFlag=0;
           Beep_Down();
+		  speed_origin=GV_speedControlT.Pid[0].SetSpeed;
+		  GV_speedControlT.Pid[0].SetSpeed=speed_origin*0.8;
+		  GV_speedControlT.Pid[1].SetSpeed=speed_origin*0.8;
         }
-        if(sum[1]+12<sum[0]&&sum[1]+12<sum[2]&&MeetingArea==1)
+        if(sum[1]+9<sum[0]&&sum[1]+9<sum[2]&&MeetingArea==1)
         {
           MeetingArea=2;
           Beep_Down();
-          
+		  GV_speedControlT.Pid[0].SetSpeed=speed_origin/6;
+		  GV_speedControlT.Pid[1].SetSpeed=speed_origin/6;
         }
-        if(sum[1]-12>sum[0]&&sum[1]-12>sum[2]&&MeetingArea==2)
+
+		if(sum[1]-8>sum[0]&&sum[1]-8>sum[2]&&MeetingArea==2)
         {
           MeetingArea=3;
+		  //STOP_FLAG = -1;
+          //GV_speedControlT.Pid[RightWheel].SetSpeed=0;
+		  //GV_speedControlT.Pid[LeftWheel].SetSpeed=0;
           Beep_Up();
         }
         
-        if(DistanceAddFlag>=1000&&MeetingArea!=0)
+        if(DistanceAddFlag>=5000&&(MeetingArea==1||MeetingArea==2||MeetingArea==3))
         {
           MeetingArea=0;
           Beep_Down();
+		  GV_speedControlT.Pid[0].SetSpeed=speed_origin;
+		  GV_speedControlT.Pid[1].SetSpeed=speed_origin;
         }
 	/*int edge[94]={0};
 

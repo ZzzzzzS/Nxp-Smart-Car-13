@@ -48,10 +48,6 @@ int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 
 }
 
-int getDirectionError5(int16_t* value)//用5电感获取误差
-{
-   
-}
 
 void circleAnalysis(int16_t* value)
 {
