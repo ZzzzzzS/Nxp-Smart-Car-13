@@ -74,9 +74,13 @@ void FindMeetingArea(uint8_t *Img)
 	sum[1]=edge[3]+edge[4]+edge[5];
 	sum[2]=edge[6]+edge[7]+edge[8];
 
-	Display_Number(0,7,sum[0],YELLOW,RED);
-    Display_Number(5,7,sum[1],YELLOW,RED);
-	Display_Number(10,7,sum[2],YELLOW,RED);
+	if(DISPLAY_FLAG)
+	{
+		Display_Number(0,7,sum[0],YELLOW,RED);
+    	Display_Number(5,7,sum[1],YELLOW,RED);
+		Display_Number(10,7,sum[2],YELLOW,RED);
+	}
+	
         
         if(sum[1]-12>sum[0]&&sum[1]-12>sum[2]&&MeetingArea==0)
         {

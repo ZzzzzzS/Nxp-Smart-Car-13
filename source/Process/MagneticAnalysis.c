@@ -3,9 +3,10 @@
 int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 {
     int16_t sum[3];
+    int16_t result;
     if (Road_Data[RIGHT] + Road_Data[LEFT] != 0)
 	{
-		sum[0] = 100 * (float)(Road_Data[RIGHT] - Road_Data[LEFT]) /(Road_Data[LEFT] + Road_Data[RIGHT]);				//差比和计算
+		sum[0] = 100 * (float)((Road_Data[RIGHT]+Road_Data[FRONT_RIGHT]*0) - (Road_Data[LEFT]+Road_Data[FRONT_LEFT]*0)) /(Road_Data[LEFT] + Road_Data[RIGHT]+Road_Data[FRONT_LEFT]*0+Road_Data[FRONT_RIGHT]*0);				//差比和计算
 	}
 	else
 	{
@@ -30,6 +31,17 @@ int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 	
 	sum[2] = Rk*(float)sum[2] + Rb;
 	sum[1] = Lk*(float)sum[1] + Lb;
+        
+    if(Road_Data[FRONT_LEFT]>1000)
+		result-=1000;
+	else
+		result-=Road_Data[FRONT_LEFT];
+	
+	if(Road_Data[FRONT_RIGHT]>1000)
+		result+=1000;
+	else
+		result+=Road_Data[FRONT_RIGHT];
+
 
 	return (sum[0]*5 + sum[1] + sum[2])/7;						//计算出最终误差
 
@@ -45,42 +57,49 @@ void circleAnalysis(int16_t* value)
 {
 
 //圆环检测
-	if(value[MIDDLE]>2000&&Circle_Flag==0)//检测入环
+	if(value[MIDDLE]>1900&&Circle_Flag==0)//检测入环
 	{
 		Circle_Flag=1; //检测到圆环将标志位 置1,并当作超时计数器使用
 		
 	}
         
-        if(value[MIDDLE]<1800&&Circle_Flag==1)
+        if(value[MIDDLE]<1700&&Circle_Flag==1)
         {
           Circle_Flag=3;
           if(value[FRONT_LEFT]>value[FRONT_RIGHT])
 			Circle_Direction=LEFT;
 		else
 			Circle_Direction=RIGHT;
-		//Beep_Up();
+		Beep_Up();
         }
 	
-	if(value[MIDDLE]>1300&&Circle_Flag==3 && DistanceAddFlag>3500)
+	if(value[MIDDLE]>1300&&Circle_Flag==3 && DistanceAddFlag>20000)
 	{
 		DistanceAddFlag = 0;
 		Beep_Down();
-                Circle_Flag=-100;
+                Circle_Flag=-800;
 	}
 
         if(Circle_Flag<0)
         {
           Circle_Flag++;
         }
+        
+        if(DistanceAddFlag>80000)
+	{
+		Circle_Flag=0;
+		DistanceAddFlag = 0;
+		Beep_Down();
+	}
 
 //圆环控制
-	if(Circle_Flag==3 && DistanceAddFlag<2000)
+	if(Circle_Flag==3 && DistanceAddFlag<4000)
 	{
 		if(Circle_Direction == LEFT)//刚入环的时候让它疯狂转一下
-			value[RIGHT] = 0;
+			value[RIGHT] *= 0.15;
 		
 		else
-			value[LEFT] =  0;
+			value[LEFT] *=  0.15;
                         
                        
                           
@@ -90,10 +109,5 @@ void circleAnalysis(int16_t* value)
 	}
 	
 
-	if(DistanceAddFlag>15000)
-	{
-		Circle_Flag=0;
-		DistanceAddFlag = 0;
-		Beep_Down();
-	}
+	
 }

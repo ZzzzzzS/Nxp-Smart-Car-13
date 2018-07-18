@@ -146,7 +146,7 @@ PowerConnectPC=1
 [ArmDriver]
 EnableCache=1
 [DebugChecksum]
-Checksum=656252999
+Checksum=-896526431
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]
@@ -258,10 +258,8 @@ ShowTiming=1
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\SOURCE\GATHER\Inductance.c}.7.1" 0 0 1 "" 0 "" 0
-Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\SOURCE\GATHER\Inductance.c}.21.7" 0 0 1 "" 0 "" 0
-Bp2=_ 1 "EMUL_CODE" "{$PROJ_DIR$\SOURCE\PROCESS\ImageAnalysis.c}.83.11" 0 0 1 "" 0 "" 0
-Count=3
+Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\SOURCE\PROCESS\ImageAnalysis.c}.85.9" 0 0 1 "" 0 "" 0
+Count=1
 [Aliases]
 A0=_ "G:\Aether\Aether\board\board.c" ""
 A1=_ "G:\Aether\Aether\source\main.c" ""

@@ -12,7 +12,7 @@ void AD_Get_side()
 
     for(int i=0;i<MAX_POSITION;i++)
     {
-        ADside[i].min=10000;
+        ADside[i].min=20;
         ADside[i].max=0;
     }
 

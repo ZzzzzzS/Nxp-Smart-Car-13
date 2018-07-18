@@ -63,3 +63,4 @@ debug/obj/*
 Backup of Aether.*
 settings/*
 .vscode/*
+.vs/*

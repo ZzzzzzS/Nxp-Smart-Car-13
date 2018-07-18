@@ -35,7 +35,7 @@ void Init()
     Display_ASCII8X16(0,0,"MOTO",BLACK,WHITE);
     Speed_Init();
     Display_ASCII8X16(0,0,"SPEED",BLACK,WHITE);
-    PIT0_Init(7);
+    PIT0_Init(5);
     Display_ASCII8X16(0,0,"PIT",BLACK,WHITE);
     //PIT1_Init(20);
     ADC_Init();
