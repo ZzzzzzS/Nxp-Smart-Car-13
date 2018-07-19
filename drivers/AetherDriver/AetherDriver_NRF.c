@@ -687,6 +687,7 @@ void NRF24L01_Init(void)
     
     NRF24L01_ClearIRQnFlag(IRQ_ALL);
     
+    NRF24L01_CE_L;
 #if DYNAMIC_PACKET == 1
     NRF24L01_WriteReg(DYNPD, (1U<<0U)); 	                        // 使能通道0动态数据长度
     NRF24L01_WriteReg(FEATRUE, 0x07);
@@ -728,7 +729,7 @@ void NRF24L01_Init(void)
     
     NRF24L01_SetBaudrate(SPEED_250K);                                 // 初始化发射速率
     NRF24L01_SetPower(POWER_0DBM);                                 // 初始化输出功率
-    // NRF24L01_WriteReg(RF_SETUP, 0x26);
+    // NRF24L01_WriteReg(RF_SETUP, 0x26); 
     
     NRF24L01_WriteReg(NRF_CONFIG, (1U<<EN_CRC)|(1U<<PWR_UP));            // 上电NRF24L01
     

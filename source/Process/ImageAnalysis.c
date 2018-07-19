@@ -124,8 +124,7 @@ void FindMeetingArea(uint8_t *Img)
         if((sum[1]-10>sum[0]&&sum[1]-10>sum[2]&&MeetingArea==0))
         {
           MeetingArea=1;
-          DistanceAddFlag=0;
-          Beep_Down();
+          DistanceAddFlag2=0;
 		  speed_origin=GV_speedControlT.Pid[0].SetSpeed;
 		  GV_speedControlT.Pid[0].SetSpeed=speed_origin*0.8;
 		  GV_speedControlT.Pid[1].SetSpeed=speed_origin*0.8;
@@ -133,7 +132,6 @@ void FindMeetingArea(uint8_t *Img)
         if(sum[1]+9<sum[0]&&sum[1]+9<sum[2]&&MeetingArea==1)
         {
           MeetingArea=2;
-          Beep_Down();
 		  GV_speedControlT.Pid[0].SetSpeed=speed_origin/6;
 		  GV_speedControlT.Pid[1].SetSpeed=speed_origin/6;
         }
@@ -141,38 +139,36 @@ void FindMeetingArea(uint8_t *Img)
 	if(sum[1]-8>sum[0]&&sum[1]-8>sum[2]&&MeetingArea==2)
         {
           MeetingArea=3;
-	  DistanceAddFlag=0;
-          GV_speedControlT.Pid[RightWheel].SetSpeed=-speed_origin/3;
-	  GV_speedControlT.Pid[LeftWheel].SetSpeed=-speed_origin/3;
-          Beep_Up();
+	  DistanceAddFlag2=0;
+          GV_speedControlT.Pid[RightWheel].SetSpeed=-speed_origin/5;
+	  GV_speedControlT.Pid[LeftWheel].SetSpeed=-speed_origin/5;
         }
 
 	if((sum[1]-8>sum[0]&&sum[1]-8>sum[2]&&MeetingArea==3)||(sum[1]+8<sum[0]&&sum[1]+8<sum[2]&&MeetingArea==3))
 	{
-		DistanceAddFlag=0;
+		DistanceAddFlag2=0;
 	}
 
-	if(DistanceAddFlag<-1500&&MeetingArea==3)
+	if(DistanceAddFlag2<-1500&&MeetingArea==3)
 	{
 		MeetingArea=4;
 		GV_speedControlT.Pid[RightWheel].SetSpeed=50;
 	  	GV_speedControlT.Pid[LeftWheel].SetSpeed=50;
-		Beep_Down();
-                DistanceAddFlag=0;
+                DistanceAddFlag2=0;
 	}
         
         if((GV_speedControlT.Pid[LeftWheel].NowSpeed>=0||GV_speedControlT.Pid[RightWheel].NowSpeed>=0)&&MeetingArea==4)
         {
           GV_speedControlT.Pid[RightWheel].SetSpeed=0;
 	  GV_speedControlT.Pid[LeftWheel].SetSpeed=0;
+	  MeetingStatus=ready;
         }
         
-        if(DistanceAddFlag>=5000&&(MeetingArea==1||MeetingArea==2))
+        if(DistanceAddFlag2>=5000&&(MeetingArea==1||MeetingArea==2))
         {
           MeetingArea=0;
-          Beep_Down();
-		  GV_speedControlT.Pid[0].SetSpeed=speed_origin;
-		  GV_speedControlT.Pid[1].SetSpeed=speed_origin;
+	 GV_speedControlT.Pid[0].SetSpeed=speed_origin;
+	 GV_speedControlT.Pid[1].SetSpeed=speed_origin;
         }
 	/*int edge[94]={0};
 
@@ -195,7 +191,7 @@ void FindMeetingArea(uint8_t *Img)
 		}
 	}*/
 	Display_Number(0,6,MeetingArea,YELLOW,RED);
-        Display_Number(5,6,DistanceAddFlag,YELLOW,RED);
+        Display_Number(5,6,DistanceAddFlag2,YELLOW,RED);
         
 }
 

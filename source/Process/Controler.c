@@ -22,7 +22,12 @@ void ActiveDiffSpeed(speed_control_config_t *speed,int16_t *steerValue)
   GV_speedControlT.Pid[RightWheel].AimSpeed=((float)(STEER_MIDDLE-GV_steerPwmOutValueI)*(-0.2258)+100)*GV_speedControlT.Pid[RightWheel].SetSpeed/100;
   GV_speedControlT.Pid[LeftWheel].AimSpeed=((float)(STEER_MIDDLE-GV_steerPwmOutValueI)*0.2258+100)*GV_speedControlT.Pid[LeftWheel].SetSpeed/100;
 
-  
+  if(MeetingStatus==meeting)
+  {
+    GV_speedControlT.Pid[RightWheel].AimSpeed=GV_speedControlT.Pid[RightWheel].SetSpeed;
+    GV_speedControlT.Pid[LeftWheel].AimSpeed=GV_speedControlT.Pid[LeftWheel].SetSpeed;
+  }
+
 }
 
 void stop_car()
@@ -36,6 +41,7 @@ void stop_car()
 void meetingControl()
 {
 
+  static int16_t speed_origin;
   led_down();
   if(READ_KEY2)
   {
@@ -46,38 +52,23 @@ void meetingControl()
 
   NRF24L01_CE_H;   
 
-  if(READ_KEY2&&Message.distance_between<1500)
+  if(Message.distance_between<=1500)
   {
-    Message.stop = 22;
-    Meet = 1;
+    MeetingStatus=meeting;
   }
 
-  if(!READ_KEY2&&NRF_RxBuf[1]==22)
+  if(Message.distance_between>1500)
   {
-    Meet = 1;
+    MeetingStatus=normal;
   }
 
-  if(Meet)
+
+  if(MeetingStatus==meeting)
   {
-    GV_speedControlT.Pid[0].SetSpeed = 40;
-    GV_speedControlT.Pid[1].SetSpeed= GV_speedControlT.Pid[0].SetSpeed;
-    InductanceMiddle = MEETING_MIDDLE;
+    GV_speedControlT.Pid[0].AimSpeed = GV_speedControlT.Pid[0].SetSpeed*0.2;
+    GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[1].SetSpeed*0.2;
   }
     
-  if(Meet_distance>1000)
-  {
-    Message.stop = 10;
-  }
-
-  if(Meet_distance>2500)
-  {
-    Meet = 0;
-    Message.stop = 10;
-    GV_speedControlT.Pid[0].SetSpeed= 80;
-    GV_speedControlT.Pid[1].SetSpeed = GV_speedControlT.Pid[0].SetSpeed;
-    InductanceMiddle = INDUCTANCE_MIDDLE;
-    Meet_distance=0;
-  }
 }
 
 void SystemCtrl_PIT0CallBack()
@@ -85,9 +76,9 @@ void SystemCtrl_PIT0CallBack()
   //系统时间加一
 	++g_Time;
 	++g_Time_NRF;
-
+  MeetingStatus=normal;
   GetADCVal(InductanceVal);  //获取adc采集的值
-  circleAnalysis(InductanceVal); //分析入圆
+  //circleAnalysis(InductanceVal); //分析入圆
   //InductanceVal[MIDDLE] = InductanceVal[MIDDLE]>2000? 1000:InductanceVal[MIDDLE];
   GV_steerControlT.ErrorDistance=getDirectionError3(InductanceVal); //差比和计算误差
   SteerPWMCalculator(); //计算舵机PID
@@ -107,9 +98,14 @@ void SystemCtrl_PIT0CallBack()
   GV_speedControlT.Pid[LeftWheel].NowSpeed = getLeftSpeed(); //获取当前速度
   GV_speedControlT.Pid[RightWheel].NowSpeed = -getRightSpeed(); //获取当前速度
   }
-  if(Circle_Flag==3||MeetingArea!=0 )
+  if(Circle_Flag==3)
   {
       DistanceAddFlag+=(GV_speedControlT.Pid[LeftWheel].NowSpeed+
+                       GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
+  }
+  if(MeetingArea!=0)
+  {
+      DistanceAddFlag2+=(GV_speedControlT.Pid[LeftWheel].NowSpeed+
                        GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
   }
     
@@ -123,6 +119,8 @@ void SystemCtrl_PIT0CallBack()
   {
     STOP_FLAG = 0;
   }
+
+  //meetingControl();
   SpeedComput(&GV_speedControlT); //检查速度合法性
   MotorOut(&GV_speedControlT); //输出动力
 }

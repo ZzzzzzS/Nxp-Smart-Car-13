@@ -132,4 +132,17 @@ typedef enum 		//枚举定义电感位置
 #define Lk 1.53
 #define Lb 0.3972
 
+
+/*============================================
+会车相关
+==========================================*/
+
+typedef enum
+{
+  meeting,
+  ready,
+  crossing,
+  normal
+}huiche_e;
+
 #endif
