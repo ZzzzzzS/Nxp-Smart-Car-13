@@ -2,7 +2,7 @@
 
 int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 {
-    int16_t sum[3];
+    int16_t sum[4];
     int16_t result;
     if (Road_Data[RIGHT] + Road_Data[LEFT] != 0)
 	{
@@ -27,6 +27,15 @@ int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 	else
 	{
 		sum[2] = 0;
+	}
+
+	if (Road_Data[FRONT_RIGHT] + Road_Data[FRONT_LEFT] != 0)
+	{
+		sum[3] = 100 * (float)((Road_Data[FRONT_LEFT])-(Road_Data[FRONT_RIGHT]) / (Road_Data[FRONT_LEFT]+Road_Data[FRONT_RIGHT]));				//差比和计算
+	}
+	else
+	{
+		sum[3] = 0;
 	}
 	
 	sum[2] = Rk*(float)sum[2] + Rb;
@@ -56,6 +65,7 @@ void circleAnalysis(int16_t* value)
 	if(value[MIDDLE]>1900&&Circle_Flag==0)//检测入环
 	{
 		Circle_Flag=1; //检测到圆环将标志位 置1,并当作超时计数器使用
+		DistanceAddFlag = 0;
 		
 	}
         
@@ -89,21 +99,15 @@ void circleAnalysis(int16_t* value)
 	}
 
 //圆环控制
-	if(Circle_Flag==3 && DistanceAddFlag<4000)
+	if(Circle_Flag==3 && DistanceAddFlag<8000)
 	{
 		if(Circle_Direction == LEFT)//刚入环的时候让它疯狂转一下
-			value[RIGHT] *= 0.15;
+			value[RIGHT] *= 0.1;
 		
 		else
-			value[LEFT] *=  0.15;
-                        
-                       
-                          
+			value[LEFT] *=  0.1;                    
                      for(int i=0;i<MAX_POSITION;i++)
                        if(value[i]<0)
                           value[i]=0;
-	}
-	
-
-	
+	}	
 }

@@ -127,9 +127,9 @@ typedef enum 		//枚举定义电感位置
 }InductancePosition_e;
 
 
-#define Rk -1.3109
-#define Rb -0.4586
-#define Lk 1.3377
-#define Lb 0.4338
+#define Rk -1.70
+#define Rb -0.375
+#define Lk 1.53
+#define Lb 0.3972
 
 #endif

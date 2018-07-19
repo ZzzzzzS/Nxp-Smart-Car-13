@@ -60,7 +60,7 @@ void SteerPWMCalculator()
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Small * GV_steerControlT.ErrorDistance +
                                GV_steerControlT.PD.Steer_D_Small *(GV_steerControlT.ErrorDistance - GV_steerControlT.LastErrorDistance));
     }
-    else if(I_abs(GV_steerControlT.ErrorDistance)>37)
+    else if(I_abs(GV_steerControlT.ErrorDistance)>40)
     {
       //led_green(1);
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Big * GV_steerControlT.ErrorDistance +
@@ -78,6 +78,8 @@ void SteerPWMCalculator()
   
 
     GV_steerPwmOutValueI = STEER_MIDDLE-addPwm;
+    if(MeetingArea==3)
+      GV_steerPwmOutValueI = STEER_MIDDLE;
 
 }
 

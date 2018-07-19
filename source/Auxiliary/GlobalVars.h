@@ -44,7 +44,7 @@ extern int32_t Circle_Flag;
 extern uint8_t Motor_Stop;
 extern uint8_t DISPLAY_FLAG;
 extern uint8_t STOP_FLAG;
-extern uint32_t DistanceAddFlag;
+extern int32_t DistanceAddFlag;
 extern uint8_t Circle_Direction;
 extern uint8_t MeetingArea;
 #endif
