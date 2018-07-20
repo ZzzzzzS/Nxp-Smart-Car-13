@@ -45,25 +45,31 @@ void meetingControl()
   led_down();
   if(READ_KEY2)
   {
-    NRF24L01_SetMode(MODE_TX);
     NRF24L01_CE_L;
+    //Message.distance_between=12;
     NRF24L01_WriteTxPayload_NOACK((uint8_t*)(&Message), sizeof(Message));
+    NRF24L01_CE_H;  
   }
 
-  NRF24L01_CE_H;   
+   
 
-  if(Message.distance_between<=1500)
+  if(Message.distance_between<=100)
   {
     MeetingStatus=meeting;
+    DistanceAddFlag3=1;
   }
 
-  if(Message.distance_between>1500)
+  if(Message.distance_between>100)
   {
     MeetingStatus=normal;
   }
 
+  if(DistanceAddFlag3>2500)
+  {
+    DistanceAddFlag3=0;
+  }
 
-  if(MeetingStatus==meeting)
+  if(MeetingStatus==meeting||DistanceAddFlag3!=0)
   {
     GV_speedControlT.Pid[0].AimSpeed = GV_speedControlT.Pid[0].SetSpeed*0.2;
     GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[1].SetSpeed*0.2;
@@ -76,7 +82,6 @@ void SystemCtrl_PIT0CallBack()
   //系统时间加一
 	++g_Time;
 	++g_Time_NRF;
-  MeetingStatus=normal;
   GetADCVal(InductanceVal);  //获取adc采集的值
   //circleAnalysis(InductanceVal); //分析入圆
   //InductanceVal[MIDDLE] = InductanceVal[MIDDLE]>2000? 1000:InductanceVal[MIDDLE];
@@ -97,6 +102,7 @@ void SystemCtrl_PIT0CallBack()
   {
   GV_speedControlT.Pid[LeftWheel].NowSpeed = getLeftSpeed(); //获取当前速度
   GV_speedControlT.Pid[RightWheel].NowSpeed = -getRightSpeed(); //获取当前速度
+  
   }
   if(Circle_Flag==3)
   {
@@ -108,7 +114,13 @@ void SystemCtrl_PIT0CallBack()
       DistanceAddFlag2+=(GV_speedControlT.Pid[LeftWheel].NowSpeed+
                        GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
   }
-    
+  if(DistanceAddFlag3!=0)
+  {
+    DistanceAddFlag3+=(GV_speedControlT.Pid[LeftWheel].NowSpeed+
+                       GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
+  }
+
+  meetingControl();  
   PIDControl(&GV_speedControlT.Pid[LeftWheel]); //计算PID
   PIDControl(&GV_speedControlT.Pid[RightWheel]);
   if((InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT])<200)
@@ -120,7 +132,7 @@ void SystemCtrl_PIT0CallBack()
     STOP_FLAG = 0;
   }
 
-  //meetingControl();
+  
   SpeedComput(&GV_speedControlT); //检查速度合法性
   MotorOut(&GV_speedControlT); //输出动力
 }

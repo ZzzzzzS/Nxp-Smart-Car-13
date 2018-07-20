@@ -304,6 +304,7 @@ uint8_t NRF24L01_ReadRxPayload(uint8_t *pBuff)
     NRF24L01_Delay(400);
     
     NRF24L01_FlushRxFIFO();
+    Message.distance_between=pBuff[1];
     return Width;
 }
 
@@ -356,10 +357,10 @@ void NRF24L01_WriteTxPayload_NOACK(uint8_t *pBuff, uint8_t len)
     for(uint8_t i=0; i<len; i++)
     {
         DSPI_MasterWriteDataBlocking(SPI1, &SPI1_NRF24L01_Ctar1, pBuff[i]);
-        NRF24L01_Delay(400);
+        NRF24L01_Delay(100);
     }
     NRF24L01_CS_H;
-    NRF24L01_Delay(400);
+    NRF24L01_Delay(100);
 }
 
 /**
@@ -645,7 +646,7 @@ void NRF24L01_TxRxISR(void)
 
         case 0x04:
         if(!READ_KEY2){
-        NRF24L01_ReadRxPayload((uint8_t*)(&NRF_RxBuf[0]));// 读取接受数据
+        NRF24L01_ReadRxPayload((uint8_t*)(&NRF_RxBuf));// 读取接受数据
 	led_light_one(0);
         }else{
           NRF24L01_SetMode(MODE_TX);
@@ -687,7 +688,7 @@ void NRF24L01_Init(void)
     
     NRF24L01_ClearIRQnFlag(IRQ_ALL);
     
-    NRF24L01_CE_L;
+    //NRF24L01_CE_L;
 #if DYNAMIC_PACKET == 1
     NRF24L01_WriteReg(DYNPD, (1U<<0U)); 	                        // 使能通道0动态数据长度
     NRF24L01_WriteReg(FEATRUE, 0x07);

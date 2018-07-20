@@ -63,9 +63,10 @@ typedef struct
 
 typedef struct 
 {
-	uint8_t  stop;
-	uint8_t  Empty;
-	uint16_t distance_between;
+	uint8_t distance_between;
+  uint8_t distance_between2;
+  uint8_t distance_between3;
+  uint8_t distance_between4;
 }Message_t; 
 //Soft IIC
 #define SDA_GPIO GPIOC

@@ -34,7 +34,9 @@ int main(void)
         Display_Number(10,5,GV_speedControlT.Pid[RightWheel].NowSpeed,YELLOW,RED);
 
         Display_Number(0,7,DistanceAddFlag,YELLOW,RED);
-        Display_Number(5,7,Circle_Flag,YELLOW,RED);
+        //Display_Number(5,7,Circle_Flag,YELLOW,RED);
+        Display_Number(5,7,Message.distance_between,YELLOW,RED);
+        
     }
     //meetingControl();
     //stop_car();
@@ -42,7 +44,7 @@ int main(void)
     //led_red(1);   
     //led_red(0);
     InductanceVal[7]=(InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT]);
-    SendAdValue(InductanceVal, sizeof(InductanceVal));//发送到山外上位机显示
+    //SendAdValue(InductanceVal, sizeof(InductanceVal));//发送到山外上位机显示
     if(Using_Flag==Using_A&&IMG_NOW==(uint8_t*)MT9V034_IMGBUFF_B)
       {
         ImageControlor(MT9V034_IMGBUFF_A);

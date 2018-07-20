@@ -46,6 +46,7 @@ extern uint8_t DISPLAY_FLAG;
 extern uint8_t STOP_FLAG;
 extern int32_t DistanceAddFlag;
 extern int32_t DistanceAddFlag2;
+extern int32_t DistanceAddFlag3;
 extern uint8_t Circle_Direction;
 extern uint8_t MeetingArea;
 extern uint8_t MeetingStatus;

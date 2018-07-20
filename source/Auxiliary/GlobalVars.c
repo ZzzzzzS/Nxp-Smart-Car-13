@@ -26,9 +26,7 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  uint8_t Meet;
  uint32_t Meet_distance;
  Message_t Message={
-							.stop = 10,
-							.Empty = 47,
-							.distance_between=0xffff,
+							.distance_between=0xff,
 						};
 
 //动力输出
@@ -49,6 +47,7 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  uint8_t STOP_FLAG=0;
  int32_t DistanceAddFlag=0;
  int32_t DistanceAddFlag2=0;
+ int32_t DistanceAddFlag3=0;
  uint8_t Circle_Direction = LEFT;
  uint8_t MeetingArea=0;
  uint8_t MeetingStatus;

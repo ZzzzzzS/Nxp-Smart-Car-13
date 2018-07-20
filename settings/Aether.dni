@@ -146,7 +146,7 @@ PowerConnectPC=1
 [ArmDriver]
 EnableCache=1
 [DebugChecksum]
-Checksum=1098209118
+Checksum=387758524
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]
@@ -222,6 +222,8 @@ SumSortOrder=0
 Frequency=10000
 Probe0=I0
 ProbeSetup0=2 1 1 2 0 0
+[struct_types]
+Fmt0=Message_t-distance_between	2	0
 [array_types]
 Fmt0=int16_t[32]	3	0
 Fmt1=uint16_t[2]	4	0
@@ -233,8 +235,9 @@ Fmt5=unsigned char[360]	4	0
 Fmt0={W}1:MT9V034_IMGBUFF	1	2
 Fmt1={W}1:column	3	0
 Fmt2={W}1:num	1	0
-Fmt3={W}1:row	3	0
-Fmt4={W}1:test	4	0
+Fmt3={W}1:pBuff[3]	4	0
+Fmt4={W}1:row	3	0
+Fmt5={W}1:test	4	0
 [Trace1]
 Enabled=0
 ShowSource=1

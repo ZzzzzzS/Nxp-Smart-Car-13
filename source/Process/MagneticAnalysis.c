@@ -67,10 +67,18 @@ int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 	}
 	
 
-	if(MeetingStatus==meeting)
+	if(MeetingStatus==meeting||DistanceAddFlag3!=0)
 	{
-		answer+=20;
+		if (Road_Data[LEFT]+ Road_Data[MIDDLE] != 0)
+		{
+		answer = -100 * (float)(Road_Data[LEFT]*0.5 - Road_Data[MIDDLE]) / (Road_Data[LEFT]*0.5 + Road_Data[MIDDLE]);			//差比和计算
+		}
+		else
+		{
+		answer = 0;
+		}
 	}
+        
 	return answer;						//计算出最终误差
 
 
