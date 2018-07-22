@@ -44,6 +44,8 @@ int main(void)
     //led_red(1);   
     //led_red(0);
     InductanceVal[7]=(InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT]);
+    InductanceVal[6]=GV_steerControlT.ErrorDistance;
+    InductanceVal[5]=-GV_steerPwmOutValueI +STEER_MIDDLE;
     //SendAdValue(InductanceVal, sizeof(InductanceVal));//发送到山外上位机显示
     if(Using_Flag==Using_A&&IMG_NOW==(uint8_t*)MT9V034_IMGBUFF_B)
       {

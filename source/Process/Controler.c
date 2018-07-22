@@ -10,7 +10,7 @@ void ImageControlor(uint8_t* img)  //列188，行120
     LCD_DrawPicture_Small(small_image);
     //LCD_DrawPicture(img);
   }
- FindMeetingArea(small_image);
+ //FindMeetingArea(small_image);
         
 }
 
@@ -19,8 +19,8 @@ void ActiveDiffSpeed(speed_control_config_t *speed,int16_t *steerValue)
   GV_speedControlT.Pid[RightWheel].AimSpeed=GV_speedControlT.Pid[RightWheel].SetSpeed;
   GV_speedControlT.Pid[LeftWheel].AimSpeed=GV_speedControlT.Pid[LeftWheel].SetSpeed;
   
-  GV_speedControlT.Pid[RightWheel].AimSpeed=((float)(STEER_MIDDLE-GV_steerPwmOutValueI)*(-0.2258)+100)*GV_speedControlT.Pid[RightWheel].SetSpeed/100;
-  GV_speedControlT.Pid[LeftWheel].AimSpeed=((float)(STEER_MIDDLE-GV_steerPwmOutValueI)*0.2258+100)*GV_speedControlT.Pid[LeftWheel].SetSpeed/100;
+  GV_speedControlT.Pid[RightWheel].AimSpeed=((float)(STEER_MIDDLE-GV_steerPwmOutValueI)*(-0.3258)+100)*GV_speedControlT.Pid[RightWheel].SetSpeed/100;
+  GV_speedControlT.Pid[LeftWheel].AimSpeed=((float)(STEER_MIDDLE-GV_steerPwmOutValueI)*0.3258+100)*GV_speedControlT.Pid[LeftWheel].SetSpeed/100;
 
   if(MeetingStatus==meeting)
   {
@@ -53,13 +53,13 @@ void meetingControl()
 
    
 
-  if(Message.distance_between<=100)
+  if(Message.distance_between<=180)
   {
     MeetingStatus=meeting;
     DistanceAddFlag3=1;
   }
 
-  if(Message.distance_between>100)
+  if(Message.distance_between>180)
   {
     MeetingStatus=normal;
   }
@@ -80,6 +80,7 @@ void meetingControl()
 void SystemCtrl_PIT0CallBack()
 {
   //系统时间加一
+  //MeetingStatus=normal;
 	++g_Time;
 	++g_Time_NRF;
   GetADCVal(InductanceVal);  //获取adc采集的值
@@ -92,8 +93,8 @@ void SystemCtrl_PIT0CallBack()
 
   if(Circle_Flag==1)
   {
-    GV_speedControlT.Pid[0].AimSpeed*=0.3;
-    GV_speedControlT.Pid[1].AimSpeed*=0.3;
+    GV_speedControlT.Pid[0].AimSpeed=100;
+    GV_speedControlT.Pid[1].AimSpeed=100;
   }
 
   SteerOut(); //计算舵机最终输出

@@ -47,6 +47,15 @@ void SpeedComput(speed_control_config_t* base)
     base->OutSpeed[RightWheel] = MAX_SPEED;
   else if(base->OutSpeed[RightWheel]<MIN_SPEED)
     base->OutSpeed[RightWheel] = MIN_SPEED;
+
+  if(base->OutSpeed[RightWheel]>4000&&base->Pid[RightWheel].AimSpeed<30)
+  {
+    base->OutSpeed[RightWheel]=0;
+  }
+  if(base->OutSpeed[LeftWheel]>4000&&base->Pid[LeftWheel].AimSpeed<30)
+  {
+    base->OutSpeed[LeftWheel]=0;
+  }
   
 }
 
