@@ -15,7 +15,7 @@ static inline int16_t I_abs(int16_t a)
 }
    
 void SteerInit() {
-  PORT_SetPinMux(PORTE, 12, kPORT_MuxAlt6);  //引脚复用
+  PORT_SetPinMux(PORTE, 12, kPORT_MuxAlt6 );  //引脚复用
   GV_steerControlT.ErrorDistance = 0;
   GV_steerControlT.LastErrorDistance = 0;
   GV_steerControlT.PD.Steer_P = 4;
@@ -54,13 +54,13 @@ void SteerPWMCalculator()
   int16_t addPwm = 0;
 
 	//分段pd
-    if(I_abs(GV_steerControlT.ErrorDistance)<20)
+    if(I_abs(GV_steerControlT.ErrorDistance)<10)
     {
       //led_red(1);
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Small * GV_steerControlT.ErrorDistance +
                                GV_steerControlT.PD.Steer_D_Small *(GV_steerControlT.ErrorDistance - GV_steerControlT.LastErrorDistance));
     }
-    else if(I_abs(GV_steerControlT.ErrorDistance)>40)
+    else if(I_abs(GV_steerControlT.ErrorDistance)>37)
     {
       //led_green(1);
       addPwm = (int16_t)(GV_steerControlT.PD.Steer_P_Big * GV_steerControlT.ErrorDistance +
@@ -70,8 +70,13 @@ void SteerPWMCalculator()
     {
       led_red(0);
       led_green(0);
-      addPwm = (int16_t)(GV_steerControlT.PD.Steer_P * GV_steerControlT.ErrorDistance +
+      if(GV_steerControlT.ErrorDistance>0)
+        addPwm = (int16_t)(GV_steerControlT.PD.Steer_P * (GV_steerControlT.ErrorDistance-10)+10*GV_steerControlT.PD.Steer_P_Small +
                            GV_steerControlT.PD.Steer_D *(GV_steerControlT.ErrorDistance-GV_steerControlT.LastErrorDistance));
+      else
+        addPwm = (int16_t)(GV_steerControlT.PD.Steer_P * (GV_steerControlT.ErrorDistance+10)-10*GV_steerControlT.PD.Steer_P_Small +
+                           GV_steerControlT.PD.Steer_D *(GV_steerControlT.ErrorDistance-GV_steerControlT.LastErrorDistance));
+
     }
     
     GV_steerControlT.LastErrorDistance = GV_steerControlT.ErrorDistance;
@@ -100,7 +105,7 @@ void SteerPWMCalculator2()
   }
 
   addPwm = (int16_t)(P * GV_steerControlT.ErrorDistance +
-                     D *(GV_steerControlT.ErrorDistance-GV_steerControlT.LastErrorDistance));
+                     GV_steerControlT.PD.Steer_D *(GV_steerControlT.ErrorDistance-GV_steerControlT.LastErrorDistance));
 
   GV_steerControlT.LastErrorDistance = GV_steerControlT.ErrorDistance;
   GV_steerPwmOutValueI = STEER_MIDDLE-addPwm;

@@ -10,6 +10,7 @@ void SuperSonicGetData(uint8_t Input)
     //环形队列缓冲区和数据分析队列的初始化
 	static uint8_t dat[3]={0};
 	static uint8_t num=0;
+	uint16_t temp;
         uint16_t result;
 
 
@@ -21,8 +22,9 @@ void SuperSonicGetData(uint8_t Input)
 	{
 		num = 0;
 		result = dat[1]<<8 | dat[2];
-		Message.distance_between=result/7;
-		if(Message.distance_between>255)
-		Message.distance_between=255;
+                if(result>6800)
+                  result=6800;
+
+		Message.distance_between=result/27;
 	}
 }

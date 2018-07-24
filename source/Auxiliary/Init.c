@@ -13,7 +13,7 @@ void Init()
     lcd_initial();//初始化LCD
     fullfill(0,0,128,128,BLACK);
     
-  	//UART4_Init();               //初始化UART4(蓝牙)
+  	UART4_Init();               //初始化UART4(蓝牙)
     //Display_ASCII8X16(0,0,"UART",BLACK,WHITE);
     SteerInit();
     Display_ASCII8X16(0,0,"STEER",BLACK,WHITE);

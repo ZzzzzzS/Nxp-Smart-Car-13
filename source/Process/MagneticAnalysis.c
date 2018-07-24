@@ -54,17 +54,7 @@ int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 
 	answer=(sum[0]*5 + sum[1] + sum[2])/7;
 
-	if(MeetingStatus!=meeting)
-	{
-		if((Road_Data[RIGHT] + Road_Data[LEFT]<800)&&(Road_Data[RIGHT]>Road_Data[LEFT]+50))
-		{
-			answer=40;
-		}
-		else if((Road_Data[RIGHT] + Road_Data[LEFT]<800)&&(Road_Data[LEFT]>Road_Data[RIGHT]+50))
-		{
-			answer=-40;
-		}
-	}
+
 	
 
 	if(MeetingStatus==meeting||DistanceAddFlag3!=0)
@@ -79,6 +69,20 @@ int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 		}
 		answer+=5;
 	}
+
+	if((Road_Data[RIGHT] + Road_Data[LEFT]<800)&&(Road_Data[RIGHT]>Road_Data[LEFT]+50))
+		{
+			answer=40;
+		}
+		else if((Road_Data[RIGHT] + Road_Data[LEFT]<800)&&(Road_Data[LEFT]>Road_Data[RIGHT]+50))
+		{	if(MeetingStatus!=meeting)
+	{
+		
+	}
+			answer=-40;
+		}
+
+
         
 	return answer;						//计算出最终误差
 

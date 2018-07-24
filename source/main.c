@@ -17,12 +17,13 @@ uint32_t interflag = 0;
 int main(void) 
 {
   Init();
+
+  GV_steerPwmOutValueI=STEER_PWM_MIN;
   
   while (1)
   {
     if(!DISPLAY_FLAG)
     {   
-        //delay_ms(100);
         Display_Number(0,1,InductanceVal[LEFT],YELLOW,RED);
         Display_Number(0,2,InductanceVal[MIDDLE],YELLOW,RED);
         Display_Number(0,3,InductanceVal[RIGHT],YELLOW,RED);
@@ -46,7 +47,7 @@ int main(void)
     InductanceVal[7]=(InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT]);
     InductanceVal[6]=GV_steerControlT.ErrorDistance;
     InductanceVal[5]=-GV_steerPwmOutValueI +STEER_MIDDLE;
-    //SendAdValue(InductanceVal, sizeof(InductanceVal));//发送到山外上位机显示
+    //SendAdValue(Message.distance_between, sizeof(Message.distance_between));//发送到山外上位机显示
     if(Using_Flag==Using_A&&IMG_NOW==(uint8_t*)MT9V034_IMGBUFF_B)
       {
         ImageControlor(MT9V034_IMGBUFF_A);
@@ -59,5 +60,9 @@ int main(void)
       }
     
     //Camera_ajust();
+    //if(READ_LEFT)
+    //{
+     // GV_steerPwmOutValueI+=5;
+   // }
   }
 }

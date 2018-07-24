@@ -149,7 +149,7 @@ void FindMeetingArea(uint8_t *Img)
 		DistanceAddFlag2=0;
 	}
 
-	if(DistanceAddFlag2<-1500&&MeetingArea==3)
+	if(DistanceAddFlag2<-1200&&MeetingArea==3)
 	{
 		MeetingArea=4;
 		GV_speedControlT.Pid[RightWheel].SetSpeed=50;
@@ -167,8 +167,9 @@ void FindMeetingArea(uint8_t *Img)
         if(DistanceAddFlag2>=5000&&(MeetingArea==1||MeetingArea==2))
         {
           MeetingArea=0;
-	 GV_speedControlT.Pid[0].SetSpeed=speed_origin;
-	 GV_speedControlT.Pid[1].SetSpeed=speed_origin;
+	  GV_speedControlT.Pid[0].SetSpeed=g_Speed;
+	  GV_speedControlT.Pid[1].SetSpeed=g_Speed;
+		
         }
 	/*int edge[94]={0};
 

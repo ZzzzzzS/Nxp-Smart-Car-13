@@ -9,7 +9,7 @@ void NRF_SPI_Init()
     PORT_SetPinMux(PORTB,16U,kPORT_MuxAlt2);
     
     SPI1_config.whichCtar = kDSPI_Ctar0;
-    SPI1_config.ctarConfig.baudRate = 100*1000U;                  // 设置SPI通信速率1M
+    SPI1_config.ctarConfig.baudRate = 100*1000U;                  // 设置SPI通信速率10M
     SPI1_config.ctarConfig.bitsPerFrame = 16;                        // 数据比特长度：16bit
     SPI1_config.ctarConfig.cpol = kDSPI_ClockPolarityActiveHigh;               // CPOL=0
     SPI1_config.ctarConfig.cpha = kDSPI_ClockPhaseFirstEdge;        // 第1个沿采集(CPOL=0时为上升沿）
@@ -357,10 +357,10 @@ void NRF24L01_WriteTxPayload_NOACK(uint8_t *pBuff, uint8_t len)
     for(uint8_t i=0; i<len; i++)
     {
         DSPI_MasterWriteDataBlocking(SPI1, &SPI1_NRF24L01_Ctar1, pBuff[i]);
-        NRF24L01_Delay(100);
+        //NRF24L01_Delay(100);
     }
     NRF24L01_CS_H;
-    NRF24L01_Delay(100);
+    //NRF24L01_Delay(100);
 }
 
 /**
