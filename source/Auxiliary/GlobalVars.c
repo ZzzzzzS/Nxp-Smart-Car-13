@@ -51,3 +51,4 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  uint8_t Circle_Direction = LEFT;
  uint8_t MeetingArea=0;
  uint8_t MeetingStatus;
+ uint32_t MeetingTime;

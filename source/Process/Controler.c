@@ -10,7 +10,8 @@ void ImageControlor(uint8_t* img)  //列188，行120
     LCD_DrawPicture_Small(small_image);
     //LCD_DrawPicture(img);
   }
- FindMeetingArea(small_image);
+  //if(g_Time-500>MeetingTime)
+    //FindMeetingArea(small_image);
         
 }
 
@@ -42,19 +43,21 @@ void meetingControl()
 {
 
   static int16_t speed_origin;
-  static uint8_t old;
+  static uint8_t old[3];
   led_down();
   
+  
 
-  if(Message.distance_between<74&&old<74)
+  if(Message.distance_between<74&&old[0]<74&&old[1]<74)
   {
     GV_speedControlT.Pid[0].AimSpeed = GV_speedControlT.Pid[0].SetSpeed*0.2;
     GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[1].SetSpeed*0.2;
   }
 
-  if(Message.distance_between<=60&&old<60)
+  if(Message.distance_between<=60&&old[0]<60&&old[1]<60&&old[2]<60)
   {
     MeetingStatus=meeting;
+    MeetingTime=g_Time;
     MeetingArea=0;
     DistanceAddFlag3=1;
   }
@@ -71,11 +74,13 @@ void meetingControl()
 
   if(MeetingStatus==meeting||DistanceAddFlag3!=0)
   {
-    GV_speedControlT.Pid[0].AimSpeed = GV_speedControlT.Pid[0].SetSpeed*0.2;
-    GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[1].SetSpeed*0.2;
+    GV_speedControlT.Pid[0].AimSpeed = GV_speedControlT.Pid[0].SetSpeed*0.4;
+    GV_speedControlT.Pid[1].AimSpeed = GV_speedControlT.Pid[1].SetSpeed*0.4;
   }
 
-  old=Message.distance_between;
+  old[2]=old[1];
+  old[1]=old[0];
+  old[0]=Message.distance_between;
 }
 
 void SystemCtrl_PIT0CallBack()
@@ -100,8 +105,8 @@ void SystemCtrl_PIT0CallBack()
 
   if(Circle_Flag==1)
   {
-    GV_speedControlT.Pid[0].AimSpeed=100;
-    GV_speedControlT.Pid[1].AimSpeed=100;
+    GV_speedControlT.Pid[0].AimSpeed=120;
+    GV_speedControlT.Pid[1].AimSpeed=120;
   }
 
   SteerOut(); //计算舵机最终输出

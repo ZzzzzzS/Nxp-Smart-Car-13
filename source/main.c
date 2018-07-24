@@ -17,6 +17,7 @@ uint32_t interflag = 0;
 int main(void) 
 {
   Init();
+  g_Time=1000;
 
   GV_steerPwmOutValueI=STEER_PWM_MIN;
   

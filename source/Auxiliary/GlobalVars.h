@@ -50,4 +50,5 @@ extern int32_t DistanceAddFlag3;
 extern uint8_t Circle_Direction;
 extern uint8_t MeetingArea;
 extern uint8_t MeetingStatus;
+extern uint32_t MeetingTime;
 #endif
