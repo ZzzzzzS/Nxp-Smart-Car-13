@@ -30,7 +30,10 @@ void SuperSonicGetData(uint8_t Input)
                   result[0]=6800;
 
 		
-		temp=(result[0]*3+result[1]*2+result[2])/6;
-		Message.distance_between=temp/27;
+		temp=(result[0]+result[1]+result[2])/3;
+		Message.distance_between=result[0]/27;
+		old[2]=old[1];
+  		old[1]=old[0];
+  		old[0]=Message.distance_between;
 	}
 }

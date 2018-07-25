@@ -52,3 +52,8 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  uint8_t MeetingArea=0;
  uint8_t MeetingStatus;
  uint32_t MeetingTime;
+ uint8_t old[3];
+ uint8_t FinnalPointFlag;
+ uint32_t AllDistance;
+ uint32_t HalfDistance;
+ uint32_t FullDistance;
