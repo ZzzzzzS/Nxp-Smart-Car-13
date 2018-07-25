@@ -99,6 +99,8 @@ void meetingControl()
 
 void SystemCtrl_PIT0CallBack()
 {
+    
+
   //系统时间加一
   //MeetingStatus=normal;
   if(MeetingArea==0)
@@ -107,11 +109,11 @@ void SystemCtrl_PIT0CallBack()
 	  GV_speedControlT.Pid[1].SetSpeed=g_Speed;
   }
   
-  if(AllDistance/100>FullDistance-300)
-  {
-    GV_speedControlT.Pid[0].SetSpeed*=0.5;
-    GV_speedControlT.Pid[1].SetSpeed*=0.5;
-  }
+  //if(AllDistance/100>FullDistance-300)
+  //{
+   // GV_speedControlT.Pid[0].SetSpeed*=0.5;
+    //GV_speedControlT.Pid[1].SetSpeed*=0.5;
+  //}
 
 	++g_Time;
 	++g_Time_NRF;
@@ -137,7 +139,7 @@ void SystemCtrl_PIT0CallBack()
   GV_speedControlT.Pid[LeftWheel].NowSpeed = getLeftSpeed(); //获取当前速度
   GV_speedControlT.Pid[RightWheel].NowSpeed = -getRightSpeed(); //获取当前速度
   }
-  if(g_Time%5==0)
+  if(g_Time%4==0)
   {
     if(READ_KEY2)
     {
