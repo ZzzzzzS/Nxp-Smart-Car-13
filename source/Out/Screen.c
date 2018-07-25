@@ -3,7 +3,7 @@
 
 menu_item menu_list[MENU_ITEM_COUNT];
 //最后一个数据的下标
-uint8_t MENU_LAST=17;
+uint8_t MENU_LAST=18;
 
 //向液晶屏写一个8位指令
 void  Lcd_WriteIndex(uint8_t Data)
@@ -409,7 +409,7 @@ void menu(uint8_t start,uint8_t end,uint8_t selected)
 	uint8_t buffer[17];
 	for(int i=start;i<=end;i++)
 	{
-		if(i<16){
+		if(i<17){
 			sprintf(buffer,"%s   %2d.%d",menu_list[i].item_name,(int)(menu_list[i].item_value),((int)(menu_list[i].item_value*10.0))%10);
 			if(i==selected)
 			{
@@ -418,7 +418,7 @@ void menu(uint8_t start,uint8_t end,uint8_t selected)
 				Display_ASCII8X16(0,i-start,buffer,BLACK,WHITE);
 			}
 		}else{
-			if(i==16||i==17){
+			if(i==17||i==18){
 				sprintf(buffer,"%s %d",menu_list[i].item_name,*(uint32_t*)(&menu_list[i].item_value));
 				if(i==selected)
 				{
@@ -470,10 +470,11 @@ void menu_in()
     sprintf(menu_list[13].item_name,"LEFT  ");
     sprintf(menu_list[14].item_name,"RIGHT ");
     sprintf(menu_list[15].item_name,"GSPEED");
+    sprintf(menu_list[16].item_name,"STEP  ");
 	//全长
-	sprintf(menu_list[16].item_name,"ALLLEN");
+	sprintf(menu_list[17].item_name,"ALLLEN");
 	//半长
-	sprintf(menu_list[17].item_name,"HAFLEN");
+	sprintf(menu_list[18].item_name,"HAFLEN");
 	
 }
 
@@ -495,8 +496,8 @@ void menu_out()
 	STEER_PWM_MAX=(uint16_t)menu_list[13].item_value;
 	STEER_PWM_MIN=(uint16_t)menu_list[14].item_value;
     g_Speed = (uint16_t)menu_list[15].item_value;
-	FullDistance = *(uint32_t*)(&menu_list[16].item_value);
-	HalfDistance = *(uint32_t*)(&menu_list[17].item_value);
+	FullDistance = *(uint32_t*)(&menu_list[17].item_value);
+	HalfDistance = *(uint32_t*)(&menu_list[18].item_value);
 }
 
 void menu_from_code()
@@ -517,8 +518,9 @@ void menu_from_code()
     menu_list[13].item_value =STEER_PWM_MAX;
     menu_list[14].item_value =STEER_PWM_MIN;
     menu_list[15].item_value =g_Speed;
-	menu_list[16].item_value = *(float*)(&FullDistance);
-	menu_list[17].item_value = *(float*)(&HalfDistance);
+	menu_list[16].item_value = 1;
+	menu_list[17].item_value = *(float*)(&FullDistance);
+	menu_list[18].item_value = *(float*)(&HalfDistance);
 
 }
 
@@ -578,14 +580,14 @@ void display_menu()
         delay_ms(100);
         if(selected<=11)
           menu_list[selected].item_value -= 0.1;
-        else if(selected<=15){
+        else if(selected<=16){
           menu_list[selected].item_value -= 1;
 
           if(menu_list[12].item_value>menu_list[13].item_value)
               menu_list[12].item_value=menu_list[14].item_value;
             SteerSet((uint16_t)menu_list[12].item_value);
-        }else if(selected<18){
-			(*(uint32_t*)(&menu_list[selected].item_value))-=1;
+        }else if(selected<19){
+			(*(uint32_t*)(&menu_list[selected].item_value))-=menu_list[16].item_value;
 		}
       }
         
@@ -597,15 +599,15 @@ void display_menu()
         delay_ms(100);
           if(selected<=11)
             menu_list[selected].item_value += 0.1;
-          else if(selected<=15)
+          else if(selected<=16)
           {
             menu_list[selected].item_value += 1;
 			
             if(menu_list[12].item_value>menu_list[13].item_value)
               menu_list[12].item_value=menu_list[14].item_value;
             SteerSet((uint16_t)menu_list[12].item_value);
-          }else if(selected<18){
-		  	(*(uint32_t*)(&menu_list[selected].item_value))+=1;
+          }else if(selected<19){
+		  	(*(uint32_t*)(&menu_list[selected].item_value))+=menu_list[16].item_value;
 		  }
         }
     }
