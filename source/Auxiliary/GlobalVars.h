@@ -29,6 +29,8 @@ extern uint8_t NRF_RxBuf[32];
 extern Message_t Message;
 extern uint8_t Meet;
 extern uint32_t Meet_distance;
+extern uint32_t g_AllLengthOfWay;
+extern uint32_t g_HalfLengthOfWay;
 
 //动力输出
 extern speed_control_config_t GV_speedControlT;

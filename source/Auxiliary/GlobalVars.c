@@ -29,6 +29,10 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
 							.distance_between=0xff,
 						};
 
+//全程路径
+ uint32_t g_AllLengthOfWay = 0;
+ uint32_t g_HalfLengthOfWay=0;
+
 //动力输出
  speed_control_config_t GV_speedControlT;
  pid_control_config_t PID_Motor;

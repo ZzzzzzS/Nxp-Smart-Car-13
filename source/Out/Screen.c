@@ -2,7 +2,8 @@
 #define USE_LANDSCAPE
 
 menu_item menu_list[MENU_ITEM_COUNT];
-uint8_t MENU_LAST=15;
+//最后一个数据的下标
+uint8_t MENU_LAST=19;
 
 //向液晶屏写一个8位指令
 void  Lcd_WriteIndex(uint8_t Data)
@@ -408,21 +409,36 @@ void menu(uint8_t start,uint8_t end,uint8_t selected)
 	uint8_t buffer[17];
 	for(int i=start;i<=end;i++)
 	{
-		sprintf(buffer,"%s   %2d.%d",menu_list[i].item_name,(int)(menu_list[i].item_value),((int)(menu_list[i].item_value*10.0))%10);
-		if(i==selected)
-		{
-			Display_ASCII8X16(0,i-start,buffer,RED,GREEN);
+		if(i<16){
+			sprintf(buffer,"%s   %2d.%d",menu_list[i].item_name,(int)(menu_list[i].item_value),((int)(menu_list[i].item_value*10.0))%10);
+			if(i==selected)
+			{
+				Display_ASCII8X16(0,i-start,buffer,RED,GREEN);
+			}else{
+				Display_ASCII8X16(0,i-start,buffer,BLACK,WHITE);
+			}
 		}else{
-			Display_ASCII8X16(0,i-start,buffer,BLACK,WHITE);
+			if(i==16||i==17){
+				sprintf(buffer,"%s",menu_list[i].item_name);
+				if(i==selected)
+				{
+					Display_ASCII8X16(0,i-start,buffer,RED,GREEN);
+				}else{
+					Display_ASCII8X16(0,i-start,buffer,BLACK,WHITE);
+				}
+			}else{
+				sprintf(buffer,"%d",*(uint32_t*)(&menu_list[i-2].item_value));
+				Display_ASCII8X16(0,i-start,buffer,BLACK,WHITE);
+			}
 		}
 	}
 }
 
 void menu_from_flash()
 {
-  float values[16] ={0};
+  float values[MENU_ITEM_COUNT] ={0};
   flash_read(1,sizeof(values),(uint8_t*)&values);
-  for(int i=0;i<16;i++)
+  for(int i=0;i<MENU_LAST+1;i++)
   {
     menu_list[i].item_value = values[i];
   }
@@ -430,8 +446,8 @@ void menu_from_flash()
 
 void flash_from_menu()
 {
-  float values[16]={0};
-  for(int i=0;i<16;i++)
+  float values[MENU_ITEM_COUNT]={0};
+  for(int i=0;i<MENU_LAST+1;i++)
   {
     values[i] = menu_list[i].item_value;
   }
@@ -458,6 +474,11 @@ void menu_in()
     sprintf(menu_list[13].item_name,"LEFT  ");
     sprintf(menu_list[14].item_name,"RIGHT ");
     sprintf(menu_list[15].item_name,"GSPEED");
+	//全长
+	sprintf(menu_list[16].item_name,"ALLLEN");
+	//半长
+	sprintf(menu_list[17].item_name,"HAFLEN");
+	
 }
 
 void menu_out()
@@ -478,6 +499,8 @@ void menu_out()
 	STEER_PWM_MAX=(uint16_t)menu_list[13].item_value;
 	STEER_PWM_MIN=(uint16_t)menu_list[14].item_value;
     g_Speed = (uint16_t)menu_list[15].item_value;
+	g_AllLengthOfWay = *(uint32_t*)(&menu_list[16].item_value);
+	g_HalfLengthOfWay = *(uint32_t*)(&menu_list[17].item_value)
 }
 
 void menu_from_code()
@@ -498,6 +521,9 @@ void menu_from_code()
     menu_list[13].item_value =STEER_PWM_MAX;
     menu_list[14].item_value =STEER_PWM_MIN;
     menu_list[15].item_value =g_Speed;
+	menu_list[16].item_value = *(float*)(&g_AllLengthOfWay);
+	menu_list[17].item_value = *(float*)(&g_HalfLengthOfWay);
+
 }
 
 void display_menu()
@@ -556,13 +582,15 @@ void display_menu()
         delay_ms(100);
         if(selected<=11)
           menu_list[selected].item_value -= 0.1;
-        else{
+        else if(selected<=15){
           menu_list[selected].item_value -= 1;
 
           if(menu_list[12].item_value>menu_list[13].item_value)
               menu_list[12].item_value=menu_list[14].item_value;
             SteerSet((uint16_t)menu_list[12].item_value);
-        }
+        }else if(selected<18){
+			(*(uint32_t*)(&menu_list[selected].item_value))-=1000;
+		}
       }
         
     }
@@ -573,14 +601,16 @@ void display_menu()
         delay_ms(100);
           if(selected<=11)
             menu_list[selected].item_value += 0.1;
-          else
+          else if(selected<=15)
           {
             menu_list[selected].item_value += 1;
 			
             if(menu_list[12].item_value>menu_list[13].item_value)
               menu_list[12].item_value=menu_list[14].item_value;
             SteerSet((uint16_t)menu_list[12].item_value);
-          }
+          }else if(selected<18){
+		  	(*(uint32_t*)(&menu_list[selected].item_value))+=1000;
+		  }
         }
     }
 
