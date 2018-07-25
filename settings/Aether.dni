@@ -146,7 +146,7 @@ PowerConnectPC=1
 [ArmDriver]
 EnableCache=1
 [DebugChecksum]
-Checksum=1979538483
+Checksum=-356274090
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]
@@ -250,8 +250,11 @@ Bp0=_ 0 "EMUL_CODE" "{}.84.2" 0 0 1 "" 0 "" 0
 Bp1=_ 0 "EMUL_CODE" "{$PROJ_DIR$\source\Process\ImageAnalysis.c}.136.3" 0 0 1 "" 0 "" 0
 Bp2=_ 0 "EMUL_CODE" "{$PROJ_DIR$\source\Process\ImageAnalysis.c}.143.17" 0 0 1 "" 0 "" 0
 Bp3=_ 0 "EMUL_CODE" "{}.172.5" 0 0 1 "" 0 "" 0
-Bp4=_ 1 "EMUL_CODE" "{$PROJ_DIR$\source\Process\Controler.c}.178.5" 0 0 1 "" 0 "" 0
-Count=5
+Bp4=_ 0 "EMUL_CODE" "{}.181.5" 0 0 1 "" 0 "" 0
+Bp5=_ 1 "EMUL_CODE" "{$PROJ_DIR$\source\Auxiliary\Init.c}.71.5" 0 0 1 "" 0 "" 0
+Bp6=_ 1 "EMUL_CODE" "{$PROJ_DIR$\source\Out\Screen.c}.552.7" 0 0 1 "" 0 "" 0
+Bp7=_ 1 "EMUL_CODE" "{$PROJ_DIR$\source\Out\Screen.c}.560.5" 0 0 1 "" 0 "" 0
+Count=8
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

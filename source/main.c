@@ -26,8 +26,6 @@ int main(void)
   getRightSpeed();
   delay_ms(25);
   AllDistance=10;
-  HalfDistance=2700;
-  FullDistance=5400;
   
   while (1)
   {

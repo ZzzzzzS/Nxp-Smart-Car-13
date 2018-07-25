@@ -94,13 +94,18 @@ void circleAnalysis(int16_t* value)
 {
 
 //圆环检测
-	if((value[MIDDLE]>1900&&Circle_Flag==0)&&(value[LEFT]>800||value[RIGHT]>800))//检测入环
+	if((value[MIDDLE]>1850&&(Circle_Flag==0||Circle_Flag==2))&&(value[LEFT]>800||value[RIGHT]>800))//检测入环
 	{
 		Circle_Flag=1; //检测到圆环将标志位 置1,并当作超时计数器使用
 		DistanceAddFlag = 0;
 		
 	}
-        
+
+	if(value[MIDDLE]>1500&&(value[LEFT]>800||value[RIGHT]>800)&&Circle_Flag==0)
+	{
+		Circle_Flag=2;
+	}
+
     if(value[MIDDLE]<1800&&Circle_Flag==1)
     {
         Circle_Flag=3;
@@ -116,6 +121,16 @@ void circleAnalysis(int16_t* value)
 		DistanceAddFlag = 0;
 		Beep_Down();
         Circle_Flag=-800;
+	}
+
+	if(Circle_Flag<-600)
+	{
+		GV_speedControlT.Pid[0].SetSpeed=g_Speed*0.5;
+	  	GV_speedControlT.Pid[1].SetSpeed=g_Speed*0.5;
+		if(Circle_Direction == LEFT)//刚入环的时候让它疯狂转一下
+			value[RIGHT] *= 0.2;
+		else
+			value[LEFT] *=  0.2; 
 	}
 
         if(Circle_Flag<0)

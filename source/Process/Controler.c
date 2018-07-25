@@ -27,7 +27,7 @@ void ImageControlor(uint8_t* img)  //列188，行120
     //LCD_DrawPicture(img);
   }
   if(g_Time-500>MeetingTime)
-    FindMeetingArea(small_image);
+    //FindMeetingArea(small_image);
      ;   
 }
 
@@ -36,6 +36,7 @@ void ActiveDiffSpeed(speed_control_config_t *speed,int16_t *steerValue)
   GV_speedControlT.Pid[RightWheel].AimSpeed=GV_speedControlT.Pid[RightWheel].SetSpeed;
   GV_speedControlT.Pid[LeftWheel].AimSpeed=GV_speedControlT.Pid[LeftWheel].SetSpeed;
   
+
   GV_speedControlT.Pid[RightWheel].AimSpeed=((float)(STEER_MIDDLE-GV_steerPwmOutValueI)*(-0.2258)+100)*GV_speedControlT.Pid[RightWheel].SetSpeed/100;
   GV_speedControlT.Pid[LeftWheel].AimSpeed=((float)(STEER_MIDDLE-GV_steerPwmOutValueI)*0.2258+100)*GV_speedControlT.Pid[LeftWheel].SetSpeed/100;
 
@@ -109,24 +110,25 @@ void SystemCtrl_PIT0CallBack()
 	  GV_speedControlT.Pid[1].SetSpeed=g_Speed;
   }
   
-  //if(AllDistance/100>FullDistance-300)
-  //{
+  if(AllDistance/100>FullDistance-300)
+  {
    // GV_speedControlT.Pid[0].SetSpeed*=0.5;
-    //GV_speedControlT.Pid[1].SetSpeed*=0.5;
-  //}
+   // GV_speedControlT.Pid[1].SetSpeed*=0.5;
+   ;
+  }
 
 	++g_Time;
 	++g_Time_NRF;
   GetADCVal(InductanceVal);  //获取adc采集的值
   
-  //circleAnalysis(InductanceVal); //分析入圆
+  circleAnalysis(InductanceVal); //分析入圆
   //InductanceVal[MIDDLE] = InductanceVal[MIDDLE]>2000? 1000:InductanceVal[MIDDLE];
   GV_steerControlT.ErrorDistance=getDirectionError3(InductanceVal); //差比和计算误差
   SteerPWMCalculator(); //计算舵机PID
  
   ActiveDiffSpeed(&GV_speedControlT,&GV_steerPwmOutValueI);
 
-  if(Circle_Flag==1)
+  if(Circle_Flag==1||Circle_Flag==2)
   {
     GV_speedControlT.Pid[0].AimSpeed=120;
     GV_speedControlT.Pid[1].AimSpeed=120;
