@@ -3,7 +3,7 @@
 
 menu_item menu_list[MENU_ITEM_COUNT];
 //最后一个数据的下标
-uint8_t MENU_LAST=19;
+uint8_t MENU_LAST=17;
 
 //向液晶屏写一个8位指令
 void  Lcd_WriteIndex(uint8_t Data)
@@ -419,17 +419,13 @@ void menu(uint8_t start,uint8_t end,uint8_t selected)
 			}
 		}else{
 			if(i==16||i==17){
-				sprintf(buffer,"%s",menu_list[i].item_name);
+				sprintf(buffer,"%s %d",menu_list[i].item_name,*(uint32_t*)(&menu_list[i].item_value));
 				if(i==selected)
 				{
 					Display_ASCII8X16(0,i-start,buffer,RED,GREEN);
 				}else{
 					Display_ASCII8X16(0,i-start,buffer,BLACK,WHITE);
 				}
-			}else{
-				sprintf(buffer,"%d",*(uint32_t*)(&menu_list[i-2].item_value));
-				Display_ASCII8X16(0,i-start,buffer,BLACK,WHITE);
-			}
 		}
 	}
 }
@@ -589,7 +585,7 @@ void display_menu()
               menu_list[12].item_value=menu_list[14].item_value;
             SteerSet((uint16_t)menu_list[12].item_value);
         }else if(selected<18){
-			(*(uint32_t*)(&menu_list[selected].item_value))-=1000;
+			(*(uint32_t*)(&menu_list[selected].item_value))-=1;
 		}
       }
         
@@ -609,7 +605,7 @@ void display_menu()
               menu_list[12].item_value=menu_list[14].item_value;
             SteerSet((uint16_t)menu_list[12].item_value);
           }else if(selected<18){
-		  	(*(uint32_t*)(&menu_list[selected].item_value))+=1000;
+		  	(*(uint32_t*)(&menu_list[selected].item_value))+=1;
 		  }
         }
     }
