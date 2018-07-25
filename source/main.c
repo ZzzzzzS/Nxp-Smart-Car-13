@@ -20,6 +20,11 @@ int main(void)
   g_Time=1000;
 
   GV_steerPwmOutValueI=STEER_PWM_MIN;
+  FTM_ClearQuadDecoderCounterValue(FTM1);
+  FTM_ClearQuadDecoderCounterValue(FTM2);
+  AllDistance=0;
+  HalfDistance=2700;
+  FullDistance=5400;
   
   while (1)
   {
@@ -38,6 +43,7 @@ int main(void)
         Display_Number(0,7,DistanceAddFlag,YELLOW,RED);
         //Display_Number(5,7,Circle_Flag,YELLOW,RED);
         Display_Number(5,7,Message.distance_between,YELLOW,RED);
+        Display_Number(10,7,AllDistance/100,YELLOW,RED);
         
     }
     //meetingControl();
@@ -48,7 +54,7 @@ int main(void)
     InductanceVal[7]=(InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT]);
     InductanceVal[6]=GV_steerControlT.ErrorDistance;
     InductanceVal[5]=-GV_steerPwmOutValueI +STEER_MIDDLE;
-    //SendAdValue(Message.distance_between, sizeof(Message.distance_between));//发送到山外上位机显示
+    //SendAdValue(AllDistance, sizeof(AllDistance));//发送到山外上位机显示
     if(Using_Flag==Using_A&&IMG_NOW==(uint8_t*)MT9V034_IMGBUFF_B)
       {
         ImageControlor(MT9V034_IMGBUFF_A);
@@ -65,5 +71,10 @@ int main(void)
     //{
      // GV_steerPwmOutValueI+=5;
    // }
+
+   if(g_Time>2000)
+   {
+     //FinnalPointHandler();
+   }
   }
 }

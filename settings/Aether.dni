@@ -146,7 +146,7 @@ PowerConnectPC=1
 [ArmDriver]
 EnableCache=1
 [DebugChecksum]
-Checksum=1115001467
+Checksum=1135623947
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]
@@ -245,10 +245,11 @@ ShowSource=1
 mode=0
 [Breakpoints2]
 Bp0=_ 0 "EMUL_CODE" "{}.84.2" 0 0 1 "" 0 "" 0
-Bp1=_ 0 "EMUL_CODE" "{$PROJ_DIR$\source\Process\ImageAnalysis.c}.135.5" 0 0 1 "" 0 "" 0
-Bp2=_ 0 "EMUL_CODE" "{$PROJ_DIR$\source\Process\ImageAnalysis.c}.143.11" 0 0 1 "" 0 "" 0
+Bp1=_ 0 "EMUL_CODE" "{$PROJ_DIR$\source\Process\ImageAnalysis.c}.136.3" 0 0 1 "" 0 "" 0
+Bp2=_ 0 "EMUL_CODE" "{$PROJ_DIR$\source\Process\ImageAnalysis.c}.143.17" 0 0 1 "" 0 "" 0
 Bp3=_ 1 "EMUL_CODE" "{$PROJ_DIR$\drivers\AetherDriver\AetherDriver_SuperSonic.c}.28.3" 0 0 1 "" 0 "" 0
-Count=4
+Bp4=_ 0 "EMUL_CODE" "{}.172.5" 0 0 1 "" 0 "" 0
+Count=5
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

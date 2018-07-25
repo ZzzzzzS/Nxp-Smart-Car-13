@@ -29,8 +29,6 @@ extern uint8_t NRF_RxBuf[32];
 extern Message_t Message;
 extern uint8_t Meet;
 extern uint32_t Meet_distance;
-extern uint32_t g_AllLengthOfWay;
-extern uint32_t g_HalfLengthOfWay;
 
 //动力输出
 extern speed_control_config_t GV_speedControlT;
@@ -53,4 +51,9 @@ extern uint8_t Circle_Direction;
 extern uint8_t MeetingArea;
 extern uint8_t MeetingStatus;
 extern uint32_t MeetingTime;
+extern uint8_t old[3];
+extern uint8_t FinnalPointFlag;
+extern uint32_t AllDistance;
+extern uint32_t HalfDistance;
+extern uint32_t FullDistance;
 #endif

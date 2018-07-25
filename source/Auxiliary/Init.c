@@ -10,6 +10,7 @@ void Init()
     CLOCK_EnableClock(kCLOCK_PortC);                           /* Port C Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortD);                           /* Port D Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortE);                           /* Port E Clock Gate Control: Clock enabled */
+     PORT_SetPinMux(PORTA, 4, kPORT_MuxAsGpio);                /* PORTA4 (pin 54) is configured as PTA4 */
     lcd_initial();//初始化LCD
     fullfill(0,0,128,128,BLACK);
     
@@ -40,7 +41,7 @@ void Init()
     //PIT1_Init(20);
     ADC_Init();
     Display_ASCII8X16(0,0,"ADC",BLACK,WHITE);
- 	NRF24L01_Init();   
+ 	   
     Display_ASCII8X16(0,0,"NRF",BLACK,WHITE);
     PIDInit(&GV_speedControlT.Pid[0],0.8,0,0);
     PIDInit(&GV_speedControlT.Pid[1],0.8,0,0);
@@ -56,10 +57,10 @@ void Init()
     NVIC_SetPriorityGrouping((uint32_t)0x03U);
     NVIC_SetPriority(DMA0_DMA16_IRQn, 0x00U);
     NVIC_SetPriority(PORTB_IRQn, 0x01);
-    NVIC_SetPriority(PORTA_IRQn, 0x02);
-    //NVIC_SetPriority(PIT1_IRQn, 0x02U);
+    NVIC_SetPriority(PORTA_IRQn, 0x03);
+    //NVIC_SetPriority(UART4_RX_TX_IRQn, 0x02U);
     NVIC_SetPriority(PIT0_IRQn, 0x02U);
-    NVIC_SetPriority(PIT2_IRQn, 0x03U);
+    //NVIC_SetPriority(PIT2_IRQn, 0x03U);
 	record = DisableGlobalIRQ();
         delay_ms(500);
     if(READ_KEY1)
@@ -73,5 +74,6 @@ void Init()
 	EnableGlobalIRQ(record);
     EnableIRQ(PORTA_IRQn);
     PIT_StartTimer(PIT, kPIT_Chnl_0);
+    NRF24L01_Init();
 
 }
