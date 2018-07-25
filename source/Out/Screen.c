@@ -429,7 +429,7 @@ void menu(uint8_t start,uint8_t end,uint8_t selected)
 		}
 	}
 }
-
+}
 void menu_from_flash()
 {
   float values[MENU_ITEM_COUNT] ={0};
