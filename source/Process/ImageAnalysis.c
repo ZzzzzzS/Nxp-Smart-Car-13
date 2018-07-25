@@ -11,28 +11,96 @@ uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 	uint32_t line_sum = 0;
 	uint32_t average = 0;
 
-    for(int i=0;i<MT9V034_W;i+=2)
-    {
         row = 0;
-	line_sum = 0;
-        for(int j=0;j<MT9V034_H-5;j+=2)
-        {
-            //隔点选取并二值化
-			line_sum += origin_image[j*MT9V034_W+i];
-        }
-        
-		for(int j=0;j<MT9V034_H;j+=2)
-		{
-			//newimage[row*94+column] = origin_image[j*MT9V034_W+i]<average? 0:255;
-                        //newimage[row*94+column] = origin_image[j*MT9V034_W+i];
-			if(origin_image[j*MT9V034_W+i]<70&&origin_image[(j+2)*MT9V034_W+i]<70&&origin_image[(j+4)*MT9V034_W+i]<70)
-				newimage[row*94+column]=0;
-			else         
-				newimage[row*94+column]=255;
-			row++;
-		}
-        column++;
-    }
+	for(int j=0;j<MT9V034_H;j+=2)
+	{
+		if(origin_image[j*MT9V034_W+10]<70&&origin_image[(j+2)*MT9V034_W+10]<70&&origin_image[(j+4)*MT9V034_W+10]<70)
+			newimage[row*94+5]=0;
+		else         
+			newimage[row*94+5]=255;
+		row++;
+	}
+
+	row = 0;
+	for(int j=0;j<MT9V034_H;j+=2)
+	{
+		if(origin_image[j*MT9V034_W+14]<70&&origin_image[(j+2)*MT9V034_W+14]<70&&origin_image[(j+4)*MT9V034_W+14]<70)
+			newimage[row*94+7]=0;
+		else         
+			newimage[row*94+7]=255;
+		row++;
+	}
+
+	row = 0;
+	for(int j=0;j<MT9V034_H;j+=2)
+	{
+		if(origin_image[j*MT9V034_W+18]<70&&origin_image[(j+2)*MT9V034_W+18]<70&&origin_image[(j+4)*MT9V034_W+18]<70)
+			newimage[row*94+9]=0;
+		else         
+			newimage[row*94+9]=255;
+		row++;
+	}
+
+	row = 0;
+	for(int j=0;j<MT9V034_H;j+=2)
+	{
+		if(origin_image[j*MT9V034_W+86]<70&&origin_image[(j+2)*MT9V034_W+86]<70&&origin_image[(j+4)*MT9V034_W+86]<70)
+			newimage[row*94+43]=0;
+		else         
+			newimage[row*94+43]=255;
+		row++;
+	}
+
+	row = 0;
+	for(int j=0;j<MT9V034_H;j+=2)
+	{
+		if(origin_image[j*MT9V034_W+90]<70&&origin_image[(j+2)*MT9V034_W+90]<70&&origin_image[(j+4)*MT9V034_W+90]<70)
+			newimage[row*94+45]=0;
+		else         
+			newimage[row*94+45]=255;
+		row++;
+	}
+
+	row = 0;
+	for(int j=0;j<MT9V034_H;j+=2)
+	{
+		if(origin_image[j*MT9V034_W+94]<70&&origin_image[(j+2)*MT9V034_W+94]<70&&origin_image[(j+4)*MT9V034_W+94]<70)
+			newimage[row*94+47]=0;
+		else         
+			newimage[row*94+47]=255;
+		row++;
+	}
+
+	row = 0;
+	for(int j=0;j<MT9V034_H;j+=2)
+	{
+		if(origin_image[j*MT9V034_W+176]<70&&origin_image[(j+2)*MT9V034_W+176]<70&&origin_image[(j+4)*MT9V034_W+176]<70)
+			newimage[row*94+88]=0;
+		else         
+			newimage[row*94+88]=255;
+		row++;
+	}
+
+	row = 0;
+	for(int j=0;j<MT9V034_H;j+=2)
+	{
+		if(origin_image[j*MT9V034_W+180]<70&&origin_image[(j+2)*MT9V034_W+180]<70&&origin_image[(j+4)*MT9V034_W+180]<70)
+			newimage[row*94+90]=0;
+		else         
+			newimage[row*94+90]=255;
+		row++;
+	}
+
+	row = 0;
+	for(int j=0;j<MT9V034_H;j+=2)
+	{
+		if(origin_image[j*MT9V034_W+184]<70&&origin_image[(j+2)*MT9V034_W+184]<70&&origin_image[(j+4)*MT9V034_W+184]<70)
+			newimage[row*94+92]=0;
+		else         
+			newimage[row*94+92]=255;
+		row++;
+	}
+
     return 0;   //对数组越界进行检测　
 }
 
