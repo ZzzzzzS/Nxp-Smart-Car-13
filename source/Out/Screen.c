@@ -499,8 +499,8 @@ void menu_out()
 	STEER_PWM_MAX=(uint16_t)menu_list[13].item_value;
 	STEER_PWM_MIN=(uint16_t)menu_list[14].item_value;
     g_Speed = (uint16_t)menu_list[15].item_value;
-	g_AllLengthOfWay = *(uint32_t*)(&menu_list[16].item_value);
-	g_HalfLengthOfWay = *(uint32_t*)(&menu_list[17].item_value)
+	FullDistance = *(uint32_t*)(&menu_list[16].item_value);
+	HalfDistance = *(uint32_t*)(&menu_list[17].item_value)
 }
 
 void menu_from_code()
@@ -521,8 +521,8 @@ void menu_from_code()
     menu_list[13].item_value =STEER_PWM_MAX;
     menu_list[14].item_value =STEER_PWM_MIN;
     menu_list[15].item_value =g_Speed;
-	menu_list[16].item_value = *(float*)(&g_AllLengthOfWay);
-	menu_list[17].item_value = *(float*)(&g_HalfLengthOfWay);
+	menu_list[16].item_value = *(float*)(&FullDistance);
+	menu_list[17].item_value = *(float*)(&HalfDistance);
 
 }
 
