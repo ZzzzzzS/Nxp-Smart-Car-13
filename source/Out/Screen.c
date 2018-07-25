@@ -500,7 +500,7 @@ void menu_out()
 	STEER_PWM_MIN=(uint16_t)menu_list[14].item_value;
     g_Speed = (uint16_t)menu_list[15].item_value;
 	FullDistance = *(uint32_t*)(&menu_list[16].item_value);
-	HalfDistance = *(uint32_t*)(&menu_list[17].item_value)
+	HalfDistance = *(uint32_t*)(&menu_list[17].item_value);
 }
 
 void menu_from_code()

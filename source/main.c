@@ -22,9 +22,10 @@ int main(void)
   GV_steerPwmOutValueI=STEER_PWM_MIN;
   FTM_ClearQuadDecoderCounterValue(FTM1);
   FTM_ClearQuadDecoderCounterValue(FTM2);
+  delay_ms(250);
+  FTM_ClearQuadDecoderCounterValue(FTM1);
+  FTM_ClearQuadDecoderCounterValue(FTM2);
   AllDistance=0;
-  HalfDistance=2700;
-  FullDistance=5400;
   
   while (1)
   {
