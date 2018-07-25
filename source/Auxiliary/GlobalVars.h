@@ -41,6 +41,7 @@ extern uint16_t g_Speed;
 
 //判断标志位
 extern int32_t Circle_Flag;
+extern int32_t Circle_Flag2;
 extern uint8_t Motor_Stop;
 extern uint8_t DISPLAY_FLAG;
 extern uint8_t STOP_FLAG;
@@ -56,4 +57,5 @@ extern uint8_t FinnalPointFlag;
 extern uint32_t AllDistance;
 extern uint32_t HalfDistance;
 extern uint32_t FullDistance;
+extern CircleQueue_t CircleQueue;
 #endif

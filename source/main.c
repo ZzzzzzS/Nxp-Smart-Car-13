@@ -24,6 +24,31 @@ int main(void)
   FTM_ClearQuadDecoderCounterValue(FTM2);
   getLeftSpeed();
   getRightSpeed();
+  if(READ_KEY1)
+  {
+    CircleQueue.Queue[0]=LEFT;
+  }
+  else
+  {
+    CircleQueue.Queue[0]=RIGHT;
+  }
+  if(READ_KEY3)
+  {
+    CircleQueue.Queue[1]=LEFT;
+  }
+  else
+  {
+    CircleQueue.Queue[1]=RIGHT;
+  }
+  if(READ_KEY4)
+  {
+    CircleQueue.Queue[2]=LEFT;
+  }
+  else
+  {
+    CircleQueue.Queue[2]=RIGHT;
+  }
+
   delay_ms(25);
   AllDistance=10;
   

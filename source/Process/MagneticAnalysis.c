@@ -109,18 +109,28 @@ void circleAnalysis(int16_t* value)
     if(value[MIDDLE]<1800&&Circle_Flag==1)
     {
         Circle_Flag=3;
-        if(value[FRONT_LEFT]>value[FRONT_RIGHT])
+		if(CircleQueue.NextCircle>=3)
+		{
+			if(value[FRONT_LEFT]>value[FRONT_RIGHT])
 			Circle_Direction=LEFT;
-		else
+			else
 			Circle_Direction=RIGHT;
+		}
+        
 		Beep_Up();
     }
+	if(CircleQueue.NextCircle<3)
+	{
+		Circle_Direction=CircleQueue.Queue[CircleQueue.NextCircle];
+	}
 	
 	if(value[MIDDLE]>1300&&Circle_Flag==3 && DistanceAddFlag>20000)
 	{
 		DistanceAddFlag = 0;
 		Beep_Down();
         Circle_Flag=-800;
+		Circle_Flag2=-800;
+		CircleQueue.NextCircle++;
 	}
 
 	if(Circle_Flag<-600)
@@ -136,6 +146,7 @@ void circleAnalysis(int16_t* value)
         if(Circle_Flag<0)
         {
           Circle_Flag++;
+		  Circle_Flag2++;
         }
         
         if(DistanceAddFlag>80000)
@@ -143,6 +154,8 @@ void circleAnalysis(int16_t* value)
 		Circle_Flag=0;
 		DistanceAddFlag = 0;
 		Beep_Down();
+		Circle_Flag2=0;
+		CircleQueue.NextCircle++;
 	}
 
 //圆环控制
@@ -157,4 +170,22 @@ void circleAnalysis(int16_t* value)
                        if(value[i]<0)
                           value[i]=0;
 	}	
+}
+
+void circleAnalysis2(int16_t* value)
+{
+  if((value[MIDDLE]>1600&&Circle_Flag2==0)&&(value[LEFT]>800||value[RIGHT]>800))//检测入环
+	{
+		Circle_Flag2=1; 
+	}
+	if(Circle_Flag2)
+	{
+		Circle_Flag2++;
+	}
+	if(Circle_Flag>=5)
+	{
+		Circle_Flag2=-1;
+		Circle_Flag=3;
+	}
+
 }

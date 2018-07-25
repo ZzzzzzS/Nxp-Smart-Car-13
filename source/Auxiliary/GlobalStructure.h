@@ -146,4 +146,13 @@ typedef enum
   normal
 }huiche_e;
 
+/*============================================
+圆环相关
+==========================================*/
+typedef struct
+{
+  uint8_t NextCircle;
+  uint8_t Queue[3];
+}CircleQueue_t;
+
 #endif

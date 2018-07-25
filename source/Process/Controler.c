@@ -1,6 +1,7 @@
 #include "include.h"
 
 
+
 void FinnalPointHandler()
 {
   static uint32_t Time;
@@ -121,8 +122,10 @@ void SystemCtrl_PIT0CallBack()
 	++g_Time_NRF;
   GetADCVal(InductanceVal);  //获取adc采集的值
   
-  circleAnalysis(InductanceVal); //分析入圆
-  //InductanceVal[MIDDLE] = InductanceVal[MIDDLE]>2000? 1000:InductanceVal[MIDDLE];
+
+  if(CircleQueue.NextCircle<=3)
+    circleAnalysis2(InductanceVal);
+  //circleAnalysis(InductanceVal); //分析入圆
   GV_steerControlT.ErrorDistance=getDirectionError3(InductanceVal); //差比和计算误差
   SteerPWMCalculator(); //计算舵机PID
  
