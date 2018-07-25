@@ -26,9 +26,9 @@ void ImageControlor(uint8_t* img)  //列188，行120
     LCD_DrawPicture_Small(small_image);
     //LCD_DrawPicture(img);
   }
-  //if(g_Time-500>MeetingTime)
+  if(g_Time-500>MeetingTime)
     FindMeetingArea(small_image);
-        
+     ;   
 }
 
 void ActiveDiffSpeed(speed_control_config_t *speed,int16_t *steerValue)
@@ -169,10 +169,16 @@ void SystemCtrl_PIT0CallBack()
                        GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
   }
 
-  //if(AllDistance/100>(HalfDistance-500)&&AllDistance/100<(HalfDistance+500)||AllDistance/100<500||AllDistance>(FullDistance-500))
-  //{
-    meetingControl();
-  //}
+  if((AllDistance/100>(HalfDistance-500)&&AllDistance/100<(HalfDistance+500))||AllDistance/100<500||AllDistance/100>(FullDistance-500))
+  {
+    ;
+  }
+  else
+  {
+    Message.distance_between=251;
+  }
+
+  meetingControl();
     
   PIDControl(&GV_speedControlT.Pid[LeftWheel]); //计算PID
   PIDControl(&GV_speedControlT.Pid[RightWheel]);

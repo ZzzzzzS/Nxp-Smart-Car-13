@@ -636,7 +636,6 @@ uint8_t NRF24L01_RxPacket(void *rxbuf)
 void NRF24L01_TxRxISR(void)
 {
     static uint8_t TxCNT = 0;
-    delay_ms(1);
     uint8_t status = NRF24L01_GetStatusRegister();
     NRF24L01_ClearIRQnFlag(IRQ_ALL);
     switch(status>>4)
