@@ -4,6 +4,8 @@ uint8_t small_image[MT9V034_H/2][MT9V034_W/2];
 uint8_t converted_image[MT9V034_H/2][MT9V034_W/2];
 const uint16_t map[60*94];
 
+
+
 uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 {
 	 uint8_t column = 0;             //列

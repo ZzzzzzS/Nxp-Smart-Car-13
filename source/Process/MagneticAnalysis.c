@@ -116,13 +116,14 @@ void circleAnalysis(int16_t* value)
 			else
 			Circle_Direction=RIGHT;
 		}
-        
-		Beep_Up();
-    }
-	if(CircleQueue.NextCircle<3)
+		if(CircleQueue.NextCircle<3)
 	{
 		Circle_Direction=CircleQueue.Queue[CircleQueue.NextCircle];
 	}
+        
+		Beep_Up();
+    }
+	
 	
 	if(value[MIDDLE]>1300&&Circle_Flag==3 && DistanceAddFlag>20000)
 	{
@@ -182,10 +183,29 @@ void circleAnalysis2(int16_t* value)
 	{
 		Circle_Flag2++;
 	}
-	if(Circle_Flag>=5)
+
+	//控制
+	if(Circle_Flag2>=40&&Circle_Flag2<=120)
 	{
-		Circle_Flag2=-1;
-		Circle_Flag=3;
+		if(CircleQueue.Queue[CircleQueue.NextCircle]==LEFT)
+		{
+			value[RIGHT] *= 0.2;
+		}
+		else
+		{
+			value[LEFT] *= 0.2;
+		}
 	}
 
+	if(Circle_Flag2>1000)
+	{
+		CircleQueue.NextCircle++;
+		Circle_Flag2=0;
+	}
+
+	if((value[MIDDLE]>1300)&&(value[LEFT]>800||value[RIGHT]>800))
+	{
+		GV_speedControlT.Pid[0].SetSpeed=g_Speed*0.6;
+	  	GV_speedControlT.Pid[1].SetSpeed=g_Speed*0.6;
+	}
 }
