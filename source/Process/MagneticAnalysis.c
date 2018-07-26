@@ -70,17 +70,18 @@ int getDirectionError3(int16_t* Road_Data)//用3电感获取误差
 		answer+=5;
 	}
 
-	if((Road_Data[RIGHT] + Road_Data[LEFT]<800)&&(Road_Data[RIGHT]>Road_Data[LEFT]+50))
+	if(Road_Data[MIDDLE]<500)
+	{
+		if((Road_Data[RIGHT] + Road_Data[LEFT]<800)&&(Road_Data[RIGHT]>Road_Data[LEFT]+50))
 		{
 			answer=40;
 		}
 		else if((Road_Data[RIGHT] + Road_Data[LEFT]<800)&&(Road_Data[LEFT]>Road_Data[RIGHT]+50))
-		{	if(MeetingStatus!=meeting)
-	{
-		
-	}
+		{	
 			answer=-40;
 		}
+	}
+	
 
 
         
@@ -178,6 +179,8 @@ void circleAnalysis2(int16_t* value)
   if((value[MIDDLE]>1600&&Circle_Flag2==0)&&(value[LEFT]>800||value[RIGHT]>800))//检测入环
 	{
 		Circle_Flag2=1; 
+		DistanceAddFlag4=0;
+		Beep_Up();
 	}
 	if(Circle_Flag2)
 	{
@@ -197,10 +200,12 @@ void circleAnalysis2(int16_t* value)
 		}
 	}
 
-	if(Circle_Flag2>1000)
+	if(DistanceAddFlag4>85000)
 	{
 		CircleQueue.NextCircle++;
 		Circle_Flag2=0;
+		DistanceAddFlag4=0;
+		Beep_Down();
 	}
 
 	if((value[MIDDLE]>1300)&&(value[LEFT]>800||value[RIGHT]>800))
@@ -208,4 +213,11 @@ void circleAnalysis2(int16_t* value)
 		GV_speedControlT.Pid[0].SetSpeed=g_Speed*0.6;
 	  	GV_speedControlT.Pid[1].SetSpeed=g_Speed*0.6;
 	}
+
+	if((value[MIDDLE]>1100||value[LEFT]>1100||value[RIGHT]>1100)&&(Circle_Flag2>120))
+	{
+		GV_speedControlT.Pid[0].SetSpeed=g_Speed*0.6;
+	  	GV_speedControlT.Pid[1].SetSpeed=g_Speed*0.6;
+	}
+
 }

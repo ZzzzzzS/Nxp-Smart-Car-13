@@ -39,13 +39,13 @@ void SpeedComput(speed_control_config_t* base)
   base->OutSpeed[RightWheel]+= base->Pid[RightWheel].IncrementSpeed;
   
 
-  if(base->OutSpeed[LeftWheel]>MAX_SPEED*0.8)
-    base->OutSpeed[LeftWheel] = 0;
+  if(base->OutSpeed[LeftWheel]>MAX_SPEED)
+    base->OutSpeed[LeftWheel] = MAX_SPEED;
   else if(base->OutSpeed[LeftWheel]<MIN_SPEED)
     base->OutSpeed[LeftWheel] = MIN_SPEED;
 
-  if(base->OutSpeed[RightWheel]>MAX_SPEED*0.8)
-    base->OutSpeed[RightWheel] = 0;
+  if(base->OutSpeed[RightWheel]>MAX_SPEED)
+    base->OutSpeed[RightWheel] = MAX_SPEED;
   else if(base->OutSpeed[RightWheel]<MIN_SPEED)
     base->OutSpeed[RightWheel] = MIN_SPEED;
 

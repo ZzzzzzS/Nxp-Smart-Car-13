@@ -49,6 +49,7 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  int32_t DistanceAddFlag=0;
  int32_t DistanceAddFlag2=0;
  int32_t DistanceAddFlag3=0;
+ int32_t DistanceAddFlag4=0;
  uint8_t Circle_Direction = LEFT;
  uint8_t MeetingArea=0;
  uint8_t MeetingStatus;

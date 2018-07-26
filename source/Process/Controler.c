@@ -134,7 +134,11 @@ void SystemCtrl_PIT0CallBack()
   if(CircleQueue.NextCircle<=3)
     circleAnalysis2(InductanceVal);
   else
-   circleAnalysis(InductanceVal); //分析入圆
+  {
+    CircleQueue.NextCircle--;
+    circleAnalysis2(InductanceVal); //分析入圆
+  }
+   
   GV_steerControlT.ErrorDistance=getDirectionError3(InductanceVal); //差比和计算误差
   SteerPWMCalculator(); //计算舵机PID
  
@@ -180,6 +184,12 @@ void SystemCtrl_PIT0CallBack()
   if(DistanceAddFlag3!=0)
   {
     DistanceAddFlag3+=(GV_speedControlT.Pid[LeftWheel].NowSpeed+
+                       GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
+  }
+
+  if(Circle_Flag2!=0)
+  {
+     DistanceAddFlag4+=(GV_speedControlT.Pid[LeftWheel].NowSpeed+
                        GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
   }
 
