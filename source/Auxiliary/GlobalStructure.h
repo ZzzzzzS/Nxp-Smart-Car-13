@@ -152,7 +152,7 @@ typedef enum
 typedef struct
 {
   uint8_t NextCircle;
-  uint8_t Queue[3];
+  uint8_t Queue[5];
 }CircleQueue_t;
 
 #endif

@@ -18,12 +18,13 @@ int main(void)
 {
   Init();
   g_Time=1100;
-
   GV_steerPwmOutValueI=STEER_PWM_MIN;
   FTM_ClearQuadDecoderCounterValue(FTM1);
   FTM_ClearQuadDecoderCounterValue(FTM2);
   getLeftSpeed();
   getRightSpeed();
+  HalfDistance*=1.16;
+  FullDistance*=1.16;
   if(READ_KEY1)
   {
     CircleQueue.Queue[0]=LEFT;
@@ -47,6 +48,15 @@ int main(void)
   else
   {
     CircleQueue.Queue[2]=RIGHT;
+  }
+
+  if(READ_KEY4)
+  {
+    CircleQueue.Queue[3]=LEFT;
+  }
+  else
+  {
+    CircleQueue.Queue[3]=RIGHT;
   }
 
   delay_ms(25);
@@ -98,9 +108,7 @@ int main(void)
      // GV_steerPwmOutValueI+=5;
    // }
 
-   if(g_Time>2000)
-   {
-     //FinnalPointHandler();
-   }
+   
   }
+
 }

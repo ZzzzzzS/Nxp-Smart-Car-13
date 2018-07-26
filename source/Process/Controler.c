@@ -4,15 +4,16 @@
 
 void FinnalPointHandler()
 {
-  static uint32_t Time;
-  //TODO 添加GPIO检测
-  //if()
-  //{
-   // Time=g_Time;
-  //}
   if(FinnalPointFlag)
   {
-      MeetingStatus=meeting;
+    FinnalPointFlag++;
+  }
+  if(FinnalPointFlag>=100)
+  {
+      STOP_FLAG=0;
+      MotorOut_PWM(0);
+      PIT_StopTimer(PIT, kPIT_Chnl_0);
+      while(1);
   }
 }
 
@@ -27,7 +28,7 @@ void ImageControlor(uint8_t* img)  //列188，行120
     //LCD_DrawPicture_Small(small_image);
     LCD_DrawPicture(img);
   }
-  if(g_Time-1000>MeetingTime)
+  if(g_Time-1000>MeetingTime&&MeetingStatus!=meeting)
     FindMeetingArea(small_image);
      ;   
 }
@@ -78,6 +79,7 @@ void meetingControl()
     MeetingTime=g_Time;
     MeetingArea=0;
     DistanceAddFlag3=1;
+    DistanceAddFlag2=0;
   }
 
   if(Message.distance_between>74)
@@ -88,13 +90,10 @@ void meetingControl()
   if(DistanceAddFlag3>7000)
   {
     DistanceAddFlag3=0;
-    if(AllDistance/100>FullDistance-100)
+    if(AllDistance/100>FullDistance-700)
     {
-      STOP_FLAG=0;
-      MotorOut_PWM(0);
-      PIT_StopTimer(PIT, kPIT_Chnl_0);
-      while(1);
-
+      FinnalPointFlag=1;
+      g_Speed*=0.5;
     }
   }
 
@@ -113,32 +112,35 @@ void SystemCtrl_PIT0CallBack()
 
   //系统时间加一
   //MeetingStatus=normal;
+  FinnalPointHandler();
   if(MeetingArea==0)
   {
     GV_speedControlT.Pid[0].SetSpeed=g_Speed;
 	  GV_speedControlT.Pid[1].SetSpeed=g_Speed;
   }
   
-  if(AllDistance/100>FullDistance-300)
+  if(AllDistance/100>FullDistance-500)
   {
-    GV_speedControlT.Pid[0].SetSpeed*=0.5;
-    GV_speedControlT.Pid[1].SetSpeed*=0.5;
+    GV_speedControlT.Pid[0].SetSpeed*=0.6;
+    GV_speedControlT.Pid[1].SetSpeed*=0.6;
    ;
   }
+
+  if(AllDistance/100>HalfDistance-500&&AllDistance/100<HalfDistance+500)
+  {
+    GV_speedControlT.Pid[0].SetSpeed*=0.7;
+    GV_speedControlT.Pid[1].SetSpeed*=0.7;
+  }
+
 
 	++g_Time;
 	++g_Time_NRF;
   GetADCVal(InductanceVal);  //获取adc采集的值
   
 
-  if(CircleQueue.NextCircle<=3)
+  if(CircleQueue.NextCircle<5||Circle_Flag2!=0)
     circleAnalysis2(InductanceVal);
-  else
-  {
-    CircleQueue.NextCircle--;
-    circleAnalysis2(InductanceVal); //分析入圆
-  }
-   
+
   GV_steerControlT.ErrorDistance=getDirectionError3(InductanceVal); //差比和计算误差
   SteerPWMCalculator(); //计算舵机PID
  
@@ -187,13 +189,13 @@ void SystemCtrl_PIT0CallBack()
                        GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
   }
 
-  if(Circle_Flag2!=0)
+  if(Circle_Flag2>0)
   {
      DistanceAddFlag4+=(GV_speedControlT.Pid[LeftWheel].NowSpeed+
                        GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
   }
 
-  if((AllDistance/100>(HalfDistance-500)&&AllDistance/100<(HalfDistance+500))||AllDistance/100<500||AllDistance/100>(FullDistance-500))
+  if((AllDistance/100>(HalfDistance-700)&&AllDistance/100<(HalfDistance+500))||AllDistance/100<500||AllDistance/100>(FullDistance-700))
   {
     ;
   }

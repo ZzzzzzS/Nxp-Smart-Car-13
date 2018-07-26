@@ -191,7 +191,7 @@ void  FindMeetingArea(uint8_t *Img)
 	}
 	
         
-        if((sum[1]-9>sum[0]&&sum[1]-9>sum[2]&&MeetingArea==0))
+        if((sum[1]-10>sum[0]&&sum[1]-10>sum[2]&&MeetingArea==0))
         {
           MeetingArea=1;
           DistanceAddFlag2=0;
@@ -199,14 +199,14 @@ void  FindMeetingArea(uint8_t *Img)
 		  GV_speedControlT.Pid[0].SetSpeed=speed_origin*0.8;
 		  GV_speedControlT.Pid[1].SetSpeed=speed_origin*0.8;
         }
-        if(sum[1]+8<sum[0]&&sum[1]+8<sum[2]&&MeetingArea==1)
+        if(sum[1]+10<sum[0]&&sum[1]+10<sum[2]&&MeetingArea==1)
         {
           MeetingArea=2;
 		  GV_speedControlT.Pid[0].SetSpeed=speed_origin/6;
 		  GV_speedControlT.Pid[1].SetSpeed=speed_origin/6;
         }
 
-	if(sum[1]-8>sum[0]&&sum[1]-8>sum[2]&&MeetingArea==2)
+	if(sum[1]-10>sum[0]&&sum[1]-10>sum[2]&&MeetingArea==2)
         {
           MeetingArea=3;
 	  DistanceAddFlag2=0;

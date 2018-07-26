@@ -55,8 +55,8 @@ extern uint8_t MeetingStatus;
 extern uint32_t MeetingTime;
 extern uint8_t old[3];
 extern uint8_t FinnalPointFlag;
-extern uint32_t AllDistance;
-extern uint32_t HalfDistance;
-extern uint32_t FullDistance;
+extern int32_t AllDistance;
+extern int32_t HalfDistance;
+extern int32_t FullDistance;
 extern CircleQueue_t CircleQueue;
 #endif
