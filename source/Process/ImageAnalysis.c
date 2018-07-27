@@ -4,7 +4,24 @@ uint8_t small_image[MT9V034_H/2][MT9V034_W/2];
 uint8_t converted_image[MT9V034_H/2][MT9V034_W/2];
 const uint16_t map[60*94];
 
-
+void Get_01_Value(uint8_t* Image_Use)   //按照均值的比例进行二值化,此函数由刘天林小哥哥提供技术支持
+{
+     int i = 0,j = 0,sum=0;
+      uint32_t tv=0; 
+    for(i = 0; i <MT9V034_H; i=i+10)
+    {  
+        for(j = 1; j <MT9V034_W; j=j+10)
+        {                            
+          tv+=Image_Use[i*MT9V034_W+j];   //累加 
+			sum++;
+        } 
+    }
+      GaveValue=(int)((tv/sum)*0.9);     //求平均值    
+      if(GaveValue<70)
+	GaveValue=70;
+	else if(GaveValue>180)
+		GaveValue=180;
+}
 
 uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 {
@@ -16,7 +33,7 @@ uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
         row = 0;
 	for(int j=0;j<MT9V034_H;j+=2)
 	{
-		if(origin_image[j*MT9V034_W+10]<70&&origin_image[(j+2)*MT9V034_W+10]<70&&origin_image[(j+4)*MT9V034_W+10]<70)
+		if(origin_image[j*MT9V034_W+10]<GaveValue&&origin_image[(j+2)*MT9V034_W+10]<GaveValue&&origin_image[(j+4)*MT9V034_W+10]<GaveValue)
 			newimage[row*94+5]=0;
 		else         
 			newimage[row*94+5]=255;
@@ -26,7 +43,7 @@ uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 	row = 0;
 	for(int j=0;j<MT9V034_H;j+=2)
 	{
-		if(origin_image[j*MT9V034_W+14]<70&&origin_image[(j+2)*MT9V034_W+14]<70&&origin_image[(j+4)*MT9V034_W+14]<70)
+		if(origin_image[j*MT9V034_W+14]<GaveValue&&origin_image[(j+2)*MT9V034_W+14]<GaveValue&&origin_image[(j+4)*MT9V034_W+14]<GaveValue)
 			newimage[row*94+7]=0;
 		else         
 			newimage[row*94+7]=255;
@@ -36,7 +53,7 @@ uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 	row = 0;
 	for(int j=0;j<MT9V034_H;j+=2)
 	{
-		if(origin_image[j*MT9V034_W+18]<70&&origin_image[(j+2)*MT9V034_W+18]<70&&origin_image[(j+4)*MT9V034_W+18]<70)
+		if(origin_image[j*MT9V034_W+18]<GaveValue&&origin_image[(j+2)*MT9V034_W+18]<GaveValue&&origin_image[(j+4)*MT9V034_W+18]<GaveValue)
 			newimage[row*94+9]=0;
 		else         
 			newimage[row*94+9]=255;
@@ -46,17 +63,17 @@ uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 	row = 0;
 	for(int j=0;j<MT9V034_H;j+=2)
 	{
-		if(origin_image[j*MT9V034_W+86]<70&&origin_image[(j+2)*MT9V034_W+86]<70&&origin_image[(j+4)*MT9V034_W+86]<70)
-			newimage[row*94+43]=0;
+		if(origin_image[j*MT9V034_W+70]<GaveValue&&origin_image[(j+2)*MT9V034_W+70]<GaveValue&&origin_image[(j+4)*MT9V034_W+70]<GaveValue)
+			newimage[row*94+35]=0;
 		else         
-			newimage[row*94+43]=255;
+			newimage[row*94+35]=255;
 		row++;
 	}
 
 	row = 0;
 	for(int j=0;j<MT9V034_H;j+=2)
 	{
-		if(origin_image[j*MT9V034_W+90]<70&&origin_image[(j+2)*MT9V034_W+90]<70&&origin_image[(j+4)*MT9V034_W+90]<70)
+		if(origin_image[j*MT9V034_W+90]<GaveValue&&origin_image[(j+2)*MT9V034_W+90]<GaveValue&&origin_image[(j+4)*MT9V034_W+90]<GaveValue)
 			newimage[row*94+45]=0;
 		else         
 			newimage[row*94+45]=255;
@@ -66,17 +83,17 @@ uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 	row = 0;
 	for(int j=0;j<MT9V034_H;j+=2)
 	{
-		if(origin_image[j*MT9V034_W+94]<70&&origin_image[(j+2)*MT9V034_W+94]<70&&origin_image[(j+4)*MT9V034_W+94]<70)
-			newimage[row*94+47]=0;
+		if(origin_image[j*MT9V034_W+110]<GaveValue&&origin_image[(j+2)*MT9V034_W+110]<GaveValue&&origin_image[(j+4)*MT9V034_W+110]<GaveValue)
+			newimage[row*94+55]=0;
 		else         
-			newimage[row*94+47]=255;
+			newimage[row*94+55]=255;
 		row++;
 	}
 
 	row = 0;
 	for(int j=0;j<MT9V034_H;j+=2)
 	{
-		if(origin_image[j*MT9V034_W+176]<70&&origin_image[(j+2)*MT9V034_W+176]<70&&origin_image[(j+4)*MT9V034_W+176]<70)
+		if(origin_image[j*MT9V034_W+176]<GaveValue&&origin_image[(j+2)*MT9V034_W+176]<GaveValue&&origin_image[(j+4)*MT9V034_W+176]<GaveValue)
 			newimage[row*94+88]=0;
 		else         
 			newimage[row*94+88]=255;
@@ -86,7 +103,7 @@ uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 	row = 0;
 	for(int j=0;j<MT9V034_H;j+=2)
 	{
-		if(origin_image[j*MT9V034_W+180]<70&&origin_image[(j+2)*MT9V034_W+180]<70&&origin_image[(j+4)*MT9V034_W+180]<70)
+		if(origin_image[j*MT9V034_W+180]<GaveValue&&origin_image[(j+2)*MT9V034_W+180]<GaveValue&&origin_image[(j+4)*MT9V034_W+180]<GaveValue)
 			newimage[row*94+90]=0;
 		else         
 			newimage[row*94+90]=255;
@@ -96,7 +113,7 @@ uint8_t getSmallImage(uint8_t* origin_image, uint8_t* newimage)
 	row = 0;
 	for(int j=0;j<MT9V034_H;j+=2)
 	{
-		if(origin_image[j*MT9V034_W+184]<70&&origin_image[(j+2)*MT9V034_W+184]<70&&origin_image[(j+4)*MT9V034_W+184]<70)
+		if(origin_image[j*MT9V034_W+184]<GaveValue&&origin_image[(j+2)*MT9V034_W+184]<GaveValue&&origin_image[(j+4)*MT9V034_W+184]<GaveValue)
 			newimage[row*94+92]=0;
 		else         
 			newimage[row*94+92]=255;
@@ -141,8 +158,8 @@ void  FindMeetingArea(uint8_t *Img)
 	}
         for(int i=0;i<57;i++) 
 	{
-		edge[3]+=(Img[i*94+43]==0?0:1);
-                if(Img[i*94+43]==1&&Img[(i+1)*94+43]==1&&Img[(i+2)*94+43]==1)
+		edge[3]+=(Img[i*94+35]==0?0:1);
+                if(Img[i*94+35]==1&&Img[(i+1)*94+35]==1&&Img[(i+2)*94+35]==1)
                   break;
 	}
         for(int i=0;i<57;i++) 
@@ -154,8 +171,8 @@ void  FindMeetingArea(uint8_t *Img)
 	}
         for(int i=0;i<57;i++) 
 	{
-		edge[5]+=(Img[i*94+47]==0?0:1);
-                if(Img[i*94+47]==1&&Img[(i+1)*94+47]==1&&Img[(i+2)*94+47]==1)
+		edge[5]+=(Img[i*94+55]==0?0:1);
+                if(Img[i*94+55]==1&&Img[(i+1)*94+55]==1&&Img[(i+2)*94+55]==1)
                   break;
 
 	}
@@ -206,7 +223,7 @@ void  FindMeetingArea(uint8_t *Img)
 		  GV_speedControlT.Pid[1].SetSpeed=speed_origin/6;
         }
 
-	if(sum[1]-10>sum[0]&&sum[1]-10>sum[2]&&MeetingArea==2)
+	if(sum[1]-11>sum[0]&&sum[1]-11>sum[2]&&MeetingArea==2)
         {
           MeetingArea=3;
 	  DistanceAddFlag2=0;

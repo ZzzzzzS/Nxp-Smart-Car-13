@@ -80,7 +80,7 @@ int main(void)
         //Display_Number(5,7,Circle_Flag,YELLOW,RED);
         Display_Number(5,7,Message.distance_between,YELLOW,RED);
         Display_Number(10,7,AllDistance/100,YELLOW,RED);
-        
+        Display_Number(10,6,AllDistance/116,YELLOW,RED);
     }
     //meetingControl();
     //stop_car();

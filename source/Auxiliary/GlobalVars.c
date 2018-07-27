@@ -59,4 +59,5 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  int32_t AllDistance;
  int32_t HalfDistance;
  int32_t FullDistance;
+ uint8_t GaveValue;
  CircleQueue_t CircleQueue;

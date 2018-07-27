@@ -20,7 +20,7 @@ void FinnalPointHandler()
 
 void ImageControlor(uint8_t* img)  //列188，行120
 {
-
+    Get_01_Value(img);
     getSmallImage(img,small_image);
   //correctSmallImage(small_image, converted_image);
   if(DISPLAY_FLAG)
@@ -28,9 +28,13 @@ void ImageControlor(uint8_t* img)  //列188，行120
     //LCD_DrawPicture_Small(small_image);
     LCD_DrawPicture(img);
   }
-  if(g_Time-1000>MeetingTime&&MeetingStatus!=meeting)
-    FindMeetingArea(small_image);
+  
      ;   
+  //if((AllDistance/100>(HalfDistance-700)&&AllDistance/100<(HalfDistance+500))||AllDistance/100<500||AllDistance/100>(FullDistance-700))
+  {
+    if(g_Time-1000>MeetingTime&&MeetingStatus!=meeting)
+      FindMeetingArea(small_image);;
+  }
 }
 
 void ActiveDiffSpeed(speed_control_config_t *speed,int16_t *steerValue)
@@ -90,11 +94,11 @@ void meetingControl()
   if(DistanceAddFlag3>7000)
   {
     DistanceAddFlag3=0;
-    if(AllDistance/100>FullDistance-700)
+    if(AllDistance/100>FullDistance-500)
     {
       FinnalPointFlag=1;
       g_Speed*=0.5;
-    }
+    }     
   }
 
   if(MeetingStatus==meeting||DistanceAddFlag3!=0)
@@ -128,8 +132,8 @@ void SystemCtrl_PIT0CallBack()
 
   if(AllDistance/100>HalfDistance-500&&AllDistance/100<HalfDistance+500)
   {
-    GV_speedControlT.Pid[0].SetSpeed*=0.7;
-    GV_speedControlT.Pid[1].SetSpeed*=0.7;
+    GV_speedControlT.Pid[0].SetSpeed*=0.8;
+    GV_speedControlT.Pid[1].SetSpeed*=0.8;
   }
 
 

@@ -59,4 +59,5 @@ extern int32_t AllDistance;
 extern int32_t HalfDistance;
 extern int32_t FullDistance;
 extern CircleQueue_t CircleQueue;
+extern uint8_t GaveValue;
 #endif
