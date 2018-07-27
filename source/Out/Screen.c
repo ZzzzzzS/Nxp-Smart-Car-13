@@ -3,7 +3,7 @@
 
 menu_item menu_list[MENU_ITEM_COUNT];
 //最后一个数据的下标
-uint8_t MENU_LAST=18;
+uint8_t MENU_LAST=23;
 
 //向液晶屏写一个8位指令
 void  Lcd_WriteIndex(uint8_t Data)
@@ -411,24 +411,25 @@ void menu(uint8_t start,uint8_t end,uint8_t selected)
 	{
 		if(i<17){
 			sprintf(buffer,"%s   %2d.%d",menu_list[i].item_name,(int)(menu_list[i].item_value),((int)(menu_list[i].item_value*10.0))%10);
-			if(i==selected)
-			{
-				Display_ASCII8X16(0,i-start,buffer,RED,GREEN);
-			}else{
-				Display_ASCII8X16(0,i-start,buffer,BLACK,WHITE);
-			}
 		}else{
 			if(i==17||i==18){
 				sprintf(buffer,"%s %d",menu_list[i].item_name,*(uint32_t*)(&menu_list[i].item_value));
-				if(i==selected)
-				{
-					Display_ASCII8X16(0,i-start,buffer,RED,GREEN);
+			}else{
+				if((uint8_t)menu_list[i].item_value == LEFT){
+					sprintf(buffer,"%s LEFT",menu_list[i].item_name);
 				}else{
-					Display_ASCII8X16(0,i-start,buffer,BLACK,WHITE);
+					sprintf(buffer,"%s RIGHT",menu_list[i].item_name);
 				}
+			}
+		}
+
+		if(i==selected)
+		{
+			Display_ASCII8X16(0,i-start,buffer,RED,GREEN);
+		}else{
+			Display_ASCII8X16(0,i-start,buffer,BLACK,WHITE);
 		}
 	}
-}
 }
 void menu_from_flash()
 {
@@ -475,6 +476,11 @@ void menu_in()
 	sprintf(menu_list[17].item_name,"ALLLEN");
 	//半长
 	sprintf(menu_list[18].item_name,"HAFLEN");
+	sprintf(menu_list[19].item_name,"CIRCLE1");
+	sprintf(menu_list[20].item_name,"CIRCLE2");
+	sprintf(menu_list[21].item_name,"CIRCLE3");
+	sprintf(menu_list[22].item_name,"CIRCLE4");
+	sprintf(menu_list[23].item_name,"CIRCLE5");
 	
 }
 
@@ -498,6 +504,11 @@ void menu_out()
     g_Speed = (uint16_t)menu_list[15].item_value;
 	FullDistance = *(uint32_t*)(&menu_list[17].item_value);
 	HalfDistance = *(uint32_t*)(&menu_list[18].item_value);
+    CircleQueue.Queue[0]=(uint8_t)menu_list[19].item_value;
+    CircleQueue.Queue[1]=(uint8_t)menu_list[20].item_value;
+    CircleQueue.Queue[2]=(uint8_t)menu_list[21].item_value;
+    CircleQueue.Queue[3]=(uint8_t)menu_list[22].item_value;
+    CircleQueue.Queue[4]=(uint8_t)menu_list[23].item_value;
 }
 
 void menu_from_code()
@@ -521,7 +532,11 @@ void menu_from_code()
 	menu_list[16].item_value = 1;
 	menu_list[17].item_value = *(float*)(&FullDistance);
 	menu_list[18].item_value = *(float*)(&HalfDistance);
-
+    menu_list[19].item_value = CircleQueue.Queue[0]
+    menu_list[20].item_value = CircleQueue.Queue[1]
+    menu_list[21].item_value = CircleQueue.Queue[2]
+    menu_list[22].item_value = CircleQueue.Queue[3]
+    menu_list[23].item_value = CircleQueue.Queue[4]
 }
 
 void display_menu()
@@ -588,6 +603,12 @@ void display_menu()
             SteerSet((uint16_t)menu_list[12].item_value);
         }else if(selected<19){
 			(*(uint32_t*)(&menu_list[selected].item_value))-=menu_list[16].item_value;
+		}else{
+			if((uint8_t)menu_list[selected].item_value == LEFT)
+				menu_list[selected].item_value = RIGHT;
+			else{
+				menu_list[selected].item_value = LEFT;
+			}
 		}
       }
         
@@ -608,6 +629,12 @@ void display_menu()
             SteerSet((uint16_t)menu_list[12].item_value);
           }else if(selected<19){
 		  	(*(uint32_t*)(&menu_list[selected].item_value))+=menu_list[16].item_value;
+		  }else{
+			if((uint8_t)menu_list[selected].item_value == LEFT)
+				menu_list[selected].item_value = RIGHT;
+			else{
+				menu_list[selected].item_value = LEFT;
+			}
 		  }
         }
     }

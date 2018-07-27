@@ -1,7 +1,7 @@
 #ifndef __AETHER_SCREEN__
 #define __AETHER_SCREEN__
 
-#define MENU_ITEM_COUNT 24
+#define MENU_ITEM_COUNT 32
 
 typedef struct{
 	char item_name[10];
