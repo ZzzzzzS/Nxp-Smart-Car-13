@@ -532,11 +532,11 @@ void menu_from_code()
 	menu_list[16].item_value = 1;
 	menu_list[17].item_value = *(float*)(&FullDistance);
 	menu_list[18].item_value = *(float*)(&HalfDistance);
-    menu_list[19].item_value = CircleQueue.Queue[0]
-    menu_list[20].item_value = CircleQueue.Queue[1]
-    menu_list[21].item_value = CircleQueue.Queue[2]
-    menu_list[22].item_value = CircleQueue.Queue[3]
-    menu_list[23].item_value = CircleQueue.Queue[4]
+    menu_list[19].item_value = CircleQueue.Queue[0];
+    menu_list[20].item_value = CircleQueue.Queue[1];
+    menu_list[21].item_value = CircleQueue.Queue[2];
+    menu_list[22].item_value = CircleQueue.Queue[3];
+    menu_list[23].item_value = CircleQueue.Queue[4];
 }
 
 void display_menu()

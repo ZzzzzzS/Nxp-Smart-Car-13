@@ -13,7 +13,19 @@ void Init()
      PORT_SetPinMux(PORTA, 4, kPORT_MuxAsGpio);                /* PORTA4 (pin 54) is configured as PTA4 */
     lcd_initial();//初始化LCD
     fullfill(0,0,128,128,BLACK);
-    
+    //干簧管初始化
+    port_pin_config_t config = {
+      kPORT_PullUp,
+      kPORT_FastSlewRate,
+      kPORT_PassiveFilterDisable,
+      kPORT_OpenDrainDisable,
+      kPORT_LowDriveStrength,
+      kPORT_MuxAsGpio,
+      kPORT_UnlockRegister,
+	 };
+ 
+    PORT_SetPinConfig(PORTC,11U,&config);
+    gpio_init(GPIOC,11U,IN,LOW);
   	UART4_Init();               //初始化UART4(蓝牙)
     //Display_ASCII8X16(0,0,"UART",BLACK,WHITE);
     SteerInit();
@@ -69,6 +81,7 @@ void Init()
         flash_read(2,sizeof(ADside),(uint8_t*)&ADside);
     
     display_menu();
+    delay_ms(5000);
     GV_speedControlT.Pid[0].SetSpeed = g_Speed;
     GV_speedControlT.Pid[1].SetSpeed = g_Speed;
 	EnableGlobalIRQ(record);

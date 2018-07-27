@@ -8,7 +8,7 @@ void FinnalPointHandler()
   {
     FinnalPointFlag++;
   }
-  if(FinnalPointFlag>=100)
+  if(FinnalPointFlag>=400)
   {
       STOP_FLAG=0;
       MotorOut_PWM(0);
@@ -93,12 +93,7 @@ void meetingControl()
 
   if(DistanceAddFlag3>7000)
   {
-    DistanceAddFlag3=0;
-    if(AllDistance/100>FullDistance-500)
-    {
-      FinnalPointFlag=1;
-      g_Speed*=0.5;
-    }     
+    DistanceAddFlag3=0;   
   }
 
   if(MeetingStatus==meeting||DistanceAddFlag3!=0)

@@ -25,41 +25,8 @@ int main(void)
   getRightSpeed();
   HalfDistance*=1.16;
   FullDistance*=1.16;
-  if(READ_KEY1)
-  {
-    CircleQueue.Queue[0]=LEFT;
-  }
-  else
-  {
-    CircleQueue.Queue[0]=RIGHT;
-  }
-  if(READ_KEY3)
-  {
-    CircleQueue.Queue[1]=LEFT;
-  }
-  else
-  {
-    CircleQueue.Queue[1]=RIGHT;
-  }
-  if(READ_KEY4)
-  {
-    CircleQueue.Queue[2]=LEFT;
-  }
-  else
-  {
-    CircleQueue.Queue[2]=RIGHT;
-  }
-
-  if(READ_KEY4)
-  {
-    CircleQueue.Queue[3]=LEFT;
-  }
-  else
-  {
-    CircleQueue.Queue[3]=RIGHT;
-  }
-
-  delay_ms(25);
+  
+  
   AllDistance=10;
   
   while (1)
@@ -108,6 +75,10 @@ int main(void)
      // GV_steerPwmOutValueI+=5;
    // }
 
+  if(gpio_read(GPIOC,11)==0)
+  {
+    FinnalPointFlag=1;
+  }
    
   }
 
