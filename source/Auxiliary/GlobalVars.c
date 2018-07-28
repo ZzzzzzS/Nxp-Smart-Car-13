@@ -37,7 +37,7 @@ uint8_t InductanceMiddle=INDUCTANCE_MIDDLE;
  uint16_t STEER_PWM_MAX=824;
  uint16_t STEER_PWM_MIN=674;
  uint16_t STEER_MIDDLE=746;
- uint16_t g_Speed = 0;
+ uint16_t g_Speed = 220;
 
 
 //判断标志位

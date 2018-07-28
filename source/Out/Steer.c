@@ -18,12 +18,12 @@ void SteerInit() {
   PORT_SetPinMux(PORTE, 12, kPORT_MuxAlt6 );  //引脚复用
   GV_steerControlT.ErrorDistance = 0;
   GV_steerControlT.LastErrorDistance = 0;
-  GV_steerControlT.PD.Steer_P = 4;
-  GV_steerControlT.PD.Steer_D = 1;
-  GV_steerControlT.PD.Steer_P_Small = 1;
-  GV_steerControlT.PD.Steer_D_Small = 1;
-  GV_steerControlT.PD.Steer_P_Big = 1;
-  GV_steerControlT.PD.Steer_D_Big = 1;
+  GV_steerControlT.PD.Steer_P = 7.9;
+  GV_steerControlT.PD.Steer_D = 7.2;
+  GV_steerControlT.PD.Steer_P_Small = 0.8;
+  GV_steerControlT.PD.Steer_D_Small = 2;
+  GV_steerControlT.PD.Steer_P_Big = 2.9;
+  GV_steerControlT.PD.Steer_D_Big = 7.3;
   // ftm_pwm_init(STEER_FTM, STEER_FTM_CHANAL,100, 0);
 
   ftm_config_t FTM3Info;

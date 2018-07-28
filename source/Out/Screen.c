@@ -529,7 +529,7 @@ void menu_from_code()
     menu_list[13].item_value =STEER_PWM_MAX;
     menu_list[14].item_value =STEER_PWM_MIN;
     menu_list[15].item_value =g_Speed;
-	menu_list[16].item_value = 1;
+	menu_list[16].item_value = 100;
 	menu_list[17].item_value = *(float*)(&FullDistance);
 	menu_list[18].item_value = *(float*)(&HalfDistance);
     menu_list[19].item_value = CircleQueue.Queue[0];
@@ -602,7 +602,7 @@ void display_menu()
               menu_list[12].item_value=menu_list[14].item_value;
             SteerSet((uint16_t)menu_list[12].item_value);
         }else if(selected<19){
-			(*(uint32_t*)(&menu_list[selected].item_value))-=menu_list[16].item_value;
+			(*(uint32_t*)(&menu_list[selected].item_value))-=(int16_t)menu_list[16].item_value;
 		}else{
 			if((uint8_t)menu_list[selected].item_value == LEFT)
 				menu_list[selected].item_value = RIGHT;
@@ -628,7 +628,7 @@ void display_menu()
               menu_list[12].item_value=menu_list[14].item_value;
             SteerSet((uint16_t)menu_list[12].item_value);
           }else if(selected<19){
-		  	(*(uint32_t*)(&menu_list[selected].item_value))+=menu_list[16].item_value;
+		  	(*(uint32_t*)(&menu_list[selected].item_value))+=(int16_t)menu_list[16].item_value;
 		  }else{
 			if((uint8_t)menu_list[selected].item_value == LEFT)
 				menu_list[selected].item_value = RIGHT;

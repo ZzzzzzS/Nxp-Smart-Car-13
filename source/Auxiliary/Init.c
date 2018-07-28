@@ -55,9 +55,8 @@ void Init()
     Display_ASCII8X16(0,0,"ADC",BLACK,WHITE);
  	   
     Display_ASCII8X16(0,0,"NRF",BLACK,WHITE);
-    PIDInit(&GV_speedControlT.Pid[0],0.8,0,0);
-    PIDInit(&GV_speedControlT.Pid[1],0.8,0,0);
-    g_Speed = 30;
+    PIDInit(&GV_speedControlT.Pid[0],20,3,0);
+    PIDInit(&GV_speedControlT.Pid[1],20,3,0);
     //iic_init();   
     //MPU6050_Inital();
     result = Flash_init();
@@ -81,7 +80,7 @@ void Init()
         flash_read(2,sizeof(ADside),(uint8_t*)&ADside);
     
     display_menu();
-    delay_ms(5000);
+    delay_ms(3000);
     GV_speedControlT.Pid[0].SetSpeed = g_Speed;
     GV_speedControlT.Pid[1].SetSpeed = g_Speed;
 	EnableGlobalIRQ(record);
