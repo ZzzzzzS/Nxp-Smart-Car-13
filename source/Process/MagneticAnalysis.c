@@ -200,6 +200,7 @@ void circleAnalysis2(int16_t* value)
 	if(DistanceAddFlag4>85000)
 	{
 		CircleQueue.NextCircle++;
+		CircleQueue.NextCircle%=5;
 		Circle_Flag2=0;
 		DistanceAddFlag4=0;
 		Beep_Down();
@@ -207,8 +208,9 @@ void circleAnalysis2(int16_t* value)
 
 	if(value[LEFT]+value[MIDDLE]+value[RIGHT]>2300&&DistanceAddFlag4>10000)
 	{
-		Circle_Flag2=-300;
+		Circle_Flag2=-500;
 		CircleQueue.NextCircle++;
+		CircleQueue.NextCircle%=5;
 		DistanceAddFlag4=0;
 		Beep_Down();
 	}
