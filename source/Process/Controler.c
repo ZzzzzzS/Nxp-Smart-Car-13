@@ -21,6 +21,7 @@ void FinnalPointHandler()
 void ImageControlor(uint8_t* img)  //列188，行120
 {
     Get_01_Value(img);
+    //GaveValue=70;
     getSmallImage(img,small_image);
   //correctSmallImage(small_image, converted_image);
   if(DISPLAY_FLAG)
