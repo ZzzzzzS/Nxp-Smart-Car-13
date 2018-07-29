@@ -75,11 +75,17 @@ int main(void)
      // GV_steerPwmOutValueI+=5;
    // }
 
-  if(gpio_read(GPIOC,11)==0)
+  if(gpio_read(GPIOC,11)==0&&AllDistance/100>500)
   {
     FinnalPointFlag=1;
   }
    
+   if(FinnalPointFlag==0&&AllDistance/100>FullDistance+200)
+   {
+     FinnalPointFlag=399;
+   }
+
+
   }
 
 }

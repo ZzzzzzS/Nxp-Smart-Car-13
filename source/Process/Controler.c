@@ -21,13 +21,13 @@ void FinnalPointHandler()
 void ImageControlor(uint8_t* img)  //列188，行120
 {
     Get_01_Value(img);
-    //GaveValue=70;
+    GaveValue=90;
     getSmallImage(img,small_image);
   //correctSmallImage(small_image, converted_image);
   if(DISPLAY_FLAG)
   {
-    //LCD_DrawPicture_Small(small_image);
-    LCD_DrawPicture(img);
+    LCD_DrawPicture_Small(small_image);
+    //LCD_DrawPicture(img);
   }
   
      ;   

@@ -350,6 +350,7 @@ __Vectors_Size  EQU   __Vectors_End - __Vectors
         PUBWEAK Reset_Handler
         SECTION .text:CODE:REORDER:NOROOT(2)
 Reset_Handler
+
         CPSID   I               ; Mask interrupts
         LDR     R0, =0xE000ED08
         LDR     R1, =__vector_table
