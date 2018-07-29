@@ -26,8 +26,15 @@ void ImageControlor(uint8_t* img)  //列188，行120
   //correctSmallImage(small_image, converted_image);
   if(DISPLAY_FLAG)
   {
-    LCD_DrawPicture_Small(small_image);
-    //LCD_DrawPicture(img);
+    if(READ_KEY4)
+    {
+      LCD_DrawPicture_Small(small_image);
+    }
+    else
+    {
+      LCD_DrawPicture(img);
+    }
+    
   }
   
      ;   
@@ -210,7 +217,7 @@ void SystemCtrl_PIT0CallBack()
   PIDControl(&GV_speedControlT.Pid[RightWheel]);
   if((InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT])<100)
   {
-    STOP_FLAG = 1;
+    STOP_FLAG = 0;
   }
   else if((InductanceVal[LEFT]+InductanceVal[MIDDLE]+InductanceVal[RIGHT])>=100)
   {
