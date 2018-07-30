@@ -202,7 +202,7 @@ void SystemCtrl_PIT0CallBack()
                        GV_speedControlT.Pid[RightWheel].NowSpeed)/2;
   }
 
-  if((AllDistance/100>(HalfDistance-700)&&AllDistance/100<(HalfDistance+500))||AllDistance/100<500||AllDistance/100>(FullDistance-700))
+  if((AllDistance/100>(HalfDistance-400)&&AllDistance/100<(HalfDistance+400))||AllDistance/100<500||AllDistance/100>(FullDistance-500))
   {
     ;
   }
